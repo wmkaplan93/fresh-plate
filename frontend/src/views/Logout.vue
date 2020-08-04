@@ -6,7 +6,7 @@
 export default {
   created() {
     this.$store.commit("LOGOUT");
-    
+    alert('Are you sure you want to logout?');
     this.$router.push("/login");
   }
 };
