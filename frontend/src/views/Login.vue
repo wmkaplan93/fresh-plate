@@ -1,5 +1,7 @@
 <template>
   <div id="login" class="text-center">
+    <!-- <title>Meal Planner | Login</title> -->
+    <link href='https://fonts.googleapis.com/css?family=Allan' rel='stylesheet'>
     <form class="form-signin" @submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
       <div
@@ -12,7 +14,7 @@
         role="alert"
         v-if="this.$route.query.registration"
       >Thank you for registering, please sign in.</div>
-      <label for="username" class="sr-only">Username</label>
+      <label for="username" class="sr-only">Username </label>
       <input
         type="text"
         id="username"
@@ -22,7 +24,8 @@
         required
         autofocus
       />
-      <label for="password" class="sr-only">Password</label>
+      &nbsp;&nbsp;
+      <label for="password" class="sr-only">Password </label>
       <input
         type="password"
         id="password"
@@ -31,8 +34,9 @@
         v-model="user.password"
         required
       />
-      <router-link :to="{ name: 'register' }">Need an account?</router-link>
       <button type="submit">Sign in</button>
+      <br><br>
+      <router-link :to="{ name: 'register' }" id="need-account">Need an account?</router-link>
     </form>
   </div>
 </template>
@@ -74,3 +78,31 @@ export default {
   }
 };
 </script>
+<style scoped>
+#login {
+  font-family:"Allan";
+  display: grid;
+  grid-template-columns: 8% 8% 8% 26% 50%;
+  grid-template-rows: 15% 15% 40% 15% 15%;
+  height: 90vh;
+}
+
+h1 {
+  font-size: 60px;
+  grid-column-start: 4;
+  grid-column-end: 6;
+  grid-row-start: 3;
+  grid-row-end: 4;
+  align-self: center;
+}
+
+#attribution {
+  grid-column-start: 5;
+  grid-row-start: 5;
+  justify-self: end;
+}
+
+.form-signin {
+  grid-area: 3 / 4 / 4 / 6;
+}
+</style>
