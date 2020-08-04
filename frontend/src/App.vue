@@ -2,9 +2,10 @@
   <div id="app">
     <div id="nav">
       &nbsp;&nbsp;<router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;&nbsp;|&nbsp;
-      <router-link v-bind:to="{ name: 'login' }">Login</router-link>&nbsp;&nbsp;|&nbsp;
-      <router-link v-bind:to="{ name: 'register' }">Register</router-link>
-      <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
+      <router-link v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">Login</router-link>
+      <router-link v-bind:to="{ name: 'logout' }" v-else>Logout</router-link> &nbsp;|&nbsp;
+      <router-link v-bind:to="{ name: 'register' }" v-if="$store.state.token == ''">Register</router-link>
+      
     </div>
     <router-view />
     <footer>
@@ -18,13 +19,14 @@
   height: 5vh;
   font-size: 22px;
   justify-content: flex-start;
-  align-content: flex-end;
+  align-content: flex-start;
 }
 #app {
   background-image: url("../public/2489615.jpg");
-  background-size: 108%;
+  background-size: cover;
   background-repeat: no-repeat;
-  height: 100vh;
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
