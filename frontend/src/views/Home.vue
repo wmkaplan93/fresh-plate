@@ -2,10 +2,10 @@
   <div class="home">
     <link href='https://fonts.googleapis.com/css?family=Allan' rel='stylesheet'>
     <h1>Meal Planner</h1>
-    <router-link id= "login" v-bind:to="{ name: 'login' }">
+    <router-link id= "login-button" v-bind:to="{ name: 'login' }">
       <button type="login">Login</button>
     </router-link>
-    <router-link id="register" v-bind:to="{ name: 'register' }">
+    <router-link id="register-button" v-bind:to="{ name: 'register' }">
       <button type="register">Register</button>
     </router-link>
   </div>
@@ -18,7 +18,7 @@ export default {
 };
 </script>
 <style scoped>
-div {
+.home {
   font-family:"Allan";
   display: grid;
   grid-template-columns: 8% 8% 8% 26% 50%;
@@ -35,30 +35,30 @@ h1 {
   align-self: center;
 }
 
-#login {
+#login-button {
   grid-column-start: 4;
   grid-column-end: 5;
-  justify-self: end;
   grid-row-start: 4;
   grid-row-end: 5;
   align-self: center;
+  justify-self: end;
 }
 
-#register {
+#register-button {
   grid-column-start: 5;
-  justify-self: start;
   grid-row-start: 4;
   grid-row-end: 5;
   align-self: center;
+  justify-self: start;
   margin-left: 10px;
 }
-#register button {
+#register-button button {
   border-radius: 8px;
   font-size: 25px;
   font-family: "Allan";
 }
 
-#login button {
+#login-button button {
   border-radius: 8px;
   font-size: 25px;
   font-family: "Allan";
