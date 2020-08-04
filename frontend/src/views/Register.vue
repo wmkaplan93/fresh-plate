@@ -1,11 +1,13 @@
 <template>
   <div id="register" class="text-center">
+    <link href='https://fonts.googleapis.com/css?family=Allan' rel='stylesheet'>
     <form class="form-register" @submit.prevent="register">
       <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
       <label for="username" class="sr-only">Username</label>
+      &nbsp;
       <input
         type="text"
         id="username"
@@ -15,7 +17,9 @@
         required
         autofocus
       />
+      &nbsp;
       <label for="password" class="sr-only">Password</label>
+      &nbsp;
       <input
         type="password"
         id="password"
@@ -24,6 +28,7 @@
         v-model="user.password"
         required
       />
+      &nbsp;
       <input
         type="password"
         id="confirmPassword"
@@ -32,10 +37,12 @@
         v-model="user.confirmPassword"
         required
       />
-      <router-link :to="{ name: 'login' }">Have an account?</router-link>
+      &nbsp;
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
       </button>
+      <br> <br>
+      <router-link :to="{ name: 'login' }">Have an account?</router-link>
     </form>
   </div>
 </template>
@@ -90,4 +97,25 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#register {
+  font-family:"Allan";
+  display: grid;
+  grid-template-columns: 8% 8% 8% 26% 50%;
+  grid-template-rows: 15% 15% 40% 15% 15%;
+  height: 90vh;
+}
+
+h1 {
+  font-size: 60px;
+  grid-column-start: 4;
+  grid-column-end: 6;
+  grid-row-start: 3;
+  grid-row-end: 4;
+  align-self: center;
+}
+
+.form-register {
+  grid-area: 3 / 4 / 4 / 6;
+}
+</style>
