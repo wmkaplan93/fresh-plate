@@ -1,11 +1,15 @@
 <template>
   <div id="app">
     <div id="nav">
-      &nbsp;&nbsp;<router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;&nbsp;|&nbsp;
+      &nbsp;&nbsp;<router-link v-bind:to="{ name: 'home' }" v-if="$store.state.token == ''">Home</router-link>
+      <router-link v-bind:to="{ name: 'UserLanding' }" v-else>My Home</router-link>&nbsp;&nbsp;|&nbsp;
+      <router-link v-bind:to="{ name: 'myPlans' }" v-if="$store.state.token != ''">My Plans</router-link>&nbsp;|&nbsp;
+      <router-link v-bind:to="{ name: 'myRecipes' }" v-if="$store.state.token != ''">My Recipes</router-link>&nbsp;|&nbsp;
+      <router-link v-bind:to="{ name: 'myGroceryList' }" v-if="$store.state.token != ''">My Grocery List</router-link>   &nbsp;|&nbsp;   
+      <router-link v-bind:to="{ name: 'explore' }" v-if="$store.state.token != ''">Explore Recipes</router-link>&nbsp;|&nbsp;
       <router-link v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">Login</router-link>
       <router-link v-bind:to="{ name: 'logout' }" v-else>Logout</router-link> &nbsp;|&nbsp;
       <router-link v-bind:to="{ name: 'register' }" v-if="$store.state.token == ''">Register</router-link>
-      
     </div>
     <router-view />
     <footer>
