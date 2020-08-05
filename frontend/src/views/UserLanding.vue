@@ -1,28 +1,23 @@
 <template>
     <div id="user-landing">
         <link href='https://fonts.googleapis.com/css?family=Allan' rel='stylesheet'>
-        <h1 id="user-landing-title">Welcome {{name}}</h1>
-
+        <user-landing-sidebar />
 
     </div>
 </template>
 
 <script>
+import UserLandingSidebar from "../components/LandingSidebar";
+
 export default {
-    data() {
-        return {
-            name: this.$store.state.user.username
-
-        }
+    components: {
+        UserLandingSidebar
     }
-    
-
 }
-
 </script>
 
 <style>
-#user-landing {
+/* #user-landing {
     display: grid;
     grid-template-columns: 30% 70%;
     grid-template-rows: 25% 15% 15% 15% 30%;
@@ -31,5 +26,5 @@ export default {
 #user-landing-title {
     font-size: 8vw;
     font-family: "Allan";
-}
+} */
 </style>
