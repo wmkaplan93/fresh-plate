@@ -98,8 +98,6 @@ export default {
 </script>
 
 <style>
-<<<<<<< HEAD
-=======
 #register {
   font-family:"Allan";
   display: grid;
@@ -120,5 +118,4 @@ h1 {
 .form-register {
   grid-area: 3 / 4 / 4 / 6;
 }
->>>>>>> 0b1fbb5061ec6fba4d7f3acd2cab7b4871e4a3ca
 </style>
