@@ -67,7 +67,7 @@ export default {
           if (response.status == 200) {
             this.$store.commit("SET_AUTH_TOKEN", response.data.token);
             this.$store.commit("SET_USER", response.data.user);
-            this.$router.push("/");
+            this.$router.push({ name: 'UserLanding', params: {name: response.data.user.username} });
           }
         })
         .catch(error => {
@@ -91,7 +91,7 @@ export default {
 }
 
 h1 {
-  font-size: 60px;
+  font-size: 8vw;
   grid-column-start: 4;
   grid-column-end: 6;
   grid-row-start: 3;
