@@ -107,7 +107,7 @@ export default {
 }
 
 h1 {
-  font-size: 60px;
+  font-size: 8vw;
   grid-column-start: 4;
   grid-column-end: 6;
   grid-row-start: 3;
