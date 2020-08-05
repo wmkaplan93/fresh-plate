@@ -2,7 +2,7 @@
     <div id="overview">
         <user-landing-sidebar />
         <div id="explore-recipes">
-            <h1 id="explore-title">Explore Recieps</h1>
+            <h1 id="explore-title">Explore Recipes</h1>
         </div>
     </div>
 </template>

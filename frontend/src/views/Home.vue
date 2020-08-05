@@ -22,6 +22,7 @@ export default {
   font-family:"Allan";
   display: grid;
   grid-template-columns: 8% 8% 8% 26% 50%;
+  /* grid-template-columns: 8% 6% 6% 16% 50% 14%; */
   grid-template-rows: 15% 15% 40% 15% 15%;
   height: 90vh;
 }
@@ -33,6 +34,7 @@ h1 {
   grid-row-start: 3;
   grid-row-end: 4;
   align-self: center;
+  /* background-color: rgba(255, 255, 255, .5); */
 }
 
 #login-button {

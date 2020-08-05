@@ -59,7 +59,7 @@ const router = new Router({
       }
     },
     {
-      path: "/landing/:username",
+      path: "/users/:username",
       name: "UserLanding",
       component: UserLanding,
       meta: {
@@ -67,7 +67,7 @@ const router = new Router({
       }
     },
     {
-      path: "/myRecipes/:username",
+      path: "/users/:username/myRecipes",
       name: "myRecipes",
       component: MyRecipes,
       meta: {
@@ -75,7 +75,7 @@ const router = new Router({
       }
     },
     {
-      path: "/myPlans/:username",
+      path: "/users/:username/myPlans",
       name: "myPlans",
       component: MyPlans,
       meta: {
@@ -83,7 +83,7 @@ const router = new Router({
       }
     },
     {
-      path: "/myGroceryList/:username",
+      path: "/users/:username/myGrocerList",
       name: "myGroceryList",
       component: MyGroceryList,
       meta: {

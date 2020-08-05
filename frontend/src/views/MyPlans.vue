@@ -29,7 +29,7 @@ export default {
 
 #user-plans {
     display: flex;
-    width: 67%;
+    width: 66%;
     justify-content: center;
     align-self: flex-start;
 }
