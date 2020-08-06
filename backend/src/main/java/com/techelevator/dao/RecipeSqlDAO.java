@@ -47,24 +47,23 @@ public class RecipeSqlDAO implements RecipeDAO {
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, recipeId);
 		
 		if (results.next()) {
-			
 			 return mapRowToPublicRecipe(results);
 		} else {
 			throw new RuntimeException("recipe id " + recipeId + " was not found.");
 		}
 		
 	}
+	
+	@Override
+	public Recipe findRecipeByKeyword(String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public boolean createRecipe(Recipe recipe) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public Recipe findRecipeByKeyword(String keyword) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
