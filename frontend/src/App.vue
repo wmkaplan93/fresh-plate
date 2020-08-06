@@ -28,7 +28,7 @@
   background: linear-gradient(90deg, rgba(117,12,12,.75) 0%, rgba(255,255,255,.75) 40%);
   height: 5vh;
   font-size: 22px;
-  font-family: 'Allan';
+  font-family: 'Lora';
   color: black;
   justify-content: flex-start;
   align-content: flex-start;
