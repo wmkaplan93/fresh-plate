@@ -168,7 +168,7 @@ public class RecipeSqlDAO implements RecipeDAO {
 	}
 
 	@Override
-	public List <RecipeIngredient> getIngredientsByRecipeId(long recipeId) {
+	public List <RecipeIngredient> findIngredientsByRecipeId(long recipeId) {
 		List <RecipeIngredient> ingredients = new ArrayList<RecipeIngredient>();
 		
 		String sql = "SELECT quantity, unit_name, ingredient_name " + 
