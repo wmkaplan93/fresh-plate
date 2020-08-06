@@ -33,32 +33,32 @@ public class RecipeController {
 		this.recipeDAO = recipeDAO;
 	}
 	
-	@RequestMapping(path = "users/{username}/recipes/{recipeId}", method = RequestMethod.GET)
+	@RequestMapping(path = "users/{username}/myrecipes/{recipeId}", method = RequestMethod.GET)
 	public List<RecipeIngredient> getRecipeIngredientsById(@PathVariable Long recipeId) {
 		return recipeDAO.getIngredientsByRecipeId(recipeId);
 	}
 	
-	@RequestMapping(path = "users/{username}/recipes", method = RequestMethod.GET)
+	@RequestMapping(path = "users/{username}/myrecipes", method = RequestMethod.GET)
 	public List<Recipe> getRecipeByUsername(@PathVariable String username) {
 		return recipeDAO.findRecipesByUser(username);
 	}
 	
-	@RequestMapping(path = "users/{username}/recipes/types/{type}", method = RequestMethod.GET)
+	@RequestMapping(path = "users/{username}/myrecipes/types/{type}", method = RequestMethod.GET)
 	public List<Recipe> getRecipeByUsernameAndType(@PathVariable String type, @PathVariable String username) {
 		return recipeDAO.findRecipesByTypeAndUsername(type, username);
 	}
 	
-	@RequestMapping(path = "public/recipes", method = RequestMethod.GET)
+	@RequestMapping(path = "explorerecipes", method = RequestMethod.GET)
 	public List<Recipe> getAllPublicRecipes() {
 		return recipeDAO.findAllPublicRecipes();
 	}
 	
-	@RequestMapping(path = "public/recipes/{recipeId}", method = RequestMethod.GET)
+	@RequestMapping(path = "explorerecipes/{recipeId}", method = RequestMethod.GET)
 	public List<RecipeIngredient> getPublicRecipeIngredientsById(@PathVariable Long recipeId) {
 		return recipeDAO.getIngredientsByRecipeId(recipeId);
 	}
 	
-	@RequestMapping(path = "public/recipes/types/{type}", method = RequestMethod.GET)
+	@RequestMapping(path = "explorerecipes/types/{type}", method = RequestMethod.GET)
 	public List<Recipe> getPublicRecipesByType(@PathVariable String type) {
 		return recipeDAO.findPublicRecipesByType(type);
 	}
