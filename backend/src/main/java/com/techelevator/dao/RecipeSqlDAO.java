@@ -39,7 +39,8 @@ public class RecipeSqlDAO implements RecipeDAO {
 	}
 
 	@Override
-	public Recipe getRecipeById(long recipeId) {
+	public Recipe findRecipeById(long recipeId) {
+		Recipe theRecipe = null;
 		
 		String sql = "SELECT recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public " + 
 						"FROM recipes " + 
@@ -48,12 +49,10 @@ public class RecipeSqlDAO implements RecipeDAO {
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, recipeId);
 		
-		if (results.next()) {
-			 return mapRowToPublicRecipe(results);
-		} else {
-			throw new RuntimeException("recipe id " + recipeId + " was not found.");
+		while (results.next()) {
+			 theRecipe = mapRowToPublicRecipe(results);
 		}
-		
+		return theRecipe;
 	}
 	
 	@Override
