@@ -1,9 +1,9 @@
 <template>
   <div id="login" class="text-center">
-    <!-- <title>Meal Planner | Login</title> -->
     <link href='https://fonts.googleapis.com/css?family=Allan' rel='stylesheet'>
     <form class="form-signin" @submit.prevent="login">
-      <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
+      <h1>Get Yo' Food On!</h1>
+      <h2 class="h3 mb-3 font-weight-normal">Please Sign In:</h2>
       <div
         class="alert alert-danger"
         role="alert"
@@ -49,7 +49,9 @@ import authService from "../services/AuthService";
 
 export default {
   name: "login",
-  components: {},
+  components: {
+    
+  },
   data() {
     return {
       user: {
@@ -86,17 +88,26 @@ export default {
   font-family:"Allan";
   display: grid;
   grid-template-columns: 8% 8% 8% 26% 50%;
-  grid-template-rows: 15% 15% 40% 15% 15%;
+  grid-template-rows: 10% 10% 30% 25% 25%;
   height: 90vh;
 }
-
 h1 {
-  font-size: 8vw;
+  font-size: 9vw;
   grid-column-start: 4;
   grid-column-end: 6;
   grid-row-start: 3;
   grid-row-end: 4;
-  align-self: center;
+  line-height: .1;
+}
+
+h2 {
+  font-size: 4vw;
+  grid-column-start: 4;
+  grid-column-end: 6;
+  grid-row-start: 3;
+  grid-row-end: 4;
+  line-height: .2;
+  margin-top: 3vh;
 }
 
 #attribution {
@@ -107,5 +118,6 @@ h1 {
 
 .form-signin {
   grid-area: 3 / 4 / 4 / 6;
+  justify-self: grid-start;
 }
 </style>

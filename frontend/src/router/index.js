@@ -6,6 +6,10 @@ import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
 import UserLanding from '../views/UserLanding.vue'
+import MyRecipes from '../views/MyRecipes.vue'
+import MyPlans from '../views/MyPlans.vue'
+import ExploreRecipes from '../views/ExploreRecipes.vue'
+import MyGroceryList from '../views/MyGroceryList.vue'
 
 Vue.use(Router)
 
@@ -36,6 +40,13 @@ const router = new Router({
       component: Login,
       meta: {
         requiresAuth: false
+      },
+      beforeEnter(to, from, next) {
+        if (store.state.token != '') {
+          next({ name: 'UserLanding' });
+        } else {
+          next();
+        }
       }
     },
     {
@@ -52,12 +63,51 @@ const router = new Router({
       component: Register,
       meta: {
         requiresAuth: false
+      },
+      beforeEnter(to, from, next) {
+        if (store.state.token != '') {
+          next({ name: 'UserLanding' });
+        } else {
+          next();
+        }
       }
     },
     {
-      path: "/landing/:name",
+      path: "/users/:username",
       name: "UserLanding",
       component: UserLanding,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/users/:username/myRecipes",
+      name: "myRecipes",
+      component: MyRecipes,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/users/:username/myPlans",
+      name: "myPlans",
+      component: MyPlans,
+      meta: {
+          requiresAuth: true
+      }
+    },
+    {
+      path: "/users/:username/myGrocerList",
+      name: "myGroceryList",
+      component: MyGroceryList,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/exploreRecipes",
+      name: "exploreRecipes",
+      component: ExploreRecipes,
       meta: {
         requiresAuth: true
       }
