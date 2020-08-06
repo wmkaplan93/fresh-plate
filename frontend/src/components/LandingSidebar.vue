@@ -1,20 +1,20 @@
 <template>
     <div id="user-landing-sidebar">
-        <link href='https://fonts.googleapis.com/css?family=Allan' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet'>
         <h1 id="user-landing-title">Welcome</h1>
-        <h1 id="user-landing-name"> {{name}}</h1>
+        <h1 id="user-landing-name"> {{username}}</h1>
         <div id="button-list">
-            <router-link id="my-plans-button" v-bind:to="{ name: 'myPlans' }">
+            <router-link v-bind:to="{ name: 'myPlans', params: {username:username} }">
                 <button type="my-plans">My Plans</button>
             </router-link>
-            <router-link id="my-recipes-button" v-bind:to="{ name: 'myRecipes' }">
+            <router-link v-bind:to="{ name: 'myRecipes', params: {username:username} }">
                 <button type="my-recipes">My Recipes</button>
             </router-link>
-            <router-link id="my-grocery-list-button" v-bind:to="{ name: 'myGroceryList' }">
+            <router-link v-bind:to="{ name: 'myGroceryList', params: {username:username} }">
                 <button type="my-grocery-list">My Grocery List</button>
             </router-link>
-            <router-link id="explore-button" v-bind:to="{ name : 'explore' }">
-                <button type="explore">Explore Recipes</button>
+            <router-link v-bind:to="{ name : 'exploreRecipes' }">
+                <button type="exploreRecipes">Explore Recipes</button>
             </router-link>
         </div>
     </div>
@@ -25,7 +25,7 @@ export default {
     name: "user-landing-sidebar",
     data() {
         return {
-            name: this.$store.state.user.username
+            username: this.$store.state.user.username
 
         }
     }
@@ -40,9 +40,13 @@ export default {
     flex-direction: column;
     align-items: center;
     height: 90vh;
-    font-family: 'Allan';
+    font-family: 'Lora';
     border-right: 10px solid rgba(74, 74, 74, .5);
-    background-color:rgba(255, 255, 255, 0.5)
+    background-color:rgba(255, 255, 255, 0.5);
+}
+
+.router-link-active {
+    text-decoration: none;
 }
 
 h1 {
@@ -73,5 +77,7 @@ h1 {
     width: 175px;
     height: 30px;
     font-size: 3vh;
+    font-family: 'Allan';
+    align-items: center;
 }
 </style>

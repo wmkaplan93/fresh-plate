@@ -5,11 +5,13 @@ import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Service;
 
 import com.techelevator.model.Recipe;
 import com.techelevator.model.RecipeIngredient;
 import com.techelevator.model.RecipeType;
 
+@Service
 public class RecipeSqlDAO implements RecipeDAO {
 	
 	private JdbcTemplate jdbcTemplate;
@@ -20,12 +22,12 @@ public class RecipeSqlDAO implements RecipeDAO {
 
 	@Override
 	public List <Recipe> findAllPublicRecipes() {
-		List <Recipe> recipes = new ArrayList<>();
+		List <Recipe> recipes = new ArrayList<Recipe>();
 		
 		String sql = "SELECT recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public " + 
 						"FROM recipes " + 
 						"JOIN units_of_measure ON recipes.unit_id = units_of_measure.unit_id " + 
-						"WHERE is_public = true;";
+						"WHERE is_public = true";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
 		
@@ -99,6 +101,27 @@ public class RecipeSqlDAO implements RecipeDAO {
 		}
 		
 		return recipes;
+	}
+	
+	
+	public List<Recipe> findPublicRecipesByType(String type) {
+		
+		List<Recipe> recipes = new ArrayList<Recipe>();
+		
+		String sql = "SELECT recipes.recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public " + 
+				"FROM recipes " + 
+				"JOIN units_of_measure ON recipes.unit_id = units_of_measure.unit_id " + 
+				"JOIN recipe_types ON recipes.recipe_id = recipe_types.recipe_id " + 
+				"JOIN types ON recipe_types.type_id = types.type_id " + 
+				"WHERE type = ? " + 
+				"AND is_public = true;";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, type);
+		while (results.next()) {
+			Recipe recipe = mapRowToPublicRecipe(results);
+			recipes.add(recipe);
+		}
+		return recipes;
+		
 	}
 
 	@Override
