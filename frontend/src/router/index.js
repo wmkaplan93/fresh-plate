@@ -40,6 +40,13 @@ const router = new Router({
       component: Login,
       meta: {
         requiresAuth: false
+      },
+      beforeEnter(to, from, next) {
+        if (store.state.token != '') {
+          next({ name: 'UserLanding' });
+        } else {
+          next();
+        }
       }
     },
     {
@@ -56,6 +63,13 @@ const router = new Router({
       component: Register,
       meta: {
         requiresAuth: false
+      },
+      beforeEnter(to, from, next) {
+        if (store.state.token != '') {
+          next({ name: 'UserLanding' });
+        } else {
+          next();
+        }
       }
     },
     {

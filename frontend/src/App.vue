@@ -35,11 +35,7 @@
   display: flex;
 }
 #app {
-  background-image: url("../public/2489615.jpg");
-  /* background-image: url("../public/background options/OH3C840.jpg"); */
-  /* background-image: url("../public/background options/474550-PG4GM2-121.jpg"); */
-  /* background-image: url("../public/background options/474574-PG4GQP-297.jpg"); */
-  /* background-image: url("../public/background options/O8RDSC0.jpg"); */
+  background-image: url("../public/474574-PG4GQP-297.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   height: 100%;

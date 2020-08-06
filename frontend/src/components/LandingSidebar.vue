@@ -1,6 +1,6 @@
 <template>
     <div id="user-landing-sidebar">
-        <link href='https://fonts.googleapis.com/css?family=Allan' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet'>
         <h1 id="user-landing-title">Welcome</h1>
         <h1 id="user-landing-name"> {{username}}</h1>
         <div id="button-list">
@@ -40,9 +40,13 @@ export default {
     flex-direction: column;
     align-items: center;
     height: 90vh;
-    font-family: 'Allan';
+    font-family: 'Lora';
     border-right: 10px solid rgba(74, 74, 74, .5);
-    background-color:rgba(255, 255, 255, 0.5)
+    background-color:rgba(255, 255, 255, 0.5);
+}
+
+.router-link-active {
+    text-decoration: none;
 }
 
 h1 {

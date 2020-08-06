@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <link href='https://fonts.googleapis.com/css?family=Allan' rel='stylesheet'>
-    <h1>Meal Planner</h1>
+    <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet'>
+    <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fresh Plate</h1>
     <router-link id= "login-button" v-bind:to="{ name: 'login' }">
       <button type="login">Login</button>
     </router-link>
@@ -19,7 +19,7 @@ export default {
 </script>
 <style scoped>
 .home {
-  font-family:"Allan";
+  font-family:"Lora";
   display: grid;
   grid-template-columns: 8% 8% 8% 26% 50%;
   /* grid-template-columns: 8% 6% 6% 16% 50% 14%; */
@@ -28,10 +28,10 @@ export default {
 }
 
 h1 {
-  font-size: 15vw;
+  font-size: 9vw;
   grid-column-start: 4;
   grid-column-end: 6;
-  grid-row-start: 3;
+  grid-row-start: 2;
   grid-row-end: 4;
   align-self: center;
   /* background-color: rgba(255, 255, 255, .5); */
@@ -57,13 +57,13 @@ h1 {
 #register-button button {
   border-radius: 8px;
   font-size: 25px;
-  font-family: "Allan";
+  font-family: "Lora";
 }
 
 #login-button button {
   border-radius: 8px;
   font-size: 25px;
-  font-family: "Allan";
+  font-family: "Lora";
 }
 
 
