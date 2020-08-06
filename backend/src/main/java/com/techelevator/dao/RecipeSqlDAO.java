@@ -126,7 +126,7 @@ public class RecipeSqlDAO implements RecipeDAO {
 
 	@Override
 	public List <Recipe> findRecipesByUser(String userName) {
-		List <Recipe> recipes = new ArrayList<>();
+		List <Recipe> recipes = new ArrayList<Recipe>();
 		
 		String sql = "SELECT recipes.recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public, is_favorite " + 
 						"FROM recipes " + 
@@ -169,13 +169,13 @@ public class RecipeSqlDAO implements RecipeDAO {
 
 	@Override
 	public List <RecipeIngredient> getIngredientsByRecipeId(long recipeId) {
-		List <RecipeIngredient> ingredients = new ArrayList<>();
+		List <RecipeIngredient> ingredients = new ArrayList<RecipeIngredient>();
 		
 		String sql = "SELECT quantity, unit_name, ingredient_name " + 
 						"FROM recipe_ingredients " + 
 						"JOIN units_of_measure ON recipe_ingredients.unit_id = units_of_measure.unit_id " + 
 						"JOIN ingredients ON recipe_ingredients.ingredient_id = ingredients.ingredient_id " + 
-						"WHERE recipe_id = ?;";
+						"WHERE recipe_id = ?";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, recipeId);
 		
@@ -205,7 +205,7 @@ public class RecipeSqlDAO implements RecipeDAO {
 	
 	@Override
 	public List<Recipe> findRecipesByTypeAndUsername(String type, String userName) {
-		List <Recipe> recipes = new ArrayList<>();
+		List <Recipe> recipes = new ArrayList<Recipe>();
 		
 		String sql = "SELECT recipes.recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public, is_favorite " + 
 				"FROM recipes " + 
@@ -215,12 +215,12 @@ public class RecipeSqlDAO implements RecipeDAO {
 				"JOIN user_recipes ON recipes.recipe_id = user_recipes.recipe_id " + 
 				"JOIN users ON user_recipes.user_id = users.user_id " + 
 				"WHERE type = ? " + 
-				"AND username = ?;";
+				"AND username = ?";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, type, userName);
 		
 		while (results.next()) {
-			Recipe recipe = mapRowToPublicRecipe(results);
+			Recipe recipe = mapRowToUserRecipe(results);
 			recipes.add(recipe);
 			
 		} 
