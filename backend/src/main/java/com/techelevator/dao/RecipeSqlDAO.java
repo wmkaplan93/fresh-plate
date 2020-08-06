@@ -170,6 +170,7 @@ public class RecipeSqlDAO implements RecipeDAO {
 	public List <RecipeIngredient> findIngredientsByRecipeId(long recipeId) {
 		List <RecipeIngredient> ingredients = new ArrayList<RecipeIngredient>();
 		
+		
 		String sql = "SELECT quantity, unit_name, ingredient_name " + 
 						"FROM recipe_ingredients " + 
 						"JOIN units_of_measure ON recipe_ingredients.unit_id = units_of_measure.unit_id " + 
