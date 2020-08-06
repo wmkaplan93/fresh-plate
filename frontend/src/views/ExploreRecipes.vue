@@ -1,35 +1,23 @@
 <template>
     <div id="overview">
         <user-landing-sidebar />
-        <div id="explore-recipes">
-            <h1 id="explore-title">Explore Recipes</h1>
-        </div>
+        <explore-recipes-content />
     </div>
 </template>
 
 <script>
 import UserLandingSidebar from "../components/LandingSidebar";
+import ExploreRecipesContent from "../components/ExploreRecipesContent";
 
 export default {
     components: {
-        UserLandingSidebar
+        UserLandingSidebar,
+        ExploreRecipesContent
     }
 }
 </script>
 <style scoped>
 #overview {
     display: flex;
-}
-#explore-title {
-    font-family: 'Allan';
-    font-size: 10vh;
-    text-decoration: underline overline;
-}
-
-#explore-recipes {
-    display: flex;
-    width: 67%;
-    justify-content: center;
-    align-self: flex-start;
 }
 </style>

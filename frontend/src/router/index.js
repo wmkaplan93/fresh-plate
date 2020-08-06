@@ -97,7 +97,7 @@ const router = new Router({
       }
     },
     {
-      path: "/users/:username/myGrocerList",
+      path: "/users/:username/myGroceryList",
       name: "myGroceryList",
       component: MyGroceryList,
       meta: {

@@ -1,19 +1,19 @@
 <template>
     <div id="overview">
         <user-landing-sidebar />
-        <div id="user-plans">
-            <h1 id="plans-title">My Plans</h1>
-        </div>
+        <plans-content />
 
     </div>
 </template>
 
 <script>
 import UserLandingSidebar from "../components/LandingSidebar";
+import PlansContent from "../components/PlansContent";
 
 export default {
     components: {
-        UserLandingSidebar
+        UserLandingSidebar,
+        PlansContent
     }
 }
 </script>
@@ -21,16 +21,5 @@ export default {
 #overview {
     display: flex;
 }
-#plans-title {
-    font-family: 'Allan';
-    font-size: 10vh;
-    text-decoration: underline overline;
-}
 
-#user-plans {
-    display: flex;
-    width: 66%;
-    justify-content: center;
-    align-self: flex-start;
-}
 </style>

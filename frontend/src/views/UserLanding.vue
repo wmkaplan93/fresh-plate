@@ -15,16 +15,3 @@ export default {
     }
 }
 </script>
-
-<style>
-/* #user-landing {
-    display: grid;
-    grid-template-columns: 30% 70%;
-    grid-template-rows: 25% 15% 15% 15% 30%;
-}
-
-#user-landing-title {
-    font-size: 8vw;
-    font-family: "Allan";
-} */
-</style>
