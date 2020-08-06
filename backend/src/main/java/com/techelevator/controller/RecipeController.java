@@ -35,7 +35,7 @@ public class RecipeController {
 	
 	@RequestMapping(path = "users/{username}/recipes/{recipeId}", method = RequestMethod.GET)
 	public List<RecipeIngredient> getRecipeIngredientsById(@PathVariable Long recipeId) {
-		return recipeDAO.getIngredientsByRecipeId(recipeId);
+		return recipeDAO.findIngredientsByRecipeId(recipeId);
 	}
 	
 	@RequestMapping(path = "users/{username}/recipes", method = RequestMethod.GET)
@@ -55,7 +55,7 @@ public class RecipeController {
 	
 	@RequestMapping(path = "public/recipes/(recipeId}", method = RequestMethod.GET)
 	public List<RecipeIngredient> getPublicRecipeIngredientsById(@PathVariable Long recipeId) {
-		return recipeDAO.getIngredientsByRecipeId(recipeId);
+		return recipeDAO.findIngredientsByRecipeId(recipeId);
 	}
 	
 	@RequestMapping(path = "public/recipes/types/{type}", method = RequestMethod.GET)

@@ -40,6 +40,7 @@ public class RecipeSqlDAO implements RecipeDAO {
 
 	@Override
 	public Recipe findRecipeById(long recipeId) {
+		Recipe theRecipe = null;
 		
 		String sql = "SELECT recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public " + 
 						"FROM recipes " + 
@@ -48,12 +49,10 @@ public class RecipeSqlDAO implements RecipeDAO {
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, recipeId);
 		
-		if (results.next()) {
-			 return mapRowToPublicRecipe(results);
-		} else {
-			throw new RuntimeException("recipe id " + recipeId + " was not found.");
+		while (results.next()) {
+			 theRecipe = mapRowToPublicRecipe(results);
 		}
-		
+		return theRecipe;
 	}
 	
 	@Override
@@ -169,7 +168,7 @@ public class RecipeSqlDAO implements RecipeDAO {
 
 	@Override
 	public List <RecipeIngredient> findIngredientsByRecipeId(long recipeId) {
-		List <RecipeIngredient> ingredients = new ArrayList<>();
+		List <RecipeIngredient> ingredients = new ArrayList<RecipeIngredient>();
 		
 		String sql = "SELECT quantity, unit_name, ingredient_name " + 
 						"FROM recipe_ingredients " + 
