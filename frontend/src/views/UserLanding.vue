@@ -1,9 +1,9 @@
 <template>
     <div id="user-landing">
-        <link href='https://fonts.googleapis.com/css?family=Allan' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet'>
         <user-landing-sidebar />
-
     </div>
+    
 </template>
 
 <script>

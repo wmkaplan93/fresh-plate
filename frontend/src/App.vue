@@ -26,7 +26,7 @@
   align-content: flex-start;
 }
 #app {
-  background-image: url("../public/2489615.jpg");
+  background-image: url("../public/474574-PG4GQP-297.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   height: 100%;
