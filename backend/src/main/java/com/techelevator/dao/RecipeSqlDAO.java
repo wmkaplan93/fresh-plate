@@ -80,6 +80,27 @@ public class RecipeSqlDAO implements RecipeDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	public List<Recipe> findPublicRecipesByType(String type) {
+		
+		List<Recipe> recipes = new ArrayList<Recipe>();
+		
+		String sql = "SELECT recipes.recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public " + 
+				"FROM recipes " + 
+				"JOIN units_of_measure ON recipes.unit_id = units_of_measure.unit_id " + 
+				"JOIN recipe_types ON recipes.recipe_id = recipe_types.recipe_id " + 
+				"JOIN types ON recipe_types.type_id = types.type_id " + 
+				"WHERE type = ? " + 
+				"AND is_public = true;";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, type);
+		while (results.next()) {
+			Recipe recipe = mapRowToPublicRecipe(results);
+			recipes.add(recipe);
+		}
+		return recipes;
+		
+	}
 
 	@Override
 	public List<Recipe> findRecipesByUser(String userName) {
