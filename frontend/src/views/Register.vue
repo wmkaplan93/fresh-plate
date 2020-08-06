@@ -1,6 +1,6 @@
 <template>
   <div id="register" class="text-center">
-    <link href='https://fonts.googleapis.com/css?family=Allan' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet'>
     <form class="form-register" @submit.prevent="register">
       <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
@@ -99,7 +99,7 @@ export default {
 
 <style>
 #register {
-  font-family:"Allan";
+  font-family:"Lora";
   display: grid;
   grid-template-columns: 8% 8% 8% 26% 50%;
   grid-template-rows: 15% 15% 40% 15% 15%;
