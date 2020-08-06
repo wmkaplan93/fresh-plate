@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 
+import com.techelevator.model.Recipe;
 import com.techelevator.model.RecipeIngredient;
 
 import org.junit.Assert;
@@ -24,9 +25,16 @@ public class RecipeSqlDaoIntegrationTest extends DAOIntegrationTest {
     }
 	
 	@Test
-	public void get_ingredients_by_recipe_id() {
-		List <RecipeIngredient> ingredientList = recipeSqlDAO.getIngredientsByRecipeId(1);
+	public void find_ingredients_by_recipe_id() {
+		List <RecipeIngredient> ingredientList = recipeSqlDAO.findIngredientsByRecipeId(1);
 		Assert.assertEquals(10, ingredientList.size());
+		Assert.assertNotNull(ingredientList);
+	}
+	
+	@Test
+	public void find_recipe_by_id () {
+		Recipe recipe = recipeSqlDAO.findRecipeById(1);
+		Assert.assertNotNull(recipe);
 	}
 
 }

@@ -9,7 +9,7 @@ import com.techelevator.model.RecipeType;
 public interface RecipeDAO {
 	 List<Recipe> findAllPublicRecipes();
 	 
-	 Recipe getRecipeById( long recipeId);
+	 Recipe findRecipeById( long recipeId);
 	 
 	 Recipe findRecipeByKeyword(String keyword);
 	 
@@ -25,7 +25,7 @@ public interface RecipeDAO {
 	 
 	 List<Recipe> findFavoriteRecipesByUser (String userName);
 	 
-	 List<RecipeIngredient> getIngredientsByRecipeId (long recipeId);
+	 List<RecipeIngredient> findIngredientsByRecipeId (long recipeId);
 	 
 	 RecipeType recipeTypes(long recipeId);
 	 
