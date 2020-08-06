@@ -25,7 +25,7 @@ public interface RecipeDAO {
 	 
 	 List<Recipe> findFavoriteRecipesByUser (String userName);
 	 
-	 List<RecipeIngredient> getIngredientsByRecipeId (long recipeId);
+	 List<RecipeIngredient> findIngredientsByRecipeId (long recipeId);
 	 
 	 RecipeType recipeTypes(long recipeId);
 	 
