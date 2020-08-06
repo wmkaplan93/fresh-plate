@@ -5,11 +5,13 @@ import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Service;
 
 import com.techelevator.model.Recipe;
 import com.techelevator.model.RecipeIngredient;
 import com.techelevator.model.RecipeType;
 
+@Service
 public class RecipeSqlDAO implements RecipeDAO {
 	
 	private JdbcTemplate jdbcTemplate;
@@ -20,12 +22,12 @@ public class RecipeSqlDAO implements RecipeDAO {
 
 	@Override
 	public List <Recipe> findAllPublicRecipes() {
-		List <Recipe> recipes = new ArrayList<>();
+		List <Recipe> recipes = new ArrayList<Recipe>();
 		
 		String sql = "SELECT recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public " + 
 						"FROM recipes " + 
 						"JOIN units_of_measure ON recipes.unit_id = units_of_measure.unit_id " + 
-						"WHERE is_public = true;";
+						"WHERE is_public = true";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
 		
