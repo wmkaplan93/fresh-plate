@@ -30,12 +30,19 @@ public class RecipeDTO {
 	@NotEmpty
 	private boolean isPublic;
 	
-	private boolean isFavorite;
-	
+	@NotEmpty
 	private List<Type> types;
 
 	@NotEmpty
 	private List<RecipeIngredient> ingredientList;
+	
+	private long userId;
+	
+	@NotEmpty
+	private boolean isFavorite;
+	
+	
+	
 	
 	
 	
@@ -129,6 +136,16 @@ public class RecipeDTO {
 		this.types = types;
 	}
 
+	public long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
+
+
+	
 	
 
 }
