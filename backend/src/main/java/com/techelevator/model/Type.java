@@ -10,7 +10,6 @@ public class Type {
 	@NotEmpty
 	private String type;
 	
-	
 
 	public long getTypeId() {
 		return typeId;
