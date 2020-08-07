@@ -53,17 +53,12 @@ h1 {
   justify-self: start;
   margin-left: 10px;
 }
-#register-button button {
-  border-radius: 0px;
-  font-size: 25px;
-  font-family: "Lora";
-}
 
+#register-button button,
 #login-button button {
   border-radius: 0px;
-  font-size: 25px;
+  font-size: 4vh;
+  height: 5vh;
   font-family: "Lora";
 }
-
-
 </style>

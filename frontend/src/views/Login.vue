@@ -69,7 +69,7 @@ export default {
           if (response.status == 200) {
             this.$store.commit("SET_AUTH_TOKEN", response.data.token);
             this.$store.commit("SET_USER", response.data.user);
-            this.$router.push({ name: 'UserLanding', params: {name: response.data.user.username} });
+            this.$router.push({ name: 'UserLanding', params: {username: response.data.user.username} });
           }
         })
         .catch(error => {

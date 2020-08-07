@@ -58,8 +58,10 @@ a {
 
 h1 {
     line-height: .1;
-    word-wrap: break-word;
-    width: 90%;
+    /* width: 90%; */
+    justify-self: end;
+    display: flex;
+    align-self: center;
 }
 
 #user-landing-title {
@@ -71,6 +73,7 @@ h1 {
     padding-bottom: 1.5vh;
     line-height: 1;
     font-size: 7.5vh;
+    word-wrap: break-word;
 }
 
 #button-list {
