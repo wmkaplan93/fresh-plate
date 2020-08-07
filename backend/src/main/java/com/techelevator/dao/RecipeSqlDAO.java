@@ -8,8 +8,9 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
 
 import com.techelevator.model.Recipe;
+import com.techelevator.model.RecipeDTO;
 import com.techelevator.model.RecipeIngredient;
-import com.techelevator.model.RecipeType;
+import com.techelevator.model.Type;
 
 @Service
 public class RecipeSqlDAO implements RecipeDAO {
@@ -147,21 +148,33 @@ public class RecipeSqlDAO implements RecipeDAO {
 	}
 	
 	@Override
-	public List<RecipeType> findRecipeTypes(long recipeId) {
-		List<RecipeType> typeList = new ArrayList<RecipeType>();
+	public List<Type> findTypesByRecipeId(long recipeId) {
+		List<Type> typeList = new ArrayList<Type>();
 		
-		String sql = "SELECT type " + 
+		String sql = "SELECT * " + 
 						"FROM types " + 
 						"JOIN recipe_types ON types.type_id = recipe_types.type_id " + 
 						"WHERE recipe_id = ?;";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, recipeId);
 		while (results.next()) {
-			RecipeType type = new RecipeType();
-			type.setType(results.getString("type"));
-			typeList.add(type);
+			typeList.add(mapRowToType(results));
 		} 
 		return typeList;
+	}
+	
+	@Override
+	public List<Type> findAllRecipeTypes() {
+		List<Type> typeList = new ArrayList<Type>();
+		
+		String sql = "SELECT * FROM types";
+		
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+		while (results.next()) {
+			typeList.add(mapRowToType(results));
+		}
+		return typeList;
+		
 	}
 	
 	@Override
@@ -187,7 +200,7 @@ public class RecipeSqlDAO implements RecipeDAO {
 	// Create Update Delete Methods
 
 	@Override
-	public boolean createRecipe(Recipe recipe) {
+	public boolean createRecipe(RecipeDTO recipe) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -247,6 +260,14 @@ public class RecipeSqlDAO implements RecipeDAO {
 		ingredient.setUnitName(results.getString("unit_name"));
 		
 		return ingredient;
+	}
+	
+	private Type mapRowToType(SqlRowSet results) {
+		Type type = new Type();
+		type.setTypeId(results.getLong("type_id"));
+		type.setType(results.getString("type"));
+		
+		return type;
 	}
 	
 }

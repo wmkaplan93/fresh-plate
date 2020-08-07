@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import com.techelevator.dao.RecipeSqlDAO;
 
 import com.techelevator.model.Recipe;
+import com.techelevator.model.RecipeDTO;
 import com.techelevator.model.RecipeIngredient;
 
 
@@ -62,6 +63,12 @@ public class RecipeController {
 	@RequestMapping(path = "explorerecipes/types/{type}", method = RequestMethod.GET)
 	public List<Recipe> getPublicRecipesByType(@PathVariable String type) {
 		return recipeDAO.findPublicRecipesByType(type);
+	}
+	
+	@ResponseStatus(HttpStatus.CREATED)
+	@RequestMapping(path = "users/{username}/myrecipes/addrecipe", method = RequestMethod.POST)
+	public boolean addRecipe(@Valid @RequestBody RecipeDTO recipe) {
+		return recipeDAO.createRecipe(recipe);
 	}
 	
 	
