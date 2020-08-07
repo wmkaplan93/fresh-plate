@@ -66,7 +66,7 @@ const router = new Router({
       },
       beforeEnter(to, from, next) {
         if (store.state.token != '') {
-          next({ name: 'UserLanding' });
+          next({ name: 'UserLanding', params: { username : this.$store.state.user.username } });
         } else {
           next();
         }
@@ -97,7 +97,7 @@ const router = new Router({
       }
     },
     {
-      path: "/users/:username/myGrocerList",
+      path: "/users/:username/myGroceryList",
       name: "myGroceryList",
       component: MyGroceryList,
       meta: {

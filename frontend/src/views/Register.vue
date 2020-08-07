@@ -2,47 +2,50 @@
   <div id="register" class="text-center">
     <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet'>
     <form class="form-register" @submit.prevent="register">
-      <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
-      <div class="alert alert-danger" role="alert" v-if="registrationErrors">
-        {{ registrationErrorMsg }}
+      <div id="register-form-styling">
+        <h1>Fresh&nbsp;Plate</h1>
+        <h2 class="h3 mb-3 font-weight-normal">Create&nbsp;Account</h2>
+        <div class="alert alert-danger" role="alert" v-if="registrationErrors">
+          {{ registrationErrorMsg }}
+        </div>
+        <label id="username-label" for="username" class="sr-only">Username</label>
+        &nbsp;<br>
+        <input
+          type="text"
+          id="username"
+          class="form-control"
+          placeholder="Username"
+          v-model="user.username"
+          required
+          autofocus
+        />
+        &nbsp;<br>
+        <label id="password-label" for="password" class="sr-only">Password</label>
+        &nbsp;<br><br>
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          placeholder="Password"
+          v-model="user.password"
+          required
+        />
+        <br><br>
+        <input
+          type="password"
+          id="confirmPassword"
+          class="form-control"
+          placeholder="Confirm Password"
+          v-model="user.confirmPassword"
+          required
+        />
+        &nbsp;<br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">
+          Create Account
+        </button>
+        <br> <br>
+        <router-link id="have-account" :to="{ name: 'login' }">Have an account?</router-link>
       </div>
-      <label for="username" class="sr-only">Username</label>
-      &nbsp;
-      <input
-        type="text"
-        id="username"
-        class="form-control"
-        placeholder="Username"
-        v-model="user.username"
-        required
-        autofocus
-      />
-      &nbsp;
-      <label for="password" class="sr-only">Password</label>
-      &nbsp;
-      <input
-        type="password"
-        id="password"
-        class="form-control"
-        placeholder="Password"
-        v-model="user.password"
-        required
-      />
-      &nbsp;
-      <input
-        type="password"
-        id="confirmPassword"
-        class="form-control"
-        placeholder="Confirm Password"
-        v-model="user.confirmPassword"
-        required
-      />
-      &nbsp;
-      <button class="btn btn-lg btn-primary btn-block" type="submit">
-        Create Account
-      </button>
-      <br> <br>
-      <router-link :to="{ name: 'login' }">Have an account?</router-link>
     </form>
   </div>
 </template>
@@ -98,24 +101,91 @@ export default {
 </script>
 
 <style>
-#register {
+#register-form-styling {
   font-family:"Lora";
   display: grid;
-  grid-template-columns: 8% 8% 8% 26% 50%;
-  grid-template-rows: 15% 15% 40% 15% 15%;
+  grid-template-columns: 44% 19% 2% 35%;
+  grid-template-rows: 30% 15% 8% 8% 8% 5% 26%;
   height: 90vh;
 }
 
 h1 {
   font-size: 8vw;
-  grid-column-start: 4;
-  grid-column-end: 6;
-  grid-row-start: 3;
-  grid-row-end: 4;
-  align-self: center;
+  grid-column-start: 2;
+  grid-column-end: 5;
+  grid-row-start: 1;
+  justify-self: center;
+  align-self: start;
 }
 
-.form-register {
-  grid-area: 3 / 4 / 4 / 6;
+h2 {
+  font-size: 5vw;
+  grid-column-start: 2;
+  grid-column-end: 5;
+  grid-row-start: 2;
+  align-self: center;
+  justify-self: center;
+}
+
+#username-label {
+  grid-column-start: 2;
+  grid-row-start: 3;
+  justify-self: end;
+}
+
+#password-label {
+  grid-column-start: 2;
+  grid-row-start: 4;
+  justify-self: end;
+}
+
+button, input{
+  border-radius: 0px;
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 15vw;
+  height: 4.5vh;
+  font-size: 3vh;
+  font-family: 'Lora';
+  align-items: center;
+}
+
+#username {
+  grid-column-start: 4;
+  grid-row-start: 3;
+  justify-self: start;
+  width: 17vw;
+  height: 3vh;
+  font-size: 2vh;
+}
+
+#password {
+  grid-column-start: 4;
+  grid-row-start: 4;
+  justify-self: start;
+  width: 17vw;
+  height: 3vh;
+  font-size: 2vh;
+}
+
+#confirmPassword {
+  grid-column-start: 4;
+  grid-row-start: 5;
+  justify-self: start;
+  width: 17vw;
+  height: 3vh;
+  font-size: 2vh;
+}
+
+.btn {
+  grid-column-start: 4;
+  grid-row-start: 6;
+  justify-self: start;
+}
+
+#have-account {
+  grid-column-start: 4;
+  grid-row-start: 7;
+  justify-self: start;
+  font-size: 2vh;
 }
 </style>

@@ -1,18 +1,18 @@
 <template>
     <div id="overview">
         <user-landing-sidebar />
-        <div id="user-recipes">
-            <h1 id="recipes-title">My Recipes</h1>
-        </div>
+        <recipes-content />
     </div>
 </template>
 
 <script>
 import UserLandingSidebar from "../components/LandingSidebar";
+import RecipesContent from "../components/RecipesContent";
 
 export default {
     components: {
-        UserLandingSidebar
+        UserLandingSidebar,
+        RecipesContent
     },
     data() {
         return {
