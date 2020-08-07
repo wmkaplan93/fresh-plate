@@ -3,9 +3,9 @@
         <user-landing-sidebar />
         <div id="user-recipes">
             <h1 id="recipes-title">My Recipes</h1>
-            <add-recipe-form />
         </div>
         <recipes-content />
+        <add-recipe-form />
     </div>
 </template>
 
@@ -17,7 +17,7 @@ import RecipesContent from "../components/RecipesContent";
 export default {
     components: {
         UserLandingSidebar,
-        AddRecipeForm
+        AddRecipeForm,
         RecipesContent
     },
     data() {
