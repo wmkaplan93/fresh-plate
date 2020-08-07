@@ -20,6 +20,71 @@ public class RecipeSqlDAO implements RecipeDAO {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
+	
+	
+	// Get Methods
+
+	@Override
+	public List <Recipe> findRecipesByUser(String userName) {
+		List <Recipe> recipes = new ArrayList<Recipe>();
+		
+		String sql = "SELECT recipes.recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public, is_favorite " + 
+						"FROM recipes " + 
+						"JOIN units_of_measure ON recipes.unit_id = units_of_measure.unit_id " + 
+						"JOIN user_recipes ON recipes.recipe_id = user_recipes.recipe_id " + 
+						"JOIN users ON user_recipes.user_id = users.user_id " + 
+						"WHERE username = ?;";
+		
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userName);
+		while (results.next()) {
+			Recipe recipe = mapRowToUserRecipe(results);
+			recipes.add(recipe);
+		}
+		return recipes;
+	}
+
+	@Override
+	public List <Recipe> findFavoriteRecipesByUser(String userName) {
+		List <Recipe> recipes = new ArrayList<Recipe>();
+		
+		String sql = "SELECT recipes.recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public, is_favorite " + 
+						"FROM recipes " + 
+						"JOIN units_of_measure ON recipes.unit_id = units_of_measure.unit_id " + 
+						"JOIN user_recipes ON recipes.recipe_id = user_recipes.recipe_id " + 
+						"JOIN users ON user_recipes.user_id = users.user_id " + 
+						"WHERE username = ? " + 
+						"AND is_favorite = true;";
+		
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userName);
+		while (results.next()) {
+			Recipe recipe = mapRowToUserRecipe(results);
+			recipes.add(recipe);
+		}
+		return recipes;
+	}
+	
+	@Override
+	public List<Recipe> findRecipesByTypeAndUser(String type, String userName) {
+		List <Recipe> recipes = new ArrayList<Recipe>();
+		
+		String sql = "SELECT recipes.recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public, is_favorite " + 
+						"FROM recipes " + 
+						"JOIN units_of_measure ON recipes.unit_id = units_of_measure.unit_id " + 
+						"JOIN recipe_types ON recipes.recipe_id = recipe_types.recipe_id " + 
+						"JOIN types ON recipe_types.type_id = types.type_id " + 
+						"JOIN user_recipes ON recipes.recipe_id = user_recipes.recipe_id " + 
+						"JOIN users ON user_recipes.user_id = users.user_id " + 
+						"WHERE type = ? " + 
+						"AND username = ?";
+		
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, type, userName);
+		while (results.next()) {
+			Recipe recipe = mapRowToUserRecipe(results);
+			recipes.add(recipe);	
+		} 
+		return recipes;
+	}
+	
 	@Override
 	public List <Recipe> findAllPublicRecipes() {
 		List <Recipe> recipes = new ArrayList<Recipe>();
@@ -37,7 +102,27 @@ public class RecipeSqlDAO implements RecipeDAO {
 		}
 		return recipes;
 	}
-
+	
+	@Override
+	public List<Recipe> findPublicRecipesByType(String type) {
+		List<Recipe> recipes = new ArrayList<Recipe>();
+		
+		String sql = "SELECT recipes.recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public " + 
+						"FROM recipes " + 
+						"JOIN units_of_measure ON recipes.unit_id = units_of_measure.unit_id " + 
+						"JOIN recipe_types ON recipes.recipe_id = recipe_types.recipe_id " + 
+						"JOIN types ON recipe_types.type_id = types.type_id " + 
+						"WHERE type = ? " + 
+						"AND is_public = true;";
+		
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, type);
+		while (results.next()) {
+			Recipe recipe = mapRowToPublicRecipe(results);
+			recipes.add(recipe);
+		}
+		return recipes;
+	}
+	
 	@Override
 	public Recipe findRecipeById(long recipeId) {
 		Recipe theRecipe = null;
@@ -60,6 +145,46 @@ public class RecipeSqlDAO implements RecipeDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public List<RecipeType> findRecipeTypes(long recipeId) {
+		List<RecipeType> typeList = new ArrayList<RecipeType>();
+		
+		String sql = "SELECT type " + 
+						"FROM types " + 
+						"JOIN recipe_types ON types.type_id = recipe_types.type_id " + 
+						"WHERE recipe_id = ?;";
+		
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, recipeId);
+		while (results.next()) {
+			RecipeType type = new RecipeType();
+			type.setType(results.getString("type"));
+			typeList.add(type);
+		} 
+		return typeList;
+	}
+	
+	@Override
+	public List <RecipeIngredient> findIngredientsByRecipeId(long recipeId) {
+		List <RecipeIngredient> ingredients = new ArrayList<RecipeIngredient>();
+		
+		String sql = "SELECT quantity, unit_name, ingredient_name " + 
+						"FROM recipe_ingredients " + 
+						"JOIN units_of_measure ON recipe_ingredients.unit_id = units_of_measure.unit_id " + 
+						"JOIN ingredients ON recipe_ingredients.ingredient_id = ingredients.ingredient_id " + 
+						"WHERE recipe_id = ?";
+		
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, recipeId);
+		while (results.next()) {
+			RecipeIngredient ingredient = mapRowToIngredients(results);
+			ingredients.add(ingredient);
+		} 
+		return ingredients;
+	}
+	
+	
+	
+	// Create Update Delete Methods
 
 	@Override
 	public boolean createRecipe(Recipe recipe) {
@@ -78,159 +203,14 @@ public class RecipeSqlDAO implements RecipeDAO {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-	@Override
-	public List <Recipe> findRecipesByType(String type) {
-		List <Recipe> recipes = new ArrayList<>();	
-		
-		String sql = "SELECT recipes.recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public " + 
-				"FROM recipes " + 
-				"JOIN units_of_measure ON recipes.unit_id = units_of_measure.unit_id " + 
-				"JOIN recipe_types ON recipes.recipe_id = recipe_types.recipe_id " + 
-				"JOIN types ON recipe_types.type_id = types.type_id " + 
-				"WHERE type = ? " + 
-				"AND is_public = true;";
-		
-		
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, type);
-		
-		while (results.next()) {
-			Recipe recipe = mapRowToPublicRecipe(results);
-			recipes.add(recipe);
-		}
-		
-		return recipes;
-	}
-	
-	
-	public List<Recipe> findPublicRecipesByType(String type) {
-		
-		List<Recipe> recipes = new ArrayList<Recipe>();
-		
-		String sql = "SELECT recipes.recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public " + 
-				"FROM recipes " + 
-				"JOIN units_of_measure ON recipes.unit_id = units_of_measure.unit_id " + 
-				"JOIN recipe_types ON recipes.recipe_id = recipe_types.recipe_id " + 
-				"JOIN types ON recipe_types.type_id = types.type_id " + 
-				"WHERE type = ? " + 
-				"AND is_public = true;";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, type);
-		while (results.next()) {
-			Recipe recipe = mapRowToPublicRecipe(results);
-			recipes.add(recipe);
-		}
-		return recipes;
-		
-	}
-
-	@Override
-	public List <Recipe> findRecipesByUser(String userName) {
-		List <Recipe> recipes = new ArrayList<Recipe>();
-		
-		String sql = "SELECT recipes.recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public, is_favorite " + 
-						"FROM recipes " + 
-						"JOIN units_of_measure ON recipes.unit_id = units_of_measure.unit_id " + 
-						"JOIN user_recipes ON recipes.recipe_id = user_recipes.recipe_id " + 
-						"JOIN users ON user_recipes.user_id = users.user_id " + 
-						"WHERE username = ?;";
-		
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userName);
-		
-		while (results.next()) {
-			Recipe recipe = mapRowToUserRecipe(results);
-			recipes.add(recipe);
-		}
-		
-		return recipes;
-	}
-
-	@Override
-	public List <Recipe> findFavoriteRecipesByUser(String userName) {
-		List <Recipe> recipes = new ArrayList<>();
-		
-		String sql = "SELECT recipes.recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public, is_favorite " + 
-						"FROM recipes " + 
-						"JOIN units_of_measure ON recipes.unit_id = units_of_measure.unit_id " + 
-						"JOIN user_recipes ON recipes.recipe_id = user_recipes.recipe_id " + 
-						"JOIN users ON user_recipes.user_id = users.user_id " + 
-						"WHERE username = ? " + 
-						"AND is_favorite = true;";
-		
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userName);
-		
-		while (results.next()) {
-			Recipe recipe = mapRowToUserRecipe(results);
-			recipes.add(recipe);
-		}
-		
-		return recipes;
-	}
-
-	@Override
-	public List <RecipeIngredient> findIngredientsByRecipeId(long recipeId) {
-		List <RecipeIngredient> ingredients = new ArrayList<RecipeIngredient>();
-		
-		String sql = "SELECT quantity, unit_name, ingredient_name " + 
-						"FROM recipe_ingredients " + 
-						"JOIN units_of_measure ON recipe_ingredients.unit_id = units_of_measure.unit_id " + 
-						"JOIN ingredients ON recipe_ingredients.ingredient_id = ingredients.ingredient_id " + 
-						"WHERE recipe_id = ?";
-		
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, recipeId);
-		
-		while (results.next()) {
-			RecipeIngredient ingredient = mapRowToIngredients(results);
-			ingredients.add(ingredient);
-			
-		} 
-		return ingredients;
-	}
-	
-	@Override
-	public RecipeType recipeTypes(long recipeId) {
-		String sql = "SELECT type " + 
-						"FROM types " + 
-						"JOIN recipe_types ON types.type_id = recipe_types.type_id " + 
-						"WHERE recipe_id = ?;";
-		
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, recipeId);
-		
-		if (results.next()) {
-			return mapRowToType(results);
-		} else {
-			throw new RuntimeException("recipe id " + recipeId + " was not found.");
-		}
-	}
-	
-	@Override
-	public List<Recipe> findRecipesByTypeAndUsername(String type, String userName) {
-		List <Recipe> recipes = new ArrayList<Recipe>();
-		
-		String sql = "SELECT recipes.recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public, is_favorite " + 
-				"FROM recipes " + 
-				"JOIN units_of_measure ON recipes.unit_id = units_of_measure.unit_id " + 
-				"JOIN recipe_types ON recipes.recipe_id = recipe_types.recipe_id " + 
-				"JOIN types ON recipe_types.type_id = types.type_id " + 
-				"JOIN user_recipes ON recipes.recipe_id = user_recipes.recipe_id " + 
-				"JOIN users ON user_recipes.user_id = users.user_id " + 
-				"WHERE type = ? " + 
-				"AND username = ?";
-		
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, type, userName);
-		
-		while (results.next()) {
-			Recipe recipe = mapRowToUserRecipe(results);
-			recipes.add(recipe);
-			
-		} 
-		return recipes;
-	}
 	
 	
 	
+	// Private Helper Methods
 	
-	private Recipe mapRowToUserRecipe( SqlRowSet results) {
+	private Recipe mapRowToUserRecipe(SqlRowSet results) {
 		Recipe recipe = new Recipe();
+		
 		recipe.setRecipeId(results.getLong("recipe_id"));
 		recipe.setName(results.getString("name"));
 		recipe.setDescription(results.getString("description"));
@@ -244,8 +224,9 @@ public class RecipeSqlDAO implements RecipeDAO {
 		return recipe;
 	}
 	
-	private Recipe mapRowToPublicRecipe( SqlRowSet results) {
+	private Recipe mapRowToPublicRecipe(SqlRowSet results) {
 		Recipe recipe = new Recipe();
+		
 		recipe.setRecipeId(results.getLong("recipe_id"));
 		recipe.setName(results.getString("name"));
 		recipe.setDescription(results.getString("description"));
@@ -260,18 +241,12 @@ public class RecipeSqlDAO implements RecipeDAO {
 	
 	private RecipeIngredient mapRowToIngredients(SqlRowSet results) {
 		RecipeIngredient ingredient = new RecipeIngredient();
+		
 		ingredient.setIngredient(results.getString("ingredient_name"));
 		ingredient.setQuantity(results.getBigDecimal("quantity"));
 		ingredient.setUnitName(results.getString("unit_name"));
 		
 		return ingredient;
-	}
-	
-	private RecipeType mapRowToType(SqlRowSet results) {
-		RecipeType type = new RecipeType();
-		type.setType(results.getString("type"));
-		
-		return type;
 	}
 	
 }

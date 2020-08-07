@@ -7,28 +7,30 @@ import com.techelevator.model.RecipeIngredient;
 import com.techelevator.model.RecipeType;
 
 public interface RecipeDAO {
-	 List<Recipe> findAllPublicRecipes();
-	 
-	 Recipe findRecipeById( long recipeId);
-	 
-	 Recipe findRecipeByKeyword(String keyword);
-	 
-	 boolean createRecipe(Recipe recipe);
-	 
-	 boolean updateRecipe(Recipe recipe, long recipeId);
-	 
-	 boolean deleteRecipe(long recipeId);
-	 
-	 List<Recipe> findRecipesByType (String type);
-	 
+	
 	 List<Recipe> findRecipesByUser (String userName);
 	 
 	 List<Recipe> findFavoriteRecipesByUser (String userName);
+
+	 List<Recipe> findRecipesByTypeAndUser (String type, String userName);
+	 
+	 List<Recipe> findAllPublicRecipes();
+	 
+	 List<Recipe> findPublicRecipesByType (String type);
+	 
+	 Recipe findRecipeById (long recipeId);
+	 
+	 Recipe findRecipeByKeyword (String keyword);
+	 
+	 List<RecipeType> findRecipeTypes(long recipeId);
 	 
 	 List<RecipeIngredient> findIngredientsByRecipeId (long recipeId);
+	
+	 boolean createRecipe (Recipe recipe);
 	 
-	 RecipeType recipeTypes(long recipeId);
+	 boolean updateRecipe (Recipe recipe, long recipeId);
 	 
-	 List<Recipe> findRecipesByTypeAndUsername (String type, String userName);
+	 boolean deleteRecipe (long recipeId);
+	 
 
 }
