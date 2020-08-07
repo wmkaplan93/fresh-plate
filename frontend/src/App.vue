@@ -4,7 +4,7 @@
       <router-link v-bind:to="{ name: 'home' }" v-if="$store.state.token == ''">
         <button type="home-button">Home</button>
       </router-link>
-      <router-link v-bind:to="{ name: 'UserLanding' }" v-else>
+      <router-link v-bind:to="{ name: 'UserLanding', params: {username: this.$store.state.user.username} }" v-else>
         <button type="my-home-button">My Home</button>
       </router-link>
       <router-link v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">
@@ -25,10 +25,11 @@
 </template>
 <style scoped>
 #nav {
-  background: linear-gradient(90deg, rgba(117,12,12,.75) 0%, rgba(255,255,255,.75) 40%);
+  background: linear-gradient(90deg, rgba(0,108,8,0.7) 0%, rgba(255,255,255,1) 60%);
   height: 5vh;
   font-size: 22px;
   font-family: 'Lora';
+  /*istock web is our pairing font*/
   color: black;
   justify-content: flex-start;
   align-content: flex-start;

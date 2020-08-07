@@ -5,17 +5,20 @@
             <h1 id="recipes-title">My Recipes</h1>
             <add-recipe-form />
         </div>
+        <recipes-content />
     </div>
 </template>
 
 <script>
 import UserLandingSidebar from "../components/LandingSidebar";
 import AddRecipeForm from "../components/RecipeForm";
+import RecipesContent from "../components/RecipesContent";
 
 export default {
     components: {
         UserLandingSidebar,
         AddRecipeForm
+        RecipesContent
     },
     data() {
         return {

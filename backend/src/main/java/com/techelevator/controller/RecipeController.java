@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-
 import org.springframework.web.bind.annotation.*;
 
 import com.techelevator.dao.RecipeSqlDAO;
@@ -33,6 +31,9 @@ public class RecipeController {
 		this.recipeDAO = recipeDAO;
 	}
 	
+	
+	// Get Methods
+	
 	@RequestMapping(path = "users/{username}/myrecipes/{recipeId}", method = RequestMethod.GET)
 	public List<RecipeIngredient> getRecipeIngredientsById(@PathVariable Long recipeId) {
 		return recipeDAO.findIngredientsByRecipeId(recipeId);
@@ -45,7 +46,7 @@ public class RecipeController {
 	
 	@RequestMapping(path = "users/{username}/myrecipes/types/{type}", method = RequestMethod.GET)
 	public List<Recipe> getRecipeByUsernameAndType(@PathVariable String type, @PathVariable String username) {
-		return recipeDAO.findRecipesByTypeAndUsername(type, username);
+		return recipeDAO.findRecipesByTypeAndUser(type, username);
 	}
 	
 	@RequestMapping(path = "explorerecipes", method = RequestMethod.GET)
@@ -62,6 +63,10 @@ public class RecipeController {
 	public List<Recipe> getPublicRecipesByType(@PathVariable String type) {
 		return recipeDAO.findPublicRecipesByType(type);
 	}
+	
+	
+	
+	// Create Update Delete Methods
 	
 	
 
