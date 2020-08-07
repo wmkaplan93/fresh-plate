@@ -1,8 +1,11 @@
 <template>
     <div id="user-landing-sidebar">
-        <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet'>
+    <!-- <div class="loading" v-if="isLoading">
+      <img src="../../public/loader-for-dribble.gif">
+    </div>         -->
+    <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet'>
         <h1 id="user-landing-title">Welcome</h1>
-        <h1 id="user-landing-name"> {{username}}</h1>
+        <h1 id="user-landing-name">{{username}}</h1>
         <div id="button-list">
             <router-link v-bind:to="{ name: 'myPlans', params: {username:username} }">
                 <button type="my-plans">My Plans</button>
@@ -25,8 +28,8 @@ export default {
     name: "user-landing-sidebar",
     data() {
         return {
-            username: this.$store.state.user.username
-
+            username: this.$store.state.user.username,
+            // isLoading: true
         }
     }
 }
@@ -35,7 +38,7 @@ export default {
 
 <style scoped>
 #user-landing-sidebar {
-    width: 33.5%;
+    width: 33vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -45,19 +48,32 @@ export default {
     background-color:rgba(255, 255, 255, 0.5);
 }
 
-.router-link-active {
+a {
     text-decoration: none;
+}
+
+.router-link-active > button {
+    background: rgba(0,108,8,0.7);
 }
 
 h1 {
     line-height: .1;
+    /* width: 90%; */
+    justify-self: end;
+    display: flex;
+    align-self: center;
 }
 
 #user-landing-title {
-    padding-top: 10vh;
+    padding-top: 4vh;
+    font-size: 5vh;
 }
+
 #user-landing-name {
     padding-bottom: 1.5vh;
+    line-height: 1;
+    font-size: 7.5vh;
+    word-wrap: break-word;
 }
 
 #button-list {
@@ -74,8 +90,8 @@ h1 {
     display: flex;
     border-radius: 0px;
     background-color: rgba(255, 255, 255, 0.2);
-    width: 175px;
-    height: 30px;
+    width: 17vw;
+    height: 4.5vh;
     font-size: 3vh;
     font-family: 'Allan';
     align-items: center;
