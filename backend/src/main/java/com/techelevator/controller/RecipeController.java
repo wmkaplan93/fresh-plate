@@ -15,9 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 import com.techelevator.dao.RecipeSqlDAO;
-
+import com.techelevator.model.FormPropertiesDTO;
+import com.techelevator.model.Ingredient;
 import com.techelevator.model.Recipe;
+import com.techelevator.model.RecipeDTO;
 import com.techelevator.model.RecipeIngredient;
+import com.techelevator.model.Type;
+import com.techelevator.model.UnitOfMeasure;
 
 
 
@@ -62,6 +66,23 @@ public class RecipeController {
 	@RequestMapping(path = "explorerecipes/types/{type}", method = RequestMethod.GET)
 	public List<Recipe> getPublicRecipesByType(@PathVariable String type) {
 		return recipeDAO.findPublicRecipesByType(type);
+	}
+	
+	@RequestMapping(path = "users/{username}/myrecipes/addrecipe", method = RequestMethod.POST)
+	public void addRecipe(@Valid @RequestBody RecipeDTO newRecipe, @PathVariable String username) {
+		recipeDAO.createRecipe(newRecipe, username);
+	}
+	
+	@RequestMapping(path = "users/{username}/myrecipes/addrecipe", method = RequestMethod.GET)
+	public FormPropertiesDTO getFormProperties() {
+		
+		FormPropertiesDTO formProperties = new FormPropertiesDTO();
+		formProperties.setIngredients(recipeDAO.findAllIngredients());
+		formProperties.setTypes(recipeDAO.findAllRecipeTypes());
+		formProperties.setUnits(recipeDAO.findAllUnitsOfMeasure());
+		
+		return formProperties;
+		
 	}
 	
 	
