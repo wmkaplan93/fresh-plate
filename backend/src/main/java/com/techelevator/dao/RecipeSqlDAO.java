@@ -276,15 +276,6 @@ public class RecipeSqlDAO implements RecipeDAO {
 		return ingredient;
 	}
 	
-	private Type mapRowToType(SqlRowSet results) {
-		Type type = new Type();
-		type.setTypeId(results.getLong("type_id"));
-		type.setType(results.getString("type"));
-		
-		return type;
-	}
-	
-	
 	private long getNextRecipeID() {
 		SqlRowSet nextIdResult = jdbcTemplate.queryForRowSet("SELECT nextval('recipes_recipe_id_seq')");
 		if (nextIdResult.next()) {
@@ -294,4 +285,16 @@ public class RecipeSqlDAO implements RecipeDAO {
 			throw new RuntimeException("Something went wrong while getting an id for the new recipe");
 		}
 	}
+	
+	private long getNextIngredientID() {
+		SqlRowSet nextIdResult = jdbcTemplate.queryForRowSet("SELECT nextval('ingredients_ingredient_id_seq')");
+		if (nextIdResult.next()) {
+			return nextIdResult.getLong(1);
+		}
+		else {
+			throw new RuntimeException("Something went wrong while getting an id for the new ingredient");
+		}
+	}
+
+	
 }
