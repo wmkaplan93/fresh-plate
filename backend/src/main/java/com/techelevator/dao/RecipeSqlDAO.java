@@ -220,15 +220,31 @@ public class RecipeSqlDAO implements RecipeDAO {
 	}
 
 	@Override
-	public boolean updateRecipe(Recipe recipe, long recipeId) {
-		// TODO Auto-generated method stub
-		return false;
+	public void updateRecipe(Recipe recipe, long recipeId) {
+		String sql = "UPDATE recipes SET name = ?, description = ?, yield = ?, unit_id = (SELECT unit_id FROM units_of_measure WHERE unit_name = ?), duration = ?, recipe_method = ?, is_public = ? "
+						+ "WHERE recipe_id = ?";
+		
+		jdbcTemplate.update(sql, recipe.getName(), recipe.getDescription(), recipe.getYield(), recipe.getUnitName(),recipe.getDuration(), recipe.getRecipeMethod(), recipe.isPublic());
+		
+		
 	}
 
 	@Override
-	public boolean deleteRecipe(long recipeId) {
-		// TODO Auto-generated method stub
-		return false;
+	public void deleteRecipe(long recipeId) {
+		String sql = "DELETE FROM recipes WHERE recipe_id = ?";
+		
+		jdbcTemplate.update(sql, recipeId);
+		
+	}
+	
+	@Override
+	public void createIngredient(RecipeIngredient recipeIngredient) {
+		String ingredientSql = "INSERT INTO recipe_ingredients (quantity, unit_name, ingredient_name) " +
+				"VALUES (?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?), (SELECT ingredient_id FROM ingredients WHERE ingredient_name = ?))";
+		
+		jdbcTemplate.update(ingredientSql, recipeIngredient.getQuantity(), recipeIngredient.getUnitName(), recipeIngredient.getIngredient());
+		
+		
 	}
 	
 	
