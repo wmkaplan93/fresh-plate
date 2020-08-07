@@ -29,7 +29,7 @@ public interface RecipeDAO {
 	 
 	 List<RecipeIngredient> findIngredientsByRecipeId (long recipeId);
 	
-	 boolean createRecipe (RecipeDTO recipe);
+	 public void createRecipe(Recipe recipe, List<RecipeIngredient> recipeIngredients);
 	 
 	 boolean updateRecipe (Recipe recipe, long recipeId);
 	 
