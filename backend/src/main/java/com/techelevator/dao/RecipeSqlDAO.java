@@ -200,33 +200,23 @@ public class RecipeSqlDAO implements RecipeDAO {
 	// Create Update Delete Methods
 
 	@Override
-	public void createRecipe(Recipe recipe, List<RecipeIngredient> recipeIngredients) {
-
+		public void createRecipe(Recipe recipe, List<RecipeIngredient> recipeIngredients) {
+	
 		String sql = "INSERT INTO recipes (recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public) "
-
 					+ "VALUES (?, ?, ?, ?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?) , ?, ?, ?)";
-
 		
-
 		recipe.setRecipeId(getNextRecipeID());
-
 		
-
 		jdbcTemplate.update(sql, recipe.getRecipeId(), recipe.getName(), recipe.getDescription(), recipe.getYield(), recipe.getUnitName(),recipe.getDuration(), recipe.getRecipeMethod(), recipe.isPublic());
-
 		
-
 		for ( RecipeIngredient ingredient : recipeIngredients) {
-
 			String ingredientSql = "INSERT INTO recipe_ingredients (recipe_id, quantity, unit_id, ingredient_id) " +
-
 									"VALUES (?, ?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?), (SELECT ingredient_id FROM ingredients WHERE ingredient_name = ?))";
-
 			jdbcTemplate.update(ingredientSql, recipe.getRecipeId(), ingredient.getQuantity(), ingredient.getUnitName(), ingredient.getIngredient());
-
 			
-
 		}
+		
+		
 	}
 
 	@Override
