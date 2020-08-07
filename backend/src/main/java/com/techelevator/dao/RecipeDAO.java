@@ -26,11 +26,13 @@ public interface RecipeDAO {
 	 
 	 List<RecipeIngredient> findIngredientsByRecipeId (long recipeId);
 	
-	 boolean createRecipe (Recipe recipe);
+	 void createRecipe (Recipe recipe, List<RecipeIngredient> recipeIngredients);
 	 
-	 boolean updateRecipe (Recipe recipe, long recipeId);
+	 void updateRecipe (Recipe recipe, long recipeId);
 	 
-	 boolean deleteRecipe (long recipeId);
+	 void deleteRecipe (long recipeId);
+	 
+	 void createIngredient (RecipeIngredient recipeIngredient);
 	 
 
 }
