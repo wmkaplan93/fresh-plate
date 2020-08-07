@@ -3,16 +3,19 @@
         <user-landing-sidebar />
         <div id="user-recipes">
             <h1 id="recipes-title">My Recipes</h1>
+            <add-recipe-form />
         </div>
     </div>
 </template>
 
 <script>
 import UserLandingSidebar from "../components/LandingSidebar";
+import AddRecipeForm from "../components/RecipeForm";
 
 export default {
     components: {
-        UserLandingSidebar
+        UserLandingSidebar,
+        AddRecipeForm
     },
     data() {
         return {
