@@ -206,9 +206,15 @@ public class RecipeSqlDAO implements RecipeDAO {
 
 					+ "VALUES (?, ?, ?, ?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?) , ?, ?, ?)";
 
+		
+
 		recipe.setRecipeId(getNextRecipeID());
 
+		
+
 		jdbcTemplate.update(sql, recipe.getRecipeId(), recipe.getName(), recipe.getDescription(), recipe.getYield(), recipe.getUnitName(),recipe.getDuration(), recipe.getRecipeMethod(), recipe.isPublic());
+
+		
 
 		for ( RecipeIngredient ingredient : recipeIngredients) {
 
@@ -217,7 +223,9 @@ public class RecipeSqlDAO implements RecipeDAO {
 									"VALUES (?, ?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?), (SELECT ingredient_id FROM ingredients WHERE ingredient_name = ?))";
 
 			jdbcTemplate.update(ingredientSql, recipe.getRecipeId(), ingredient.getQuantity(), ingredient.getUnitName(), ingredient.getIngredient());
+
 			
+
 		}
 	}
 
