@@ -21,7 +21,7 @@ public interface RecipeDAO {
 	 
 	 Recipe findRecipeById (long recipeId);
 	 
-	 Recipe findRecipeByKeyword (String keyword);
+	 List<Recipe> findRecipeByKeyword (String keyword);
 	 
 	 List<Type> findAllRecipeTypes();
 	 

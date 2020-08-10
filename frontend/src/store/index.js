@@ -21,6 +21,19 @@ export default new Vuex.Store({
   state: {
     token: currentToken || '',
     user: currentUser || {},
+    propArray: {
+      types: [],
+      ingredients: [],
+      units: []
+    },
+    recipeCard: {
+      name: '',
+      description: '',
+      type: [],
+      servings: '',
+      duration: '',
+      instructions: ''
+    },  
     recipeList: allRecipes || [],
     recipe: {
       recipeId: 0,
@@ -49,6 +62,12 @@ export default new Vuex.Store({
       state.user = {};
       axios.defaults.headers.common = {};
     },
+    SET_INGREDIENTS(state, data) {
+      state.propArray.ingredients = data;
+    },
+    SET_RECIPE_CARD(state, data) {
+      state.recipeCard = data;
+    },  
     GET_RECIPES(state, data) {
       state.allRecipes = data;
     }
