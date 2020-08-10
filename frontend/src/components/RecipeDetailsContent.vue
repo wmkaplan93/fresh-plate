@@ -1,7 +1,7 @@
 <template>
     <div id="recipe-details-content">
         <div id="recipe-details">
-            <h1 id="recipe-details-title"> {{recipeName}}</h1>
+            <h1 id="recipe-details-title"> {{ this.$store.state.recipe.name }}</h1>
         </div>
     </div>
 </template>

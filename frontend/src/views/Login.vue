@@ -10,6 +10,7 @@
         v-if="invalidCredentials"
       >Invalid username and password!</div> -->
       <div
+        id="thanks-message"
         class="alert alert-success"
         role="alert"
         v-if="this.$route.query.registration"
@@ -39,7 +40,7 @@
       &nbsp;<br>
       <button class='btn' type="submit">Sign in</button>
       <br><br>
-      <router-link :to="{ name: 'register' }" id="need-account">Need an account?</router-link>
+      <router-link :to="{ name: 'register' }" id="need-account"><button id="need-account-btn">Need an account?</button></router-link>
     </form>
   </div>
 </template>
@@ -69,7 +70,7 @@ export default {
           if (response.status == 200) {
             this.$store.commit("SET_AUTH_TOKEN", response.data.token);
             this.$store.commit("SET_USER", response.data.user);
-            this.$router.push({ name: 'UserLanding', params: {username: response.data.user.username} });
+            this.$router.push({ name: 'myPlans', params: {username: response.data.user.username} });
           }
         })
         .catch(error => {
@@ -150,12 +151,21 @@ h2 {
   align-self: center;
 }
 
-#need-account {
+#need-account, #need-account button {
   font-size: 2vh;
   grid-column-start: 6;
-  grid-row-start: 7;
+  grid-row-start: 6;
+  grid-row-end: 8;
   justify-self: start;
-  align-self: start;
+  align-self: center;
+  height: 3vh;
+  width: 11vw;
+}
+
+#thanks-message {
+  grid-column-start: 4;
+  grid-row-start: 1;
+  align-self: center;
 }
 
 </style>
