@@ -25,7 +25,7 @@
 </template>
 <style scoped>
 #nav {
-  background: linear-gradient(90deg, rgba(0,108,8,0.7) 0%, rgba(255,255,255,1) 60%);
+  background: linear-gradient(90deg, rgba(156, 13, 8, 0.7) 0%, rgba(255,255,255,1) 60%);
   height: 5vh;
   font-size: 22px;
   font-family: 'Lora';
@@ -35,11 +35,11 @@
   align-content: flex-start;
   display: flex;
 }
+
 #app {
-  background-image: url("../public/474574-PG4GQP-297.jpg");
+  background-image: url("../public/background options/O8RDSC0.jpg");
   background-size: cover;
-  background-repeat: no-repeat;
-  height: 100%;
+  background-repeat: no-repeat;  height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -60,4 +60,11 @@ footer {
   font-family: 'Allan';
   margin: .5vh 1vw 0vw 1vw;
 }
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 </style>

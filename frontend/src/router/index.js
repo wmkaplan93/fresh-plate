@@ -10,6 +10,8 @@ import MyRecipes from '../views/MyRecipes.vue'
 import MyPlans from '../views/MyPlans.vue'
 import ExploreRecipes from '../views/ExploreRecipes.vue'
 import MyGroceryList from '../views/MyGroceryList.vue'
+import AddRecipe from '../views/AddRecipe.vue'
+import RecipeDetails from '../views/RecipeDetails.vue'
 
 Vue.use(Router)
 
@@ -88,6 +90,16 @@ const router = new Router({
         requiresAuth: true
       }
     },
+
+    {
+      path: "/users/:username/myRecipes/addRecipe",
+      name: "addRecipe",
+      component: AddRecipe,
+      meta: {
+        requiresAuth: true
+      }
+    },
+
     {
       path: "/users/:username/myPlans",
       name: "myPlans",
@@ -111,6 +123,15 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: "/exploreRecipes/:recipeId",
+      name: "RecipeDetails",
+      component: RecipeDetails,
+      props: true,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 })
@@ -129,3 +150,4 @@ router.beforeEach((to, from, next) => {
 });
 
 export default router;
+

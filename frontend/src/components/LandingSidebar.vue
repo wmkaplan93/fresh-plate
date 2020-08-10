@@ -1,8 +1,5 @@
 <template>
     <div id="user-landing-sidebar">
-    <!-- <div class="loading" v-if="isLoading">
-      <img src="../../public/loader-for-dribble.gif">
-    </div>         -->
     <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet'>
         <h1 id="user-landing-title">Welcome</h1>
         <h1 id="user-landing-name">{{username}}</h1>
