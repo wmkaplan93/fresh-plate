@@ -16,10 +16,10 @@ public class RecipeDTO {
 	private String description;
 	
 	@NotEmpty
-	private BigDecimal yield;
+	private BigDecimal yieldAmount;
 	
 	@NotEmpty
-	private String unitName;
+	private String yieldUnit;
 	
 	@NotEmpty
 	private String duration;
@@ -31,23 +31,20 @@ public class RecipeDTO {
 	private boolean isPublic;
 	
 	@NotEmpty
-	private List<Type> types;
+	private List<Type> typeList;
 
 	@NotEmpty
 	private List<RecipeIngredient> ingredientList;
 	
-	private long userId;
+	@NotEmpty
+	private String username;
 	
-	private long ownerId;
+	private String ownername;
 	
+	@NotEmpty
 	private boolean isFavorite;
 	
 	
-	
-	
-	
-	
-	//Getters and Setters
 
 	public long getRecipeId() {
 		return recipeId;
@@ -73,20 +70,20 @@ public class RecipeDTO {
 		this.description = description;
 	}
 
-	public BigDecimal getYield() {
-		return yield;
+	public BigDecimal getYieldAmount() {
+		return yieldAmount;
 	}
 
-	public void setYield(BigDecimal yield) {
-		this.yield = yield;
+	public void setYieldAmount(BigDecimal yieldAmount) {
+		this.yieldAmount = yieldAmount;
 	}
 
-	public String getUnitName() {
-		return unitName;
+	public String getYieldUnit() {
+		return yieldUnit;
 	}
 
-	public void setUnitName(String unitName) {
-		this.unitName = unitName;
+	public void setYieldUnit(String yieldUnit) {
+		this.yieldUnit = yieldUnit;
 	}
 
 	public String getDuration() {
@@ -113,12 +110,12 @@ public class RecipeDTO {
 		this.isPublic = isPublic;
 	}
 
-	public boolean isFavorite() {
-		return isFavorite;
+	public List<Type> getTypeList() {
+		return typeList;
 	}
 
-	public void setFavorite(boolean isFavorite) {
-		this.isFavorite = isFavorite;
+	public void setTypeList(List<Type> typeList) {
+		this.typeList = typeList;
 	}
 
 	public List<RecipeIngredient> getIngredientList() {
@@ -128,35 +125,29 @@ public class RecipeDTO {
 	public void setIngredientList(List<RecipeIngredient> ingredientList) {
 		this.ingredientList = ingredientList;
 	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getOwnername() {
+		return ownername;
+	}
+
+	public void setOwnername(String ownername) {
+		this.ownername = ownername;
+	}
+
+	public boolean isFavorite() {
+		return isFavorite;
+	}
+
+	public void setFavorite(boolean isFavorite) {
+		this.isFavorite = isFavorite;
+	}
 	
-	public List<Type> getTypes() {
-		return types;
-	}
-
-	public void setTypes(List<Type> types) {
-		this.types = types;
-	}
-
-	public long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(long userId) {
-		this.userId = userId;
-	}
-
-	public long getOwnerId() {
-		return ownerId;
-	}
-
-	public void setOwnerId(long ownerId) {
-		this.ownerId = ownerId;
-	}
-	
-	
-
-
-	
-	
-
 }

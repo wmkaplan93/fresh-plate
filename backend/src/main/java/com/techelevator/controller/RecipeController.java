@@ -22,6 +22,7 @@ import com.techelevator.model.RecipeDTO;
 import com.techelevator.model.RecipeIngredient;
 import com.techelevator.model.Type;
 import com.techelevator.model.UnitOfMeasure;
+import com.techelevator.model.UserRecipe;
 
 
 
@@ -39,8 +40,15 @@ public class RecipeController {
 	// Get Methods
 	
 	@RequestMapping(path = "users/{username}/myRecipes/{recipeId}", method = RequestMethod.GET)
-	public List<RecipeIngredient> getRecipeIngredientsById(@PathVariable Long recipeId) {
-		return recipeDAO.findIngredientsByRecipeId(recipeId);
+	public RecipeDTO getRecipeDTOByRecipeId(@PathVariable String username, @PathVariable Long recipeId) {
+		
+		Recipe recipe = recipeDAO.findRecipeById(recipeId);
+		List<RecipeIngredient> ingredientList = recipeDAO.findIngredientsByRecipeId(recipeId);
+		List<Type> typeList = recipeDAO.findTypesByRecipeId(recipeId);
+		RecipeDTO dto = buildRecipeDTO(recipe, ingredientList, typeList);
+		dto.setFavorite(recipeDAO.findIsFavorite(username, recipeId));
+		
+		return dto;
 	}
 	
 	@RequestMapping(path = "users/{username}/myRecipes", method = RequestMethod.GET)
@@ -59,8 +67,14 @@ public class RecipeController {
 	}
 	
 	@RequestMapping(path = "exploreRecipes/{recipeId}", method = RequestMethod.GET)
-	public List<RecipeIngredient> getPublicRecipeIngredientsById(@PathVariable Long recipeId) {
-		return recipeDAO.findIngredientsByRecipeId(recipeId);
+	public RecipeDTO getPublicRecipeDTOByRecipeId(@PathVariable Long recipeId) {
+		
+		Recipe recipe = recipeDAO.findRecipeById(recipeId);
+		List<RecipeIngredient> ingredientList = recipeDAO.findIngredientsByRecipeId(recipeId);
+		List<Type> typeList = recipeDAO.findTypesByRecipeId(recipeId);
+		RecipeDTO dto = buildRecipeDTO(recipe, ingredientList, typeList);
+		
+		return dto;
 	}
 	
 	@RequestMapping(path = "exploreRecipes/types/{type}", method = RequestMethod.GET)
@@ -90,5 +104,24 @@ public class RecipeController {
 	// Create Update Delete Methods
 	
 	
+	
+	private RecipeDTO buildRecipeDTO(Recipe recipe, List<RecipeIngredient> ingredientList, List<Type> typeList) {
+		RecipeDTO recipeDTO = new RecipeDTO();
+		
+		recipeDTO.setRecipeId(recipe.getRecipeId());
+		recipeDTO.setName(recipe.getName());
+		recipeDTO.setDescription(recipe.getDescription());
+		recipeDTO.setYieldAmount(recipe.getYieldAmount());
+		recipeDTO.setYieldUnit(recipe.getYieldUnit());
+		recipeDTO.setDuration(recipe.getDuration());
+		recipeDTO.setRecipeMethod(recipe.getRecipeMethod());
+		recipeDTO.setPublic(recipe.isPublic());
+		recipeDTO.setOwnername(recipe.getOwnername());
+		recipeDTO.setTypeList(typeList);
+		recipeDTO.setIngredientList(ingredientList);
+		
+		return recipeDTO;
+		
+	}
 
 }

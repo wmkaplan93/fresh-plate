@@ -4,7 +4,7 @@ public class Ingredient {
 
 	private long ingredientId;
 	
-	private String ingredient;
+	private String ingredientName;
 
 	public long getIngredientId() {
 		return ingredientId;
@@ -14,12 +14,12 @@ public class Ingredient {
 		this.ingredientId = ingredientId;
 	}
 
-	public String getIngredient() {
-		return ingredient;
+	public String getingredientName() {
+		return ingredientName;
 	}
 
-	public void setIngredient(String ingredient) {
-		this.ingredient = ingredient;
+	public void setIngredientName(String ingredientName) {
+		this.ingredientName = ingredientName;
 	}
 	
 	

@@ -32,16 +32,15 @@ public class RecipeSqlDAO implements RecipeDAO {
 	public List <Recipe> findRecipesByUser(String userName) {
 		List <Recipe> recipes = new ArrayList<Recipe>();
 		
-		String sql = "SELECT recipes.recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public, is_favorite " + 
-						"FROM recipes " + 
-						"JOIN units_of_measure ON recipes.unit_id = units_of_measure.unit_id " + 
-						"JOIN user_recipes ON recipes.recipe_id = user_recipes.recipe_id " + 
-						"JOIN users ON user_recipes.user_id = users.user_id " + 
-						"WHERE username = ?;";
+		String sql = "SELECT recipes.recipe_id, recipe_name, description, yield_amount, unit_name, duration, recipe_method, is_public, ownername, is_favorite " + 
+				"FROM recipes " + 
+				"JOIN units_of_measure ON recipes.yield_unit_id = units_of_measure.unit_id " + 
+				"JOIN user_recipes ON recipes.recipe_id = user_recipes.recipe_id " + 
+				"WHERE username = ?;";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userName);
 		while (results.next()) {
-			Recipe recipe = mapRowToUserRecipe(results);
+			Recipe recipe = mapRowToRecipe(results);
 			recipes.add(recipe);
 		}
 		return recipes;
@@ -51,17 +50,16 @@ public class RecipeSqlDAO implements RecipeDAO {
 	public List <Recipe> findFavoriteRecipesByUser(String userName) {
 		List <Recipe> recipes = new ArrayList<Recipe>();
 		
-		String sql = "SELECT recipes.recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public, is_favorite " + 
+		String sql = "SELECT recipes.recipe_id, recipe_name, description, yield_amount, unit_name, duration, recipe_method, is_public, is_favorite " + 
 						"FROM recipes " + 
-						"JOIN units_of_measure ON recipes.unit_id = units_of_measure.unit_id " + 
-						"JOIN user_recipes ON recipes.recipe_id = user_recipes.recipe_id " + 
-						"JOIN users ON user_recipes.user_id = users.user_id " + 
+						"JOIN units_of_measure ON recipes.yield_unit_id = units_of_measure.unit_id " + 
+						"JOIN user_recipes ON recipes.recipe_id = user_recipes.recipe_id " +  
 						"WHERE username = ? " + 
 						"AND is_favorite = true;";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userName);
 		while (results.next()) {
-			Recipe recipe = mapRowToUserRecipe(results);
+			Recipe recipe = mapRowToRecipe(results);
 			recipes.add(recipe);
 		}
 		return recipes;
@@ -71,19 +69,18 @@ public class RecipeSqlDAO implements RecipeDAO {
 	public List<Recipe> findRecipesByTypeAndUser(String type, String userName) {
 		List <Recipe> recipes = new ArrayList<Recipe>();
 		
-		String sql = "SELECT recipes.recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public, is_favorite " + 
+		String sql = "SELECT recipes.recipe_id, recipe_name, description, yield_amount, unit_name, duration, recipe_method, is_public, is_favorite " + 
 						"FROM recipes " + 
-						"JOIN units_of_measure ON recipes.unit_id = units_of_measure.unit_id " + 
+						"JOIN units_of_measure ON recipes.yield_unit_id = units_of_measure.unit_id " + 
 						"JOIN recipe_types ON recipes.recipe_id = recipe_types.recipe_id " + 
 						"JOIN types ON recipe_types.type_id = types.type_id " + 
 						"JOIN user_recipes ON recipes.recipe_id = user_recipes.recipe_id " + 
-						"JOIN users ON user_recipes.user_id = users.user_id " + 
-						"WHERE type = ? " + 
+						"WHERE type_name = ? " + 
 						"AND username = ?";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, type, userName);
 		while (results.next()) {
-			Recipe recipe = mapRowToUserRecipe(results);
+			Recipe recipe = mapRowToRecipe(results);
 			recipes.add(recipe);	
 		} 
 		return recipes;
@@ -93,15 +90,15 @@ public class RecipeSqlDAO implements RecipeDAO {
 	public List <Recipe> findAllPublicRecipes() {
 		List <Recipe> recipes = new ArrayList<Recipe>();
 		
-		String sql = "SELECT recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public " + 
+		String sql = "SELECT recipe_id, recipe_name, description, yield_amount, unit_name, duration, recipe_method, is_public " + 
 						"FROM recipes " + 
-						"JOIN units_of_measure ON recipes.unit_id = units_of_measure.unit_id " + 
+						"JOIN units_of_measure ON recipes.yield_unit_id = units_of_measure.unit_id " + 
 						"WHERE is_public = true";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
 		
 		while (results.next()) {
-			Recipe recipe = mapRowToPublicRecipe(results);
+			Recipe recipe = mapRowToRecipe(results);
 			recipes.add(recipe);
 		}
 		return recipes;
@@ -111,17 +108,17 @@ public class RecipeSqlDAO implements RecipeDAO {
 	public List<Recipe> findPublicRecipesByType(String type) {
 		List<Recipe> recipes = new ArrayList<Recipe>();
 		
-		String sql = "SELECT recipes.recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public " + 
+		String sql = "SELECT recipes.recipe_id, recipe_name, description, yield_amount, unit_name, duration, recipe_method, is_public " + 
 						"FROM recipes " + 
-						"JOIN units_of_measure ON recipes.unit_id = units_of_measure.unit_id " + 
+						"JOIN units_of_measure ON recipes.yield_unit_id = units_of_measure.unit_id " + 
 						"JOIN recipe_types ON recipes.recipe_id = recipe_types.recipe_id " + 
 						"JOIN types ON recipe_types.type_id = types.type_id " + 
-						"WHERE type = ? " + 
+						"WHERE type_name = ? " + 
 						"AND is_public = true;";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, type);
 		while (results.next()) {
-			Recipe recipe = mapRowToPublicRecipe(results);
+			Recipe recipe = mapRowToRecipe(results);
 			recipes.add(recipe);
 		}
 		return recipes;
@@ -131,29 +128,41 @@ public class RecipeSqlDAO implements RecipeDAO {
 	public Recipe findRecipeById(long recipeId) {
 		Recipe theRecipe = null;
 		
-		String sql = "SELECT recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public " + 
+		String sql = "SELECT recipe_id, recipe_name, description, yield_amount, unit_name, duration, recipe_method, is_public " + 
 						"FROM recipes " + 
-						"JOIN units_of_measure ON recipes.unit_id = units_of_measure.unit_id " + 
+						"JOIN units_of_measure ON recipes.yield_unit_id = units_of_measure.unit_id " + 
 						"WHERE recipe_id = ?;";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, recipeId);
 		
 		while (results.next()) {
-			 theRecipe = mapRowToPublicRecipe(results);
+			 theRecipe = mapRowToRecipe(results);
 		}
 		return theRecipe;
+	}
+	
+	public boolean findIsFavorite(String username, Long recipeId) {
+		boolean isFavorite = false;
+		String sql = "SELECT is_favorite FROM user_recipes WHERE username = ? AND recipe_id = ?";
+		
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username, recipeId);
+		if (results.next()) {
+			isFavorite = results.getBoolean("is_favorite");
+		}
+		return isFavorite;
 	}
 	
 	@Override
 	public List<Recipe> findRecipeByKeyword(String keyword) {
 		List<Recipe> recipes = new ArrayList<>();
-		String sql = "SELECT recipe_id, name, description, yield, unit_id, duration, recipe_method, is_public " + 
+		String sql = "SELECT recipe_id, recipe_name, description, yield_amount, unit_name, duration, recipe_method, is_public " + 
 						"FROM recipes " +
+						"JOIN units_of_measure ON recipes.yield_unit_id = units_of_measure.unit_id " + 
 						"WHERE name LIKE CONCAT('%',?,'%')";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, keyword);
 		while (results.next()) {
-			Recipe recipe = mapRowToPublicRecipe(results);
+			Recipe recipe = mapRowToRecipe(results);
 			recipes.add(recipe);
 		}
 		return recipes;
@@ -213,7 +222,7 @@ public class RecipeSqlDAO implements RecipeDAO {
 		while (results.next()) {
 			Ingredient ingredient = new Ingredient();
 			ingredient.setIngredientId(results.getLong("ingredient_id"));
-			ingredient.setIngredient(results.getString("ingredient_name"));
+			ingredient.setIngredientName(results.getString("ingredient_name"));
 			ingredients.add(ingredient);
 		}
 		return ingredients;
@@ -243,109 +252,97 @@ public class RecipeSqlDAO implements RecipeDAO {
 	// Create Update Delete Methods
 
 	@Override
-<<<<<<< HEAD
-	public void createRecipe(Recipe recipe, List<RecipeIngredient> recipeIngredients) {
-	
-		String sql = "INSERT INTO recipes (recipe_id, name, description, yield, unit_id, duration, recipe_method, is_public) "
-					+ "VALUES (?, ?, ?, ?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?) , ?, ?, ?)";
-=======
 	public void createRecipe(RecipeDTO newRecipe, String username) {
->>>>>>> 370346684dadf9b6e7a2ba5bdc40583d615653bd
 		
-		Recipe recipe = new Recipe();
+		Recipe recipe = parseRecipeFromDTO(newRecipe);
 		recipe.setRecipeId(getNextRecipeID());
-		recipe.setName(newRecipe.getName());
-		recipe.setDescription(newRecipe.getDescription());
-		recipe.setYield(newRecipe.getYield());
-		recipe.setUnitName(newRecipe.getUnitName());
-		recipe.setDuration(newRecipe.getDuration());
-		recipe.setRecipeMethod(newRecipe.getRecipeMethod());
-		recipe.setPublic(newRecipe.isPublic());
-		
-		UserRecipe userRecipe = new UserRecipe();
-		userRecipe.setUserId(newRecipe.getUserId());
-		userRecipe.setRecipeId(newRecipe.getRecipeId());
-		userRecipe.setFavorite(newRecipe.isFavorite());
 		
 		List<RecipeIngredient> recipeIngredients = newRecipe.getIngredientList();
-		List<Type> recipeTypes = newRecipe.getTypes();
+		List<Type> recipeTypes = newRecipe.getTypeList();
 		
 	
-		String sqlRecipe = "INSERT INTO recipes (recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public) " +
-					"VALUES (?, ?, ?, ?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?) , ?, ?, ?)";
+		String sqlRecipe = "INSERT INTO recipes (recipe_id, recipe_name, description, yield_amount, yield_unit_id, duration, recipe_method, is_public, ownername) " +
+					"VALUES (?, ?, ?, ?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?), ?, ?, ?, ?)";
 		
-		jdbcTemplate.update(sqlRecipe, recipe.getRecipeId(), recipe.getName(), recipe.getDescription(), recipe.getYield(), recipe.getUnitName(),recipe.getDuration(), recipe.getRecipeMethod(), recipe.isPublic());
+		jdbcTemplate.update(sqlRecipe, recipe.getRecipeId(), recipe.getName(), recipe.getDescription(), recipe.getYieldAmount(), recipe.getYieldUnit(),recipe.getDuration(), recipe.getRecipeMethod(), recipe.isPublic(), recipe.getOwnername());
 		
-		String sqlUser = "INSERT INTO user_recipes (user_id, recipe_id, is_favorite) " +
-					"VALUES ((SELECT user_id FROM users WHERE username = ?), ?, ?)";
-		jdbcTemplate.update(sqlUser, userRecipe.getUserId(), userRecipe.isFavorite());
+		String sqlUser = "INSERT INTO user_recipes (username, recipe_id, is_favorite) " +
+					"VALUES (?, ?, ?)";
+		jdbcTemplate.update(sqlUser, username, newRecipe.isFavorite());
 		
-		for( Type recipeType : recipeTypes) {
+		for(Type recipeType : recipeTypes) {
 			String sqlTypes = "INSERT INTO recipe_types (recipe_id, type_id) " +
-					"Values(?, (SELECT type_id FROM types WHERE type = recipeType.get))";
+					"Values(?, (SELECT type_id FROM types WHERE type_name = ?))";
 			jdbcTemplate.update(sqlTypes, recipe.getRecipeId(), recipeType.getType());
 		}
-		for ( RecipeIngredient ingredient : recipeIngredients) {
+		for (RecipeIngredient ingredient : recipeIngredients) {
 			String sqlIngredients = "INSERT INTO recipe_ingredients (recipe_id, quantity, unit_id, ingredient_id) " +
 									"VALUES (?, ?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?), (SELECT ingredient_id FROM ingredients WHERE ingredient_name = ?))";
-			jdbcTemplate.update(sqlIngredients, recipe.getRecipeId(), ingredient.getQuantity(), ingredient.getUnitName(), ingredient.getIngredient());	
+			jdbcTemplate.update(sqlIngredients, recipe.getRecipeId(), ingredient.getQuantity(), ingredient.getUnitName(), ingredient.getIngredientName());	
 		}
 	}
 
-	@Override
-	public void updateRecipe(Recipe recipe, long recipeId) {
-		String sql = "UPDATE recipes SET name = ?, description = ?, yield = ?, unit_id = (SELECT unit_id FROM units_of_measure WHERE unit_name = ?), duration = ?, recipe_method = ?, is_public = ? "
-						+ "WHERE recipe_id = ?";
-		
-		jdbcTemplate.update(sql, recipe.getName(), recipe.getDescription(), recipe.getYield(), recipe.getUnitName(),recipe.getDuration(), recipe.getRecipeMethod(), recipe.isPublic());	
-	}
+//	@Override
+//	public void updateRecipe(RecipeDTO recipeDTO, long recipeId) {
+//		
+//		Recipe recipe = parseRecipeFromDTO(recipeDTO);
+//		UserRecipe userRecipe = parseUserRecipeFromDTO(recipeDTO);
+//		List<RecipeIngredient> recipeIngredients = recipeDTO.getIngredientList();
+//		List<Type> recipeTypes = recipeDTO.getTypeList();
+//
+//		String sql = "UPDATE recipes SET recipe_name = ?, description = ?, yield_amount = ?, yield_unit_id = (SELECT unit_id FROM units_of_measure WHERE unit_name = ?), duration = ?, recipe_method = ?, is_public = ?, ownername = ?"
+//						+ "WHERE recipe_id = ?";
+//		
+//		jdbcTemplate.update(sql, recipe.getName(), recipe.getDescription(), recipe.getYieldAmount(), recipe.getYieldUnit(), recipe.getDuration(), recipe.getRecipeMethod(), recipe.isPublic(), recipe.getOwnername());	
+//		
+//		String sqlUser = "INSERT INTO user_recipes (username, recipe_id, is_favorite) " +
+//				"VALUES (?, ?, ?)";
+//		jdbcTemplate.update(sqlUser, userRecipe.getUsername(), userRecipe.isFavorite());
+//		
+//		for(Type recipeType : recipeTypes) {
+//			String sqlTypes = "INSERT INTO recipe_types (recipe_id, type_id) " +
+//					"Values(?, (SELECT type_id FROM types WHERE type_name = ?))";
+//			jdbcTemplate.update(sqlTypes, recipe.getRecipeId(), recipeType.getType());
+//		}
+//		for (RecipeIngredient ingredient : recipeIngredients) {
+//			String sqlIngredients = "INSERT INTO recipe_ingredients (recipe_id, quantity, unit_id, ingredient_id) " +
+//									"VALUES (?, ?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?), (SELECT ingredient_id FROM ingredients WHERE ingredient_name = ?))";
+//			jdbcTemplate.update(sqlIngredients, recipe.getRecipeId(), ingredient.getQuantity(), ingredient.getUnitName(), ingredient.getIngredientName());	
+//		}
+//		
+//	}
 
-	@Override
-	public void deleteRecipe(long recipeId) {
-		String sql = "DELETE FROM recipes WHERE recipe_id = ?";
-		
-		jdbcTemplate.update(sql, recipeId);
-	}
-	
-	@Override
-	public void createIngredient(RecipeIngredient recipeIngredient) {
-		String ingredientSql = "INSERT INTO recipe_ingredients (quantity, unit_name, ingredient_name) " +
-				"VALUES (?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?), (SELECT ingredient_id FROM ingredients WHERE ingredient_name = ?))";
-		
-		jdbcTemplate.update(ingredientSql, recipeIngredient.getQuantity(), recipeIngredient.getUnitName(), recipeIngredient.getIngredient());
-	}
+//	@Override
+//	public void deleteRecipe(long recipeId, String username) {
+//		String sql = "DELETE FROM user_recipes WHERE recipe_id = ? AND username = ?";
+//		
+//		jdbcTemplate.update(sql, recipeId, username);
+//	}
+//	
+//	@Override
+//	public void createIngredient(Ingredient ingredient) {
+//		String ingredientSql = "INSERT INTO ingredients (ingredient_id, ingredient_name) " +
+//				"VALUES (?)";
+//		
+//		jdbcTemplate.update(ingredientSql, ingredient.getingredientName());
+//	}
 	
 	
 	
 	// Private Helper Methods
 	
-	private Recipe mapRowToUserRecipe(SqlRowSet results) {
+	private Recipe mapRowToRecipe(SqlRowSet results) {
 		Recipe recipe = new Recipe();
 		
 		recipe.setRecipeId(results.getLong("recipe_id"));
-		recipe.setName(results.getString("name"));
+		recipe.setName(results.getString("recipe_name"));
 		recipe.setDescription(results.getString("description"));
-		recipe.setYield(results.getBigDecimal("yield"));
-		recipe.setUnitName(results.getString("unit_name"));
+		recipe.setYieldAmount(results.getBigDecimal("yield_amount"));
+		recipe.setYieldUnit(results.getString("unit_name"));
 		recipe.setDuration(results.getString("duration"));
 		recipe.setRecipeMethod(results.getString("recipe_method"));
 		recipe.setPublic(results.getBoolean("is_public"));
-		recipe.setFavorite(results.getBoolean("is_favorite"));
-		
-		return recipe;
-	}
-	
-	private Recipe mapRowToPublicRecipe(SqlRowSet results) {
-		Recipe recipe = new Recipe();
-		
-		recipe.setRecipeId(results.getLong("recipe_id"));
-		recipe.setName(results.getString("name"));
-		recipe.setDescription(results.getString("description"));
-		recipe.setYield(results.getBigDecimal("yield"));
-		recipe.setUnitName(results.getString("unit_name"));
-		recipe.setDuration(results.getString("duration"));
-		recipe.setRecipeMethod(results.getString("recipe_method"));
-		recipe.setPublic(results.getBoolean("is_public"));
+		recipe.setOwnername(results.getString("ownername"));
 		
 		return recipe;
 	}
@@ -388,6 +385,21 @@ public class RecipeSqlDAO implements RecipeDAO {
 			throw new RuntimeException("Something went wrong while getting an id for the new ingredient");
 		}
 	}
-
+	
+	private Recipe parseRecipeFromDTO(RecipeDTO dto) {
+		Recipe recipe = new Recipe();
+		
+		recipe.setRecipeId(dto.getRecipeId());
+		recipe.setName(dto.getName());
+		recipe.setDescription(dto.getDescription());
+		recipe.setYieldAmount(dto.getYieldAmount());
+		recipe.setYieldUnit(dto.getYieldUnit());
+		recipe.setDuration(dto.getDuration());
+		recipe.setRecipeMethod(dto.getRecipeMethod());
+		recipe.setPublic(dto.isPublic());
+		recipe.setOwnername(dto.getOwnername());
+		
+		return recipe;
+	}
 	
 }
