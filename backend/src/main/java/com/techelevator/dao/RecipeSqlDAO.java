@@ -145,7 +145,7 @@ public class RecipeSqlDAO implements RecipeDAO {
 		List<Recipe> recipes = new ArrayList<>();
 		String sql = "SELECT recipe_id, name, description, yield, unit_id, duration, recipe_method, is_public " + 
 						"FROM recipes " +
-						"WHERE name LIKE %||:?||%";
+						"WHERE name LIKE CONCAT('%',?,'%')";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, keyword);
 		while (results.next()) {
