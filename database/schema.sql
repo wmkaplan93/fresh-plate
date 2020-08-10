@@ -48,7 +48,9 @@ CREATE TABLE recipes (
         duration        varchar(100) NOT NULL,
         recipe_method   varchar NOT NULL,
         is_public       boolean NOT NULL,
-        CONSTRAINT fk_unit_id FOREIGN KEY (unit_id) REFERENCES units_of_measure(unit_id)
+        ownername       varchar NOT NULL,
+        CONSTRAINT fk_unit_id FOREIGN KEY (unit_id) REFERENCES units_of_measure(unit_id),
+        CONSTRAINT fk_ownername FOREIGN KEY (ownername) REFERECES users (username)
 );
 
 CREATE TABLE recipe_types (
@@ -70,10 +72,10 @@ CREATE TABLE recipe_ingredients (
 );
 
 CREATE TABLE user_recipes (
-        user_id         int NOT NULL,
+        username        varchar
         recipe_id       int NOT NULL,
         is_favorite     boolean NOT NULL,
-        CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id),
+        CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES users(username),
         CONSTRAINT fk_recipe_id FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id)
 );
 

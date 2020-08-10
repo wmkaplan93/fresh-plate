@@ -38,7 +38,8 @@ public class RecipeDTO {
 	
 	private long userId;
 	
-	@NotEmpty
+	private long ownerId;
+	
 	private boolean isFavorite;
 	
 	
@@ -143,6 +144,16 @@ public class RecipeDTO {
 	public void setUserId(long userId) {
 		this.userId = userId;
 	}
+
+	public long getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(long ownerId) {
+		this.ownerId = ownerId;
+	}
+	
+	
 
 
 	
