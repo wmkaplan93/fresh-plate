@@ -145,9 +145,18 @@ public class RecipeSqlDAO implements RecipeDAO {
 	}
 	
 	@Override
-	public Recipe findRecipeByKeyword(String keyword) {
+	public List<Recipe> findRecipeByKeyword(String keyword) {
+		List<Recipe> recipes = new ArrayList<>();
+		String sql = "SELECT recipe_id, name, description, yield, unit_id, duration, recipe_method, is_public " + 
+						"FROM recipes " +
+						"WHERE name LIKE %||:?||%";
 		
-		return null;
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, keyword);
+		while (results.next()) {
+			Recipe recipe = mapRowToPublicRecipe(results);
+			recipes.add(recipe);
+		}
+		return recipes;
 	}
 	
 	@Override
@@ -234,7 +243,14 @@ public class RecipeSqlDAO implements RecipeDAO {
 	// Create Update Delete Methods
 
 	@Override
+<<<<<<< HEAD
 	public void createRecipe(RecipeDTO newRecipe, String username) {
+=======
+	public void createRecipe(Recipe recipe, List<RecipeIngredient> recipeIngredients) {
+	
+		String sql = "INSERT INTO recipes (recipe_id, name, description, yield, unit_id, duration, recipe_method, is_public) "
+					+ "VALUES (?, ?, ?, ?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?) , ?, ?, ?)";
+>>>>>>> ce8d018fcecb86c1ef4ef7505946d551d358c362
 		
 		Recipe recipe = new Recipe();
 		recipe.setRecipeId(getNextRecipeID());
