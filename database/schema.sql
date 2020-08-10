@@ -35,21 +35,21 @@ CREATE TABLE units_of_measure (
 );
 
 CREATE TABLE types (
-        type_id  serial CONSTRAINT pk_recipe_type_id PRIMARY KEY,
-        type     varchar(100) NOT NULL UNIQUE
+        type_id         serial CONSTRAINT pk_recipe_type_id PRIMARY KEY,
+        type_name       varchar(100) NOT NULL UNIQUE
 );
 
 CREATE TABLE recipes (
         recipe_id       serial CONSTRAINT pk_recipe_id PRIMARY KEY,
-        name            varchar(200) NOT NULL,
+        recipe_name     varchar(200) NOT NULL,
         description     varchar(500),
-        yield           int NOT NULL,
-        unit_id         int NOT NULL,
+        yield_amount    int NOT NULL,
+        yield_unit_id   int NOT NULL,
         duration        varchar(100) NOT NULL,
         recipe_method   varchar NOT NULL,
         is_public       boolean NOT NULL,
         ownername       varchar NOT NULL,
-        CONSTRAINT fk_unit_id FOREIGN KEY (unit_id) REFERENCES units_of_measure(unit_id),
+        CONSTRAINT fk_yield_unit_id FOREIGN KEY (yield_unit_id) REFERENCES units_of_measure(unit_id),
         CONSTRAINT fk_ownername FOREIGN KEY (ownername) REFERENCES users (username)
 );
 
