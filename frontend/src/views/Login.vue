@@ -4,11 +4,11 @@
     <form class="form-signin" @submit.prevent="login">
       <h1 id="fresh-plate">Fresh&nbsp;Plate</h1>
       <h2 class="h3 mb-3 font-weight-normal">Please&nbsp;Sign&nbsp;In:</h2>
-      <div
+      <!-- <div
         class="alert alert-danger"
         role="alert"
         v-if="invalidCredentials"
-      >Invalid username and password!</div>
+      >Invalid username and password!</div> -->
       <div
         class="alert alert-success"
         role="alert"
@@ -77,6 +77,7 @@ export default {
 
           if (response.status === 401) {
             this.invalidCredentials = true;
+            alert('Invalid username and/or password. Please try again, or hit "Forgot My Password"');
           }
         });
     }
