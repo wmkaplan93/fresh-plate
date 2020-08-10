@@ -242,54 +242,54 @@ public class RecipeSqlDAO implements RecipeDAO {
 	
 	// Create Update Delete Methods
 
-	@Override
-<<<<<<< HEAD
-	public void createRecipe(RecipeDTO newRecipe, String username) {
-=======
+//	@Override
+
+//	public void createRecipe(RecipeDTO newRecipe, String username) {
+
 	public void createRecipe(Recipe recipe, List<RecipeIngredient> recipeIngredients) {
-	
-		String sql = "INSERT INTO recipes (recipe_id, name, description, yield, unit_id, duration, recipe_method, is_public) "
-					+ "VALUES (?, ?, ?, ?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?) , ?, ?, ?)";
->>>>>>> ce8d018fcecb86c1ef4ef7505946d551d358c362
+//	
+//		String sql = "INSERT INTO recipes (recipe_id, name, description, yield, unit_id, duration, recipe_method, is_public) "
+//					+ "VALUES (?, ?, ?, ?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?) , ?, ?, ?)";
+
 		
-		Recipe recipe = new Recipe();
-		recipe.setRecipeId(getNextRecipeID());
-		recipe.setName(newRecipe.getName());
-		recipe.setDescription(newRecipe.getDescription());
-		recipe.setYield(newRecipe.getYield());
-		recipe.setUnitName(newRecipe.getUnitName());
-		recipe.setDuration(newRecipe.getDuration());
-		recipe.setRecipeMethod(newRecipe.getRecipeMethod());
-		recipe.setPublic(newRecipe.isPublic());
+//		Recipe recipe = new Recipe();
+//		recipe.setRecipeId(getNextRecipeID());
+//		recipe.setName(newRecipe.getName());
+//		recipe.setDescription(newRecipe.getDescription());
+//		recipe.setYield(newRecipe.getYield());
+//		recipe.setUnitName(newRecipe.getUnitName());
+//		recipe.setDuration(newRecipe.getDuration());
+//		recipe.setRecipeMethod(newRecipe.getRecipeMethod());
+//		recipe.setPublic(newRecipe.isPublic());
+//		
+//		UserRecipe userRecipe = new UserRecipe();
+//		userRecipe.setUserId(newRecipe.getUserId());
+//		userRecipe.setRecipeId(newRecipe.getRecipeId());
+//		userRecipe.setFavorite(newRecipe.isFavorite());
+//		
+//		List<RecipeIngredient> recipeIngredients = newRecipe.getIngredientList();
+//		List<Type> recipeTypes = newRecipe.getTypes();
 		
-		UserRecipe userRecipe = new UserRecipe();
-		userRecipe.setUserId(newRecipe.getUserId());
-		userRecipe.setRecipeId(newRecipe.getRecipeId());
-		userRecipe.setFavorite(newRecipe.isFavorite());
-		
-		List<RecipeIngredient> recipeIngredients = newRecipe.getIngredientList();
-		List<Type> recipeTypes = newRecipe.getTypes();
-		
-	
-		String sqlRecipe = "INSERT INTO recipes (recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public) " +
-					"VALUES (?, ?, ?, ?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?) , ?, ?, ?)";
-		
-		jdbcTemplate.update(sqlRecipe, recipe.getRecipeId(), recipe.getName(), recipe.getDescription(), recipe.getYield(), recipe.getUnitName(),recipe.getDuration(), recipe.getRecipeMethod(), recipe.isPublic());
-		
-		String sqlUser = "INSERT INTO user_recipes (user_id, recipe_id, is_favorite) " +
-					"VALUES ((SELECT user_id FROM users WHERE username = ?), ?, ?)";
-		jdbcTemplate.update(sqlUser, userRecipe.getUserId(), userRecipe.isFavorite());
-		
-		for( Type recipeType : recipeTypes) {
-			String sqlTypes = "INSERT INTO recipe_types (recipe_id, type_id) " +
-					"Values(?, (SELECT type_id FROM types WHERE type = recipeType.get))";
-			jdbcTemplate.update(sqlTypes, recipe.getRecipeId(), recipeType.getType());
-		}
-		for ( RecipeIngredient ingredient : recipeIngredients) {
-			String sqlIngredients = "INSERT INTO recipe_ingredients (recipe_id, quantity, unit_id, ingredient_id) " +
-									"VALUES (?, ?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?), (SELECT ingredient_id FROM ingredients WHERE ingredient_name = ?))";
-			jdbcTemplate.update(sqlIngredients, recipe.getRecipeId(), ingredient.getQuantity(), ingredient.getUnitName(), ingredient.getIngredient());	
-		}
+//	
+//		String sqlRecipe = "INSERT INTO recipes (recipe_id, name, description, yield, unit_name, duration, recipe_method, is_public) " +
+//					"VALUES (?, ?, ?, ?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?) , ?, ?, ?)";
+//		
+//		jdbcTemplate.update(sqlRecipe, recipe.getRecipeId(), recipe.getName(), recipe.getDescription(), recipe.getYield(), recipe.getUnitName(),recipe.getDuration(), recipe.getRecipeMethod(), recipe.isPublic());
+//		
+//		String sqlUser = "INSERT INTO user_recipes (user_id, recipe_id, is_favorite) " +
+//					"VALUES ((SELECT user_id FROM users WHERE username = ?), ?, ?)";
+//		jdbcTemplate.update(sqlUser, userRecipe.getUserId(), userRecipe.isFavorite());
+//		
+//		for( Type recipeType : recipeTypes) {
+//			String sqlTypes = "INSERT INTO recipe_types (recipe_id, type_id) " +
+//					"Values(?, (SELECT type_id FROM types WHERE type = recipeType.get))";
+//			jdbcTemplate.update(sqlTypes, recipe.getRecipeId(), recipeType.getType());
+//		}
+//		for ( RecipeIngredient ingredient : recipeIngredients) {
+//			String sqlIngredients = "INSERT INTO recipe_ingredients (recipe_id, quantity, unit_id, ingredient_id) " +
+//									"VALUES (?, ?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?), (SELECT ingredient_id FROM ingredients WHERE ingredient_name = ?))";
+//			jdbcTemplate.update(sqlIngredients, recipe.getRecipeId(), ingredient.getQuantity(), ingredient.getUnitName(), ingredient.getIngredient());	
+//		}
 	}
 
 	@Override
@@ -387,6 +387,14 @@ public class RecipeSqlDAO implements RecipeDAO {
 		else {
 			throw new RuntimeException("Something went wrong while getting an id for the new ingredient");
 		}
+	}
+
+
+
+	@Override
+	public void createRecipe(RecipeDTO newRecipe, String username) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	
