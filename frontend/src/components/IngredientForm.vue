@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <button class="btn" type="button" id="ingredient-btn" v-on:click.prevent="addNewIngredientForm">Add Ingredient</button>
+        <button class="btn" type="button" id="ingredient-btn" v-on:click.prevent="addNewIngredientForm">Add Ingredient to Recipe</button>
         <div class="ingredient-card"
             v-for="ingredient in ingredients" v-bind:key="ingredient.ingredientName">
             <div class="card-body">
@@ -31,7 +31,9 @@
 
                     <label id="ingredient-label" for="ingredient">Ingredient: </label>
                     <input type="text" id="ingredient" class="form-control" v-model="ingredient.ingredientName" />
-
+                   
+                  
+                   
                  
 
                 </div>
@@ -44,19 +46,31 @@
 
 
 <script>
+import RecipeService from '../services/RecipeService';
 export default {
     data() {
         return {
             ingredients: [
                 {
                     quantity: '',
-                    unit: '',
+                    ingredientUnit: '',
                     ingredientName: ''
                 },
-            ]
+            ],
+            ingredientList: []
         }
     },
+    created() {
+        this.retrieveIngredients();
+    },
+    
     methods: {
+        retrieveIngredients() {
+            RecipeService.getFormProperties().then(response => {
+                this.$store.commit("SET_INGREDIENTS", response.data)
+            })
+        },
+        
         addNewIngredientForm() {
             this.ingredients.push ({
                 quantity: '',
@@ -73,6 +87,7 @@ export default {
 #ingredient-btn {
     color: rgb(211, 208, 208);
     background-color: rgb(2, 87, 2);
+    width: max-content;
 }
 
 label {

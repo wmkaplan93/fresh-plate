@@ -10,7 +10,7 @@
             <input type="text" id="description" class="form-control" v-model="description" /> 
         </div>    
         <div class="type-dropdown">
-         <!--   <p>Recipe Type: </p>
+            <p>Recipe Type: </p>
             <label class="type-options" for="option1">
             <input type="checkbox" id="option1" value="breakfast" v-model="recipeType"><span>breakfast</span>
             </label>
@@ -31,9 +31,10 @@
              </label>
              <label class="type-options" for="option7">
              <input type="checkbox" id="option7" value="dessert" v-model="recipeType"><span>dessert</span>
-             </label> -->
+             </label>
+
             <label id="type-label" for="recipe-type">Recipe Type: </label>
-            <select name="basic-dropdown" id="recipe-type" multiple v-model="type">
+            <select name="basic-dropdown" id="recipe-type" multiple v-model="typeList">
                     <option>breakfast</option>
                     <option>lunch</option>
                     <option>dinner</option>
@@ -45,8 +46,9 @@
         </div>
         <div class="form-group">
             <label id="yield-label" for="servings">Servings: </label>
-            <input type="text" id="servings" class="form-control" v-model="servings" />
+            <input type="text" id="servings" class="form-control" v-model="yieldAmount" />
         </div>
+
         <div class="form-group">
             <label id="time-label" for="duration">Total Time: </label>
             <input type="text" id="duration" class="form-control" v-model="duration" />
@@ -63,7 +65,7 @@
         </div>    
         <div class="form-group">
             <label id="instructions-label" for="instructions">Instructions:  </label>
-            <textarea id="instructions" class="form-control" v-model="instructions" />
+            <textarea id="instructions" class="form-control" v-model="recipeMethod" />
            
         </div>
         <button type="submit">Submit</button>
@@ -75,7 +77,7 @@
 
 <script>
 
-import recipeService from "../services/RecipeService";
+import recipesService from "../services/RecipeService";
 import IngredientForm from "../components/IngredientForm";
 
 export default {
@@ -86,12 +88,18 @@ export default {
     
     data() {
         return {
+            username: '',
+            ownername: '',
             name: '',
             description: '',
-            type: [],
-            servings: '',
+            typeList: [],
+            yieldAmount: '',
+            yieldUnit: '',
             duration: '',
-            instructions: ''
+            recipeMethod: '',
+            isPublic: false,
+            isFavorite: false,
+            ingredientList: []
             
         };
     },
@@ -106,18 +114,18 @@ export default {
         
         submit() {
             const newRecipe = {
-                userId: Number(this.$route.params.userId),
+                username: Number(this.$route.params.username),
                 name: this.recipe.name,
                 description: this.recipe.description,
                 type: this.recipe.type, /* return an array */
-                servings: this.recipe.servings,
+                yield: this.recipe.yield,
                 duration: this.recipe.duration,
                 instructions: this.recipe.instructions,
-                ingredients: this.newIngredient,
+                 
             };
         
             
-                recipeService
+                recipesService
                 .addRecipe(newRecipe)
                 .then(response => {
                     if (response.status === 201) {
@@ -131,20 +139,14 @@ export default {
         },
 
         getFormObjects() {
-            recipeService
+            recipesService
             .getFormProperties().then((response) => {
                 this.recipeTypes = response.data.types.type;
                 this.units = response.data.units.unitName;
                 this.ingredients = response.data.ingredients.ingredient
             })
         },
-        filters: {
-            extract: function (value, keyToExtract) {
-            return value.map(function (item) {
-                return item[keyToExtract]
-                })
-            }
-        } 
+        
     }   
 }
 </script>
