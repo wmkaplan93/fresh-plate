@@ -12,7 +12,7 @@ CREATE SEQUENCE seq_user_id
 
 CREATE TABLE users (
 	user_id int DEFAULT nextval('seq_user_id'::regclass) NOT NULL,
-	username varchar(50) NOT NULL,
+	username varchar(50) NOT NULL UNIQUE,
 	password_hash varchar(200) NOT NULL,
 	role varchar(50) NOT NULL,
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
@@ -26,17 +26,17 @@ INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpUL
 
 CREATE TABLE ingredients (
         ingredient_id    serial CONSTRAINT pk_ingredient_id PRIMARY KEY,
-        ingredient_name  varchar(100) NOT NULL
+        ingredient_name  varchar(100) NOT NULL UNIQUE
 );
 
 CREATE TABLE units_of_measure (
         unit_id         serial CONSTRAINT pk_unit_of_measure PRIMARY KEY,
-        unit_name       varchar(50) NOT NULL
+        unit_name       varchar(50) NOT NULL UNIQUE
 );
 
 CREATE TABLE types (
         type_id  serial CONSTRAINT pk_recipe_type_id PRIMARY KEY,
-        type     varchar(100) NOT NULL
+        type     varchar(100) NOT NULL UNIQUE
 );
 
 CREATE TABLE recipes (
@@ -50,7 +50,7 @@ CREATE TABLE recipes (
         is_public       boolean NOT NULL,
         ownername       varchar NOT NULL,
         CONSTRAINT fk_unit_id FOREIGN KEY (unit_id) REFERENCES units_of_measure(unit_id),
-        CONSTRAINT fk_ownername FOREIGN KEY (ownername) REFERECES users (username)
+        CONSTRAINT fk_ownername FOREIGN KEY (ownername) REFERENCES users (username)
 );
 
 CREATE TABLE recipe_types (
@@ -72,15 +72,27 @@ CREATE TABLE recipe_ingredients (
 );
 
 CREATE TABLE user_recipes (
-        username        varchar
+        username        varchar NOT NULL,
         recipe_id       int NOT NULL,
         is_favorite     boolean NOT NULL,
         CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES users(username),
         CONSTRAINT fk_recipe_id FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id)
 );
 
-ALTER TABLE ingredients ADD CONSTRAINT unique_ingredient UNIQUE (ingredient_name);
-ALTER TABLE types ADD CONSTRAINT unique_type UNIQUE (type);
-ALTER TABLE units_of_measure ADD CONSTRAINT unique_units UNIQUE (unit_name);
+CREATE TABLE meal_plans(
+        plan_id                 serial CONSTRAINT pk_plan_id PRIMARY KEY,
+        username                varchar NOT NULL,
+        plan_name               varchar(100) NOT NULL,
+        plan_description        varchar(500) NOT NULL,
+        CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES users (username)
+);
+
+CREATE TABLE plan_recipes(
+        plan_id         int NOT NULL,
+        recipe_id       int NOT NULL,
+        CONSTRAINT fk_plan_id FOREIGN KEY (plan_id) REFERENCES meal_plans (plan_id),
+        CONSTRAINT fk_recipe_id FOREIGN KEY (recipe_id) REFERENCES recipes (recipe_id)
+);
+
 
 COMMIT TRANSACTION;
