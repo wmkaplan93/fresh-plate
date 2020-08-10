@@ -62,3 +62,12 @@ JOIN user_recipes ON recipes.recipe_id = user_recipes.recipe_id
 JOIN users ON user_recipes.user_id = users.user_id
 WHERE type = ?
 AND username = ?;
+
+/* inserts new recipe into recipe table */
+        
+INSERT INTO recipes (recipe_id, name, description, yield, unit_id, duration, recipe_method, is_public)
+        VALUES (?, ?, ?, ?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?), ?, ?, ?);
+
+/* inserts one ingredient into recipe_ingredients table */        
+INSERT INTO recipe_ingredients (recipe_id, quantity, unit_id, ingredient_id)
+        VALUES (?, ?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?), (SELECT ingredient_id FROM ingredients WHERE ingredient_name = ?));
