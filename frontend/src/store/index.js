@@ -11,6 +11,7 @@ Vue.use(Vuex)
  */
 const currentToken = localStorage.getItem('token')
 const currentUser = JSON.parse(localStorage.getItem('user'));
+const allRecipes = JSON.parse(localStorage.getItem('recipe'));
 
 if(currentToken != null) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${currentToken}`;
@@ -32,6 +33,16 @@ export default new Vuex.Store({
       servings: '',
       duration: '',
       instructions: ''
+    },  
+    recipeList: allRecipes || [],
+    recipe: {
+      recipeId: 0,
+      name: '',
+      description: '',
+      yield: 0,
+      unitId: 0,
+      duration: '',
+      recipeMethod: '',
     }
   },
   mutations: {
@@ -56,6 +67,9 @@ export default new Vuex.Store({
     },
     SET_RECIPE_CARD(state, data) {
       state.recipeCard = data;
+    },  
+    GET_RECIPES(state, data) {
+      state.allRecipes = data;
     }
   }
 })
