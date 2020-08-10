@@ -60,4 +60,11 @@ footer {
   font-family: 'Allan';
   margin: .5vh 1vw 0vw 1vw;
 }
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 </style>
