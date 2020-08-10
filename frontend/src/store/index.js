@@ -19,7 +19,20 @@ if(currentToken != null) {
 export default new Vuex.Store({
   state: {
     token: currentToken || '',
-    user: currentUser || {}
+    user: currentUser || {},
+    propArray: {
+      types: [],
+      ingredients: [],
+      units: []
+    },
+    recipeCard: {
+      name: '',
+      description: '',
+      type: [],
+      servings: '',
+      duration: '',
+      instructions: ''
+    }
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -37,6 +50,12 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
+    },
+    SET_INGREDIENTS(state, data) {
+      state.propArray.ingredients = data;
+    },
+    SET_RECIPE_CARD(state, data) {
+      state.recipeCard = data;
     }
   }
 })
