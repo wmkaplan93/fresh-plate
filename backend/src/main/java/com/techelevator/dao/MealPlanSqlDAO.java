@@ -86,7 +86,7 @@ public class MealPlanSqlDAO implements MealPlanDAO {
 
 	@Override
 	public List<MealPlan> findPlansByKeyword(String nameKeyword) {
-		List<MealPlan> mealPlans = null;
+		List<MealPlan> mealPlans = new ArrayList<MealPlan>();
 		
 		String sql = "SELECT * FROM meal_plans " +
 						"WHERE plan_name LIKE CONCAT('%',?,'%')\"";
@@ -102,12 +102,12 @@ public class MealPlanSqlDAO implements MealPlanDAO {
 	
 	@Override
 	public List<Recipe> findAllRecipesByMealPlanId(long plan_id) {
-		List<Recipe> recipeList = null;
+		List<Recipe> recipeList = new ArrayList<Recipe>();
 		String sql = "SELECT recipes.recipe_id, recipe_name, description, yield_amount, unit_name, duration, recipe_method, is_public, ownername " + 
 				"FROM recipes " + 
 				"JOIN units_of_measure ON recipes.yield_unit_id = units_of_measure.unit_id " + 
 				"JOIN plan_recipes ON recipes.recipe_id = plan_recipes.recipe_id " + 
-				"WHERE plan_id = ?;";
+				"WHERE plan_id = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, plan_id);
 		while (results.next()) {
 			recipeList.add(mapRowToRecipe(results));
@@ -115,8 +115,9 @@ public class MealPlanSqlDAO implements MealPlanDAO {
 		return recipeList;
 	}
 	
+	@Override
 	public List<RecipeIngredient> getGroceryListByPlanId(long plan_id) {
-		List<RecipeIngredient> ingredientList = null;
+		List<RecipeIngredient> ingredientList = new ArrayList<RecipeIngredient>();
 		String sql = "SELECT quantity, unit_name, ingredient_name " + 
 				"FROM recipe_ingredients " + 
 				"JOIN units_of_measure ON recipe_ingredients.unit_id = units_of_measure.unit_id " + 
@@ -137,7 +138,7 @@ public class MealPlanSqlDAO implements MealPlanDAO {
 		MealPlan plan = new MealPlan();
 		
 		plan.setPlan_id(results.getLong("plan_id"));
-		plan.setUsername(results.getNString("username"));
+		plan.setUsername(results.getString("username"));
 		plan.setPlan_name(results.getString("plan_name"));
 		plan.setPlan_description(results.getString("plan_description"));
 		

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.techelevator.model.MealPlan;
 import com.techelevator.model.Recipe;
+import com.techelevator.model.RecipeIngredient;
 
 public interface MealPlanDAO {
 
@@ -20,6 +21,8 @@ public interface MealPlanDAO {
 		List<MealPlan> viewAllPlans(String username);
 		
 		List<MealPlan> findPlansByKeyword(String nameKeyword);
+		
+		List<RecipeIngredient> getGroceryListByPlanId(long plan_id);
 		
 		MealPlan findPlanById(long plan_id);
 		
