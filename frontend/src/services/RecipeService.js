@@ -15,5 +15,13 @@ export default {
 
   getRecipes() {
     return http.get('/exploreRecipes');
+  },
+
+  addToLibrary(recipe) {
+    return http.post(`/exploreRecipes/${recipe.recipeId}`, recipe)
+  },
+
+  getUserRecipes(username) {
+    return http.get(`/user/${username}/myRecipes`)
   }
 }

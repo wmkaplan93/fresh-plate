@@ -13,6 +13,7 @@ const currentToken = localStorage.getItem('token')
 const currentUser = JSON.parse(localStorage.getItem('user'));
 const allRecipes = JSON.parse(localStorage.getItem('recipe'));
 const allIngredients = JSON.parse(localStorage.getItem('ingredient'));
+const userRecipes = JSON.parse(localStorage.getItem('recipe'));
 
 
 if(currentToken != null) {
@@ -32,6 +33,7 @@ export default new Vuex.Store({
     },
    
     recipeList: allRecipes || [],
+    userRecipes: userRecipes || [],
     recipe: {
       
       username: '',
@@ -73,6 +75,9 @@ export default new Vuex.Store({
     },  
     GET_PUBLIC_RECIPES(state, data) {
       state.allRecipes = data;
+    },
+    GET_USER_RECIPES(state, data) {
+      state.userRecipes = data;
     }
   }
 })

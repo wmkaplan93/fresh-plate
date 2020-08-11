@@ -158,6 +158,7 @@ button, input{
   width: 17vw;
   height: 3vh;
   font-size: 2vh;
+  background-color: rgba(255, 255, 255, .6);
 }
 
 #password {
@@ -167,6 +168,7 @@ button, input{
   width: 17vw;
   height: 3vh;
   font-size: 2vh;
+  background-color: rgba(255, 255, 255, .6);
 }
 
 #confirmPassword {
@@ -176,12 +178,14 @@ button, input{
   width: 17vw;
   height: 3vh;
   font-size: 2vh;
+  background-color: rgba(255, 255, 255, .6);
 }
 
 .btn {
   grid-column-start: 4;
   grid-row-start: 6;
   justify-self: start;
+  background-color: rgba(255, 255, 255, .6);
 }
 
 #have-account, #have-account button {
@@ -191,5 +195,7 @@ button, input{
   font-size: 2vh;
   height: 3vh;
   width: 12vw;
+  background-color: rgba(255, 255, 255, .6);
+  color: black;
 }
 </style>

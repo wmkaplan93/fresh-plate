@@ -93,4 +93,8 @@ h1 {
     font-family: 'Allan';
     align-items: center;
 }
+
+a {
+    color: black;
+}
 </style>

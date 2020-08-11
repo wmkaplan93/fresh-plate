@@ -34,24 +34,24 @@
                             </v-list>
                         </v-menu>
                         <v-divider></v-divider>
-                        <v-tooltip bottom>
+                        <!-- <v-tooltip bottom>
                             <template v-slot:activator="{ on, attrs }">
                                 <v-btn 
                                 icon 
                                 v-on="on" 
                                 v-bind="attrs"
-                                @click="favorite = !favorite"
-                                ><v-icon medium center>{{ favorite ? 'favorite' : 'favorite_border'}}</v-icon>
+                                @click="recipe.isFavorite = !recipe.isFavorite; 
+                                        addToLibrary(recipe)">
+                                    <v-icon medium center>{{ recipe.isFavorite ? 'remove_circle_outline' : 'add_circle_outline'}}</v-icon>
                                 </v-btn>
                             </template>
-                            <span>{{favorite ? "Remove from My Recipes" : "Add to My Recipes"}}</span>
+                            <span>{{recipe.isFavorite ? "Remove from My Recipes" : "Add to My Recipes"}}</span>
                         </v-tooltip>
-                        <v-divider></v-divider>
+                        <v-divider></v-divider> -->
                         <v-tooltip bottom>
                             <template v-slot:activator="{ on, attrs }">
                                 <v-btn 
                                 icon 
-                                color="blue" 
                                 v-on="on" 
                                 v-bind="attrs"
                                 @click="recipe.show = !recipe.show"
@@ -87,11 +87,11 @@ import recipeService from "../services/RecipeService";
 
 export default {
     name: "explore-recipes-content",
+    components: {
+    },
     data() {
         return {
             showRecipes: [],
-            selectedindex: null,
-            favorite: false,
             items: [
                 { title: 'Sunday Splurge' },
                 { title: 'Rabbit Food' },
@@ -120,9 +120,13 @@ export default {
         addShow() {
             this.showRecipes = this.$store.state.allRecipes.map(recipe => ({
                 ...recipe,
-                show: false
+                show: false,
+                username: this.$store.state.user.username
             }))
-        }
+        },
+        // addTolibrary(recipe) {
+        //     recipeService.addToLibrary(recipe)
+        // }
     }
 }
 </script>
@@ -140,7 +144,6 @@ export default {
     justify-content: center;
     width: 65vw;
     background: rgba(170,12,7,0.1);
-    align-items: center;
 }
 
 .recipe {
