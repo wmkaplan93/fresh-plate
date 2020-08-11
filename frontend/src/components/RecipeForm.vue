@@ -139,13 +139,13 @@ export default {
             this.recipeMethod.push ('')
         },
         
-        addIngredient() {
-            const newIngredient = {
-                quantity: this.quantity,
-                unitOfMeasure: this.unitOfMeasure,
-                ingredient: this.ingredient,
-            }
-        },
+        // addIngredient() {
+        //     const newIngredient = {
+        //         quantity: this.quantity,
+        //         unitOfMeasure: this.unitOfMeasure,
+        //         ingredient: this.ingredient,
+        //     }
+        // },
         
         addNewRecipe() {
             const newRecipe = {
