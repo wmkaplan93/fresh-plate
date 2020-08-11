@@ -79,7 +79,7 @@ public class AuthenticationController {
     }
     
     @RequestMapping(value= "/resetPassword/{username}", method = RequestMethod.POST)
-    public boolean compareAnswer(@RequestBody String username, String answer) {
+    public boolean compareAnswer(@RequestBody @PathVariable String username, String answer) {
     	return userDAO.compareAnswer(username, answer);
     }
     

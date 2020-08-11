@@ -92,9 +92,9 @@ public class UserSqlDAO implements UserDAO {
     @Override
 	public SecurityQuestion getSecurityQuestion(String username) {
     	SecurityQuestion securityQuestion = null;
-		String sql = "SELECT security_questions FROM users "
-					+ "JOIN security_questions ON users.security_question_id = security_questions.security_questions_id "
-					+ "WHERE users.username = ?";
+		String sql = "SELECT security_questions.security_questions FROM security_questions " + 
+						"JOIN users ON security_questions.security_question_id = users.security_question_id " + 
+						"WHERE users.username = ?";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
 		while(results.next()) {
@@ -130,7 +130,9 @@ public class UserSqlDAO implements UserDAO {
 
 	@Override
 	public void updatePassword(String username, String newPassword) {
-		
+		String password_hash = new BCryptPasswordEncoder().encode(newPassword);
+		String sql = "UPDATE users SET password_hash = ? WHERE username = ?";
+		jdbcTemplate.update(sql, password_hash, username);
 		
 	}
 
