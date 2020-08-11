@@ -44,7 +44,7 @@
           Create Account
         </button>
         <br> <br>
-        <router-link id="have-account" :to="{ name: 'login' }">Have an account?</router-link>
+        <router-link id="have-account" :to="{ name: 'login' }"><button id="have-account-btn">Have an account?</button></router-link>
       </div>
     </form>
   </div>
@@ -71,7 +71,9 @@ export default {
     register() {
       if (this.user.password != this.user.confirmPassword) {
         this.registrationErrors = true;
-        this.registrationErrorMsg = 'Password & Confirm Password do not match.';
+        alert('Password & Confirm Password do not match.');
+        this.user.password = '';
+        this.user.confirmPassword = '';
       } else {
         authService
           .register(this.user)
@@ -105,7 +107,7 @@ export default {
   font-family:"Lora";
   display: grid;
   grid-template-columns: 44% 19% 2% 35%;
-  grid-template-rows: 30% 15% 8% 8% 8% 5% 26%;
+  grid-template-rows: 30% 15% 8% 8% 8% 8% 21%;
   height: 90vh;
 }
 
@@ -182,10 +184,12 @@ button, input{
   justify-self: start;
 }
 
-#have-account {
+#have-account, #have-account button {
   grid-column-start: 4;
   grid-row-start: 7;
   justify-self: start;
   font-size: 2vh;
+  height: 3vh;
+  width: 12vw;
 }
 </style>

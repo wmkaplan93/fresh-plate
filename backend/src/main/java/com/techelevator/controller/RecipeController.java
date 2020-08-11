@@ -38,42 +38,42 @@ public class RecipeController {
 	
 	// Get Methods
 	
-	@RequestMapping(path = "users/{username}/myrecipes/{recipeId}", method = RequestMethod.GET)
+	@RequestMapping(path = "users/{username}/myRecipes/{recipeId}", method = RequestMethod.GET)
 	public List<RecipeIngredient> getRecipeIngredientsById(@PathVariable Long recipeId) {
 		return recipeDAO.findIngredientsByRecipeId(recipeId);
 	}
 	
-	@RequestMapping(path = "users/{username}/myrecipes", method = RequestMethod.GET)
+	@RequestMapping(path = "users/{username}/myRecipes", method = RequestMethod.GET)
 	public List<Recipe> getRecipeByUsername(@PathVariable String username) {
 		return recipeDAO.findRecipesByUser(username);
 	}
 	
-	@RequestMapping(path = "users/{username}/myrecipes/types/{type}", method = RequestMethod.GET)
+	@RequestMapping(path = "users/{username}/myRecipes/types/{type}", method = RequestMethod.GET)
 	public List<Recipe> getRecipeByUsernameAndType(@PathVariable String type, @PathVariable String username) {
 		return recipeDAO.findRecipesByTypeAndUser(type, username);
 	}
 	
-	@RequestMapping(path = "explorerecipes", method = RequestMethod.GET)
+	@RequestMapping(path = "exploreRecipes", method = RequestMethod.GET)
 	public List<Recipe> getAllPublicRecipes() {
 		return recipeDAO.findAllPublicRecipes();
 	}
 	
-	@RequestMapping(path = "explorerecipes/{recipeId}", method = RequestMethod.GET)
+	@RequestMapping(path = "exploreRecipes/{recipeId}", method = RequestMethod.GET)
 	public List<RecipeIngredient> getPublicRecipeIngredientsById(@PathVariable Long recipeId) {
 		return recipeDAO.findIngredientsByRecipeId(recipeId);
 	}
 	
-	@RequestMapping(path = "explorerecipes/types/{type}", method = RequestMethod.GET)
+	@RequestMapping(path = "exploreRecipes/types/{type}", method = RequestMethod.GET)
 	public List<Recipe> getPublicRecipesByType(@PathVariable String type) {
 		return recipeDAO.findPublicRecipesByType(type);
 	}
 	
-	@RequestMapping(path = "users/{username}/myrecipes/addrecipe", method = RequestMethod.POST)
+	@RequestMapping(path = "users/{username}/myrecipes/addRecipe", method = RequestMethod.POST)
 	public void addRecipe(@Valid @RequestBody RecipeDTO newRecipe, @PathVariable String username) {
 		recipeDAO.createRecipe(newRecipe, username);
 	}
 	
-	@RequestMapping(path = "users/{username}/myrecipes/addrecipe", method = RequestMethod.GET)
+	@RequestMapping(path = "users/{username}/myRecipes/addRecipe", method = RequestMethod.GET)
 	public FormPropertiesDTO getFormProperties() {
 		
 		FormPropertiesDTO formProperties = new FormPropertiesDTO();
