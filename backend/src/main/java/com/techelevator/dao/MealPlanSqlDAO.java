@@ -32,7 +32,7 @@ public class MealPlanSqlDAO implements MealPlanDAO {
 
 	@Override
 	public void deleteRecipeFromMealPlan(long plan_id, long recipe_id) {
-		String sql = "DELETE FROM meal_plans mp" +
+		String sql = "DELETE FROM meal_plans mp " +
 						"JOIN plan_recipes pr ON mp.plan_id = pr.plan_id " +
 						"WHERE mp.plan_id = ? AND pr.recipe_id = ?";
 		
@@ -40,23 +40,35 @@ public class MealPlanSqlDAO implements MealPlanDAO {
 	}
 
 	@Override
-	public void addMealToPlan(List<Recipe> recipeList, long plan_id) {
+	public void addRecipeToPlan(long plan_id, long recipe_id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public List<MealPlan> viewAllPlans() {
+	public List<MealPlan> viewAllPlans(String username) {
 		List<MealPlan> mealPlan = new ArrayList<MealPlan>();
 		
 		String sql = "SELECT * FROM meal_plans";
 		
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
 		while (results.next()) {
 			mealPlan.add(mapRowToMealPlan(results));
 		}
 		
 		return mealPlan;
+	}
+	
+	@Override
+	public void deleteMealPlan(long plan_id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public MealPlan findPlanById(long plan_id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -75,6 +87,11 @@ public class MealPlanSqlDAO implements MealPlanDAO {
 		return theMealPlan;
 	}
 	
+	@Override
+	public List<Recipe> findAllRecipesByMealPlanId(long plan_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	//Helper methods
 	
@@ -88,6 +105,5 @@ public class MealPlanSqlDAO implements MealPlanDAO {
 		
 		return plan;
 	}
-	
 
 }

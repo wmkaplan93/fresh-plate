@@ -11,13 +11,18 @@ public interface MealPlanDAO {
 		
 		void updateMealPlan(MealPlan mealPlan, long plan_id);
 		
+		void addRecipeToPlan(long plan_id, long recipe_id);
+		
 		void deleteRecipeFromMealPlan(long plan_id, long recipe_id);
 		
-		void addMealToPlan(List<Recipe> recipeList, long plan_id);
-	
-		List<MealPlan> viewAllPlans();
+		void deleteMealPlan(long plan_id);
+		
+		List<MealPlan> viewAllPlans(String username);
 		
 		MealPlan findPlanByName(String plan_name);
 		
+		MealPlan findPlanById(long plan_id);
+		
+		List<Recipe> findAllRecipesByMealPlanId(long plan_id);
 		
 }
