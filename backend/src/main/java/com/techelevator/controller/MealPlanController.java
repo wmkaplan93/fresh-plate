@@ -53,5 +53,10 @@ public class MealPlanController {
 		mpDTO.setRecipeList(mpDAO.findAllRecipesByMealPlanId(planId));
 		return mpDTO;
 	}
+	
+	@RequestMapping(path = "users/{username}/myGroceryList/{planId}", method = RequestMethod.GET)
+	public List<RecipeIngredient> getGroceryListByPlanId(@PathVariable long planId) {
+		return mpDAO.getGroceryListByPlanId(planId);
+	}
 
 }
