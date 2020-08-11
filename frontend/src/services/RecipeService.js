@@ -5,7 +5,7 @@ const http = axios.create({
 
 export default {
 
-  getFormProperties() {
+  getIngredients() {
     return http.get(`/users/{username}/myRecipes/addRecipe`)
   },
 
