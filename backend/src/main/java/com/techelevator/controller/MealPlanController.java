@@ -19,6 +19,7 @@ import com.techelevator.dao.RecipeSqlDAO;
 import com.techelevator.model.FormPropertiesDTO;
 import com.techelevator.model.Ingredient;
 import com.techelevator.model.MealPlan;
+import com.techelevator.model.MealPlanDTO;
 import com.techelevator.model.Recipe;
 import com.techelevator.model.RecipeDTO;
 import com.techelevator.model.RecipeIngredient;
@@ -43,6 +44,14 @@ public class MealPlanController {
 	@RequestMapping(path = "users/{username}/myPlans", method = RequestMethod.GET)
 	public List<MealPlan> getMealPlansByUser(@PathVariable String username) {
 		return mpDAO.viewAllPlans(username);
+	}
+	
+	@RequestMapping(path = "users/{username}/myPlans/{planId}", method = RequestMethod.GET)
+	public MealPlanDTO getMealPlanDetailsByPlanId(@PathVariable long planId) {
+		MealPlanDTO mpDTO = new MealPlanDTO();
+		mpDTO.setMealPlan(mpDAO.findPlanById(planId));
+		mpDTO.setRecipeList(mpDAO.findAllRecipesByMealPlanId(planId));
+		return mpDTO;
 	}
 
 }

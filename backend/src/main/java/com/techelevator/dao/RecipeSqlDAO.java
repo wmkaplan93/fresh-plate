@@ -32,7 +32,7 @@ public class RecipeSqlDAO implements RecipeDAO {
 	public List <Recipe> findRecipesByUser(String userName) {
 		List <Recipe> recipes = new ArrayList<Recipe>();
 		
-		String sql = "SELECT recipes.recipe_id, recipe_name, description, yield_amount, unit_name, duration, recipe_method, is_public, ownername, is_favorite, ownername " + 
+		String sql = "SELECT recipes.recipe_id, recipe_name, description, yield_amount, unit_name, duration, recipe_method, is_public, ownername " + 
 				"FROM recipes " + 
 				"JOIN units_of_measure ON recipes.yield_unit_id = units_of_measure.unit_id " + 
 				"JOIN user_recipes ON recipes.recipe_id = user_recipes.recipe_id " + 
@@ -50,7 +50,7 @@ public class RecipeSqlDAO implements RecipeDAO {
 	public List <Recipe> findFavoriteRecipesByUser(String userName) {
 		List <Recipe> recipes = new ArrayList<Recipe>();
 		
-		String sql = "SELECT recipes.recipe_id, recipe_name, description, yield_amount, unit_name, duration, recipe_method, is_public, is_favorite, ownername" + 
+		String sql = "SELECT recipes.recipe_id, recipe_name, description, yield_amount, unit_name, duration, recipe_method, is_public, ownername" + 
 						"FROM recipes " + 
 						"JOIN units_of_measure ON recipes.yield_unit_id = units_of_measure.unit_id " + 
 						"JOIN user_recipes ON recipes.recipe_id = user_recipes.recipe_id " +  
@@ -69,7 +69,7 @@ public class RecipeSqlDAO implements RecipeDAO {
 	public List<Recipe> findRecipesByTypeAndUser(String type, String userName) {
 		List <Recipe> recipes = new ArrayList<Recipe>();
 		
-		String sql = "SELECT recipes.recipe_id, recipe_name, description, yield_amount, unit_name, duration, recipe_method, is_public, is_favorite, ownername " + 
+		String sql = "SELECT recipes.recipe_id, recipe_name, description, yield_amount, unit_name, duration, recipe_method, is_public, ownername " + 
 						"FROM recipes " + 
 						"JOIN units_of_measure ON recipes.yield_unit_id = units_of_measure.unit_id " + 
 						"JOIN recipe_types ON recipes.recipe_id = recipe_types.recipe_id " + 

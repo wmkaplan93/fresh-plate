@@ -22,77 +22,96 @@ public class MealPlanSqlDAO implements MealPlanDAO {
 	
 	@Override
 	public void createMealPlan(MealPlan mealPlan) {
-		// TODO Auto-generated method stub
+		mealPlan.setPlan_id(getNextMealPlanID());
+		String sql = "INSERT INTO meal_plans (plan_id, username, plan_name, plan_description) " +
+						"VALUES (?, ?, ?, ?)";
+		jdbcTemplate.update(sql, mealPlan.getPlan_id(), mealPlan.getUsername(), mealPlan.getPlan_name(), mealPlan.getPlan_description());
+		
 		
 	}
 
 	@Override
 	public void updateMealPlan(MealPlan mealPlan, long plan_id) {
-		// TODO Auto-generated method stub
+		String sql = "UPDATE meal_plans SET username = ?, plan_name = ?, plan_description = ? WHERE plan_id = ?)";
+		jdbcTemplate.update(sql, mealPlan.getUsername(), mealPlan.getPlan_name(), mealPlan.getPlan_description(), plan_id);
 		
 	}
 
 	@Override
 	public void deleteRecipeFromMealPlan(long plan_id, long recipe_id) {
-		String sql = "DELETE FROM meal_plans mp " +
-						"JOIN plan_recipes pr ON mp.plan_id = pr.plan_id " +
-						"WHERE mp.plan_id = ? AND pr.recipe_id = ?";
-		
+		String sql = "DELETE FROM plan_recipes " +
+						"WHERE plan_id = ? AND recipe_id = ?";	
 		jdbcTemplate.update(sql, plan_id, recipe_id);
 	}
 
 	@Override
 	public void addRecipeToPlan(long plan_id, long recipe_id) {
-		// TODO Auto-generated method stub
-		
+		String sql = "INSERT INTO plan_recipes (plan_id, recipe_id) " +
+						"VALUES (?, ?)";
+		jdbcTemplate.update(sql, plan_id, recipe_id);
 	}
 
 	@Override
 	public List<MealPlan> viewAllPlans(String username) {
-		List<MealPlan> mealPlan = new ArrayList<MealPlan>();
+		List<MealPlan> mealPlans = new ArrayList<MealPlan>();
 		
-		String sql = "SELECT * FROM meal_plans";
+		String sql = "SELECT * FROM meal_plans WHERE username = ?";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
 		while (results.next()) {
-			mealPlan.add(mapRowToMealPlan(results));
+			mealPlans.add(mapRowToMealPlan(results));
 		}
 		
-		return mealPlan;
+		return mealPlans;
 	}
 	
 	@Override
 	public void deleteMealPlan(long plan_id) {
-		// TODO Auto-generated method stub
-		
+		String sql = "DELETE FROM meal_plans WHERE plan_id = ?";
+		jdbcTemplate.update(sql, plan_id);
+				
 	}
 
 	@Override
 	public MealPlan findPlanById(long plan_id) {
-		// TODO Auto-generated method stub
-		return null;
+		MealPlan mealPlan = null;
+		String sql = "SELECT * FROM meal_plans WHERE plan_id = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, plan_id);
+		if (results.next()) {
+			mealPlan = mapRowToMealPlan(results);
+		}
+		return mealPlan;
 	}
 
 	@Override
-	public MealPlan findPlanByName(String plan_name) {
-		MealPlan theMealPlan = null;
+	public List<MealPlan> findPlansByKeyword(String nameKeyword) {
+		List<MealPlan> mealPlans = null;
 		
-		String sql = "SELECT plan_id, username, plan_name, plan_description " +
-						"FROM meal_plans WHERE plan_name = ?";
+		String sql = "SELECT * FROM meal_plans " +
+						"WHERE plan_name LIKE CONCAT('%',?,'%')\"";
 		
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, plan_name);
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, nameKeyword);
 		
 		while (results.next()) {
-			theMealPlan = mapRowToMealPlan(results);
+			mealPlans.add(mapRowToMealPlan(results));
 		}
 		
-		return theMealPlan;
+		return mealPlans;
 	}
 	
 	@Override
 	public List<Recipe> findAllRecipesByMealPlanId(long plan_id) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Recipe> recipeList = null;
+		String sql = "SELECT recipes.recipe_id, recipe_name, description, yield_amount, unit_name, duration, recipe_method, is_public, ownername " + 
+				"FROM recipes " + 
+				"JOIN units_of_measure ON recipes.yield_unit_id = units_of_measure.unit_id " + 
+				"JOIN plan_recipes ON recipes.recipe_id = plan_recipes.recipe_id " + 
+				"WHERE plan_id = ?;";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, plan_id);
+		while (results.next()) {
+			recipeList.add(mapRowToRecipe(results));
+		}
+		return recipeList;
 	}
 	
 	//Helper methods
@@ -106,6 +125,32 @@ public class MealPlanSqlDAO implements MealPlanDAO {
 		plan.setPlan_description(results.getString("plan_description"));
 		
 		return plan;
+	}
+	
+	private Recipe mapRowToRecipe(SqlRowSet results) {
+		Recipe recipe = new Recipe();
+		
+		recipe.setRecipeId(results.getLong("recipe_id"));
+		recipe.setName(results.getString("recipe_name"));
+		recipe.setDescription(results.getString("description"));
+		recipe.setYieldAmount(results.getBigDecimal("yield_amount"));
+		recipe.setYieldUnit(results.getString("unit_name"));
+		recipe.setDuration(results.getString("duration"));
+		recipe.setRecipeMethod(results.getString("recipe_method"));
+		recipe.setPublic(results.getBoolean("is_public"));
+		recipe.setOwnername(results.getString("ownername"));
+		
+		return recipe;
+	}
+	
+	private long getNextMealPlanID() {
+		SqlRowSet nextIdResult = jdbcTemplate.queryForRowSet("SELECT nextval('meal_plans_plan_id_seq')");
+		if (nextIdResult.next()) {
+			return nextIdResult.getLong(1);
+		}
+		else {
+			throw new RuntimeException("Something went wrong while getting an id for the new Meal Plan");
+		}
 	}
 
 }

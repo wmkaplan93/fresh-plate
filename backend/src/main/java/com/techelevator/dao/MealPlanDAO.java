@@ -19,7 +19,7 @@ public interface MealPlanDAO {
 		
 		List<MealPlan> viewAllPlans(String username);
 		
-		MealPlan findPlanByName(String plan_name);
+		List<MealPlan> findPlansByKeyword(String nameKeyword);
 		
 		MealPlan findPlanById(long plan_id);
 		
