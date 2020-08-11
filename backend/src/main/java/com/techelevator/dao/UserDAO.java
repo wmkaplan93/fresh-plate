@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.SecurityQuestion;
 import com.techelevator.model.User;
 
 import java.util.List;
@@ -14,5 +15,13 @@ public interface UserDAO {
 
     int findIdByUsername(String username);
 
-    boolean create(String username, String password, String role);
+    boolean create(String username, String password, String role, long securityQuestionID, String answer);
+    
+    SecurityQuestion getSecurityQuestion(String username);
+    
+    List<SecurityQuestion> getAllSecurityQuestions();
+    
+    boolean compareAnswer(String username, String answer);
+    
+    void updatePassword(String username, String newPassword);
 }

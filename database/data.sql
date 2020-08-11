@@ -1,5 +1,5 @@
-INSERT INTO users (username,password_hash,role) VALUES ('test1','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
-INSERT INTO users (username,password_hash,role) VALUES ('test2','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role,security_question_id, answer) VALUES ('test1','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER', 3, 'Pittsburgh');
+INSERT INTO users (username,password_hash,role,security_question_id, answer) VALUES ('test2','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER', 5, 'Steve');
 
 
 
