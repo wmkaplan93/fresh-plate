@@ -5,12 +5,9 @@
         
             <v-layout row wrap>
                 <v-flex xs12 sm6 md4 lg3 
-                v-for="recipe in this.$store.state.allRecipes" 
+                v-for="recipe in showRecipes" 
                 :key="recipe.recipeId">
                 <v-card class="text-xs-center ma-3">
-                    <!-- <v-responsive class="pt-4">
-                        image goes here
-                    </v-responsive> -->
                     <v-card-text>
                         <div class="subheading"><strong>{{ recipe.name }}</strong></div>
                         <div class="gray--text">{{ recipe.description }}</div>
@@ -22,13 +19,13 @@
                                     <template v-slot:activator="{ on: tooltip }">
                                         <v-btn
                                         icon
-                                        color="red"
+                                        text-color="red"
                                         v-bind="attrs"
                                         v-on="{ ...tooltip, ...menu }"
                                         ><v-icon medium center>playlist_add</v-icon></v-btn>
                                     </template>
 
-                                    <span>Add to My Recipes</span>
+                                    <span>Add to My Plans</span>
                                 </v-tooltip>
                             </template>
                             <v-list>
@@ -42,18 +39,31 @@
                             <template v-slot:activator="{ on, attrs }">
                                 <v-btn 
                                 icon 
+                                v-on="on" 
+                                v-bind="attrs"
+                                @click="favorite = !favorite"
+                                ><v-icon medium center>{{ favorite ? 'favorite' : 'favorite_border'}}</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>{{favorite ? "Remove from My Recipes" : "Add to My Recipes"}}</span>
+                        </v-tooltip>
+                        <v-divider></v-divider>
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn 
+                                icon 
                                 color="blue" 
                                 v-on="on" 
                                 v-bind="attrs"
-                                @click="show = !show"
-                                ><v-icon medium center>{{ !show ? 'expand_more' : 'expand_less'}}</v-icon>
+                                @click="recipe.show = !recipe.show"
+                                ><v-icon medium center>{{ recipe.show ? 'expand_less' : 'expand_more'}}</v-icon>
                                 </v-btn>
                             </template>
-                            <span>{{show ? "Less Information" : "More Information"}}</span>
+                            <span>{{recipe.show ? "Less Information" : "More Information"}}</span>
                         </v-tooltip>
                     </v-card-actions>
                     <v-expand-transition>
-                        <div v-show="show">
+                        <div v-show="recipe.show">
                             <v-divider></v-divider>
                             <v-card-text>
                                 <div>Total Time: {{ recipe.duration }}</div>
@@ -79,9 +89,11 @@ import recipesService from "../services/RecipeService";
 
 export default {
     name: "explore-recipes-content",
-    data: () => ({
-            recipes: [],
-            show: false,
+    data() {
+        return {
+            showRecipes: [],
+            selectedindex: null,
+            favorie: false,
             items: [
                 { title: 'Sunday Splurge' },
                 { title: 'Rabbit Food' },
@@ -89,9 +101,13 @@ export default {
                 { title: 'Midnight Munchies' },
                 { title: 'Everything is Cake' }
             ],
-    }),
+        }
+    },
     created() {
         this.retrieveRecipes();
+    },
+    mounted() {
+        this.addShow();
     },
     methods: {
         retrieveRecipes() {
@@ -102,6 +118,12 @@ export default {
         addToList() {
             alert("Success")
             return '';
+        },
+        addShow() {
+            this.showRecipes = this.$store.state.allRecipes.map(recipe => ({
+                ...recipe,
+                show: false
+            }))
         }
     }
 }

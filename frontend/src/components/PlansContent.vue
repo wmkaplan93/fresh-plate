@@ -1,11 +1,16 @@
 <template>
     <div id="plans-content" data-app>
-        <h1 class="subheading black--text">My Plans</h1>
+        <h1 class="subheading black--text">My&nbsp;Plans</h1>
         <v-container>
             <v-expansion-panels popout row wrap >
                 <v-expansion-panel v-for="(plan, index) in plans" :key="index">
                     
-                    <v-expansion-panel-header>{{ plan.title }}</v-expansion-panel-header>
+                    <v-expansion-panel-header>{{ plan.title }}
+                        <v-divider></v-divider>
+                        <template v-slot:actions>
+                            <v-icon>expand</v-icon>
+                        </template>
+                    </v-expansion-panel-header>
                     <v-expansion-panel-content>
                         Sample Recipe 1<br>Sample Recipe 2<br>Sample Recipe 3
                     </v-expansion-panel-content>
