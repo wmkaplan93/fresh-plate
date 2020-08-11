@@ -12,7 +12,7 @@ Vue.use(Vuex)
 const currentToken = localStorage.getItem('token')
 const currentUser = JSON.parse(localStorage.getItem('user'));
 const allRecipes = JSON.parse(localStorage.getItem('recipe'));
-const allIngredients = JSON.parse(localStorage.getItem('ingredientName'));
+const allIngredients = JSON.parse(localStorage.getItem('ingredient'));
 
 
 if(currentToken != null) {
@@ -23,12 +23,7 @@ export default new Vuex.Store({
   state: {
     token: currentToken || '',
     user: currentUser || {},
-    propArray: {
-      types: [],
-      ingredients: [],
-      units: []
-    },
-    
+   
     ingredientList: allIngredients || [],
 
     ingredient: {
@@ -38,13 +33,19 @@ export default new Vuex.Store({
    
     recipeList: allRecipes || [],
     recipe: {
-      recipeId: 0,
+      
+      username: '',
+      ownername: '',
       name: '',
       description: '',
-      yield: 0,
-      unitId: 0,
+      typeList: [],
+      yieldAmount: '',
+      yieldUnit: '',
       duration: '',
-      recipeMethod: '',
+      recipeMethod: [],
+      isPublic: false,
+      isFavorite: false,
+      ingredientList: []
     }
   },
   mutations: {
@@ -65,10 +66,10 @@ export default new Vuex.Store({
       axios.defaults.headers.common = {};
     },
     SET_INGREDIENTS(state, data) {
-      state.propArray.ingredients = data;
+      state.ingredientList = data;
     },
-    SET_RECIPE_CARD(state, data) {
-      state.recipeCard = data;
+    SET_RECIPE(state, data) {
+      state.recipe = data;
     },  
     GET_RECIPES(state, data) {
       state.allRecipes = data;

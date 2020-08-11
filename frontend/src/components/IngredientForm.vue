@@ -4,6 +4,7 @@
         <div class="ingredient-card"
             v-for="ingredient in ingredients" v-bind:key="ingredient.ingredientName">
             <div class="card-body">
+                
                 <h3 class="card-title">New ingredient</h3>   
                 <div class="ingredient-form">
                     <label id="quantity-label" for="quantity">Quantity: </label>
@@ -31,14 +32,13 @@
 
                     <label id="ingredient-label" for="ingredient">Ingredient: </label>
                     <input type="text" id="ingredient" class="form-control" v-model="ingredient.ingredientName" />
-                   
-                  
-                   
-                 
-
                 </div>
             </div>    
          </div>
+                <div class="ingredient-list" v-for="ingredient in this.$store.state.ingredientList"
+                        v-bind:key="ingredient.ingredientId">
+                        {{ ingredient.ingredientName }}                  
+                </div>
     </div>             
 </template>
 
@@ -66,7 +66,7 @@ export default {
     
     methods: {
         retrieveIngredients() {
-            RecipeService.getFormProperties().then(response => {
+            RecipeService.getIngredients().then(response => {
                 this.$store.commit("SET_INGREDIENTS", response.data)
             })
         },
@@ -77,6 +77,10 @@ export default {
                 unit: '',
                 ingredientName: ''
             })
+        },
+
+        cancelForm() {
+            
         }
     },  
 }
@@ -105,6 +109,7 @@ label {
     border: 1px solid black;
     border-radius: 0.25rem; 
     margin-bottom: 15px;  
+    margin-left: 5px;
 }
 
 .card-body {
