@@ -11,9 +11,6 @@ Vue.use(Vuex)
  */
 const currentToken = localStorage.getItem('token')
 const currentUser = JSON.parse(localStorage.getItem('user'));
-const allRecipes = JSON.parse(localStorage.getItem('recipe'));
-const allIngredients = JSON.parse(localStorage.getItem('ingredient'));
-const userRecipes = JSON.parse(localStorage.getItem('recipe'));
 
 
 if(currentToken != null) {
@@ -25,15 +22,30 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
    
-    ingredientList: allIngredients || [],
+    formProperties: {
+      ingredientList: [],
+      typeList: [],
+      unitList: [],
+    },
 
     ingredient: {
       ingredientId: 0,
       ingredientName: ''
     },
-   
-    recipeList: allRecipes || [],
-    userRecipes: userRecipes || [],
+    
+    type: {
+      typeId: 0,
+      type: ''
+    },
+
+    unit: {
+      unitId: 0,
+      unitName: ''
+    },
+
+
+    recipeList: [],
+    userRecipes: [],
     recipe: {
       
       username: '',
@@ -67,9 +79,10 @@ export default new Vuex.Store({
       state.user = {};
       axios.defaults.headers.common = {};
     },
-    SET_INGREDIENTS(state, data) {
-      state.ingredientList = data;
+    GET_FORM_PROPERTIES(state, data) {
+      state.formProperties = data;
     },
+
     SET_RECIPE(state, data) {
       state.recipe = data;
     },  
