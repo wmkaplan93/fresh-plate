@@ -2,9 +2,11 @@ package com.techelevator.dao;
 
 import java.util.List;
 
+import com.techelevator.model.Ingredient;
 import com.techelevator.model.Recipe;
+import com.techelevator.model.RecipeDTO;
 import com.techelevator.model.RecipeIngredient;
-import com.techelevator.model.RecipeType;
+import com.techelevator.model.Type;
 
 public interface RecipeDAO {
 	
@@ -20,17 +22,22 @@ public interface RecipeDAO {
 	 
 	 Recipe findRecipeById (long recipeId);
 	 
-	 Recipe findRecipeByKeyword (String keyword);
+	 List<Recipe> findRecipeByKeyword (String keyword);
 	 
-	 List<RecipeType> findRecipeTypes(long recipeId);
+	 List<Type> findAllRecipeTypes();
+	 
+	 List<Type> findTypesByRecipeId(long recipeId);
 	 
 	 List<RecipeIngredient> findIngredientsByRecipeId (long recipeId);
 	
-	 boolean createRecipe (Recipe recipe);
+	 void createRecipe (RecipeDTO newRecipe, String username);
 	 
-	 boolean updateRecipe (Recipe recipe, long recipeId);
+//	 void deleteRecipe (long recipeId, String username);
+//	 
+//	 void createIngredient (Ingredient ingredient);
+//
+//	 void updateRecipe(RecipeDTO recipeDTO, long recipeId);
 	 
-	 boolean deleteRecipe (long recipeId);
 	 
 
 }

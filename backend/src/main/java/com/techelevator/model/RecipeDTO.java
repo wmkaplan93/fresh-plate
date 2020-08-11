@@ -1,30 +1,51 @@
 package com.techelevator.model;
 
 import java.math.BigDecimal;
+import java.util.List;
 
-public class Recipe {
+import javax.validation.constraints.NotEmpty;
 
+public class RecipeDTO {
+	
+	@NotEmpty
 	private long recipeId;
 	
+	@NotEmpty
 	private String name;
 	
 	private String description;
 	
+	@NotEmpty
 	private BigDecimal yieldAmount;
 	
+	@NotEmpty
 	private String yieldUnit;
 	
+	@NotEmpty
 	private String duration;
 	
+	@NotEmpty
 	private String recipeMethod;
 	
+	@NotEmpty
 	private boolean isPublic;
+	
+	@NotEmpty
+	private List<Type> typeList;
+
+	@NotEmpty
+	private List<RecipeIngredient> ingredientList;
+	
+	@NotEmpty
+	private String username;
 	
 	private String ownername;
 	
+	@NotEmpty
+	private boolean isFavorite;
+	
+	
 
-	
-	
 	public long getRecipeId() {
 		return recipeId;
 	}
@@ -89,6 +110,30 @@ public class Recipe {
 		this.isPublic = isPublic;
 	}
 
+	public List<Type> getTypeList() {
+		return typeList;
+	}
+
+	public void setTypeList(List<Type> typeList) {
+		this.typeList = typeList;
+	}
+
+	public List<RecipeIngredient> getIngredientList() {
+		return ingredientList;
+	}
+
+	public void setIngredientList(List<RecipeIngredient> ingredientList) {
+		this.ingredientList = ingredientList;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	public String getOwnername() {
 		return ownername;
 	}
@@ -97,8 +142,12 @@ public class Recipe {
 		this.ownername = ownername;
 	}
 
+	public boolean isFavorite() {
+		return isFavorite;
+	}
+
+	public void setFavorite(boolean isFavorite) {
+		this.isFavorite = isFavorite;
+	}
 	
 }
-	
-	
-	

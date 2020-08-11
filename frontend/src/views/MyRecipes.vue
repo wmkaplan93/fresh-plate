@@ -1,7 +1,17 @@
 <template>
     <div id="overview">
         <user-landing-sidebar />
+        <div id="user-recipes">
+            <h1 id="recipes-title">My Recipes</h1><br>
+           
+        </div>
+        <div id="add-recipe-button">
+            <router-link v-bind:to="{ name: 'addRecipe', params: {username:username} }">
+            <button type="add-recipe">Add New Recipe</button>
+            </router-link> 
+        </div>    
         <recipes-content />
+        
     </div>
 </template>
 

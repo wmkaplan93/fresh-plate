@@ -2,8 +2,12 @@ package com.techelevator.model;
 
 import java.math.BigDecimal;
 
-public class Recipe {
+public class UserRecipe {
 
+	private String username;
+	
+	private boolean isFavorite;
+	
 	private long recipeId;
 	
 	private String name;
@@ -21,10 +25,23 @@ public class Recipe {
 	private boolean isPublic;
 	
 	private String ownername;
-	
 
-	
-	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public boolean isFavorite() {
+		return isFavorite;
+	}
+
+	public void setFavorite(boolean isFavorite) {
+		this.isFavorite = isFavorite;
+	}
+
 	public long getRecipeId() {
 		return recipeId;
 	}
@@ -96,9 +113,10 @@ public class Recipe {
 	public void setOwnername(String ownername) {
 		this.ownername = ownername;
 	}
-
 	
 }
 	
 	
+
+
 	
