@@ -6,11 +6,11 @@ const http = axios.create({
 export default {
 
   getIngredients() {
-    return http.get(`/users/{username}/myRecipes/addRecipe`)
+    return http.get('/users/:username/myRecipes/addRecipe')
   },
 
   addRecipe(recipe) {
-    return http.post(`/users/{username}/myRecipes/addRecipe`, recipe)
+    return http.post('/users/:username/myRecipes/addRecipe', recipe)
   },
 
   getRecipes() {
