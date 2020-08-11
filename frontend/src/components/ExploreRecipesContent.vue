@@ -19,7 +19,6 @@
                                     <template v-slot:activator="{ on: tooltip }">
                                         <v-btn
                                         icon
-                                        text-color="red"
                                         v-bind="attrs"
                                         v-on="{ ...tooltip, ...menu }"
                                         ><v-icon medium center>playlist_add</v-icon></v-btn>
@@ -72,20 +71,19 @@
                                 <br>
                                 <div>{{ recipe.recipeMethod }}</div>
                                 <v-divider></v-divider>
-                                <div>Yield: {{ recipe.yield }}</div>
+                                <div>Yield: {{ recipe.yieldAmount }} {{recipe.yieldUnit }}</div>
                             </v-card-text>
                         </div>
                     </v-expand-transition>
                 </v-card>
                 </v-flex>
             </v-layout>
-
         </v-container>
     </div>
 </template>
 
 <script>
-import recipesService from "../services/RecipeService";
+import recipeService from "../services/RecipeService";
 
 export default {
     name: "explore-recipes-content",
@@ -93,7 +91,7 @@ export default {
         return {
             showRecipes: [],
             selectedindex: null,
-            favorie: false,
+            favorite: false,
             items: [
                 { title: 'Sunday Splurge' },
                 { title: 'Rabbit Food' },
@@ -111,8 +109,8 @@ export default {
     },
     methods: {
         retrieveRecipes() {
-            recipesService.getRecipes().then(response => {
-                this.$store.commit("GET_RECIPES", response.data);
+            recipeService.getRecipes().then(response => {
+                this.$store.commit("GET_PUBLIC_RECIPES", response.data);
             })
         },
         addToList() {

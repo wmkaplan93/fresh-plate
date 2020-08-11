@@ -71,7 +71,7 @@ export default new Vuex.Store({
     SET_RECIPE(state, data) {
       state.recipe = data;
     },  
-    GET_RECIPES(state, data) {
+    GET_PUBLIC_RECIPES(state, data) {
       state.allRecipes = data;
     }
   }

@@ -41,6 +41,7 @@
   background-image: url("../public/background options/O8RDSC0.jpg");
   background-size: cover;
   background-repeat: repeat-y;  
+  background-attachment: fixed;
   height: 100vh;
   width: 100%;
   display: flex;
