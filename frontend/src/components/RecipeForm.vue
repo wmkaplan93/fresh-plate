@@ -163,10 +163,14 @@ export default {
                 ingredientList: this.recipe.ingredientList
       
             };
+
+            const currentUser = {
+                username: this.$route.params.username,
+            }
         
             
             recipesService
-            .addRecipe(newRecipe).then(response => {
+            .addRecipe(currentUser, newRecipe).then(response => {
                 this.$store.commit("SET_RECIPE", response.data);
             })
         },    

@@ -5,12 +5,12 @@ const http = axios.create({
 
 export default {
 
-  getIngredients() {
-    return http.get('/users/:username/myRecipes/addRecipe')
+  getIngredients(username) {
+    return http.get(`/users/${username}/myRecipes/addRecipe`)
   },
 
-  addRecipe(recipe) {
-    return http.post('/users/:username/myRecipes/addRecipe', recipe)
+  addRecipe(username, recipe) {
+    return http.post(`/users/${username}/myRecipes/addRecipe`, recipe)
   },
 
   getRecipes() {
