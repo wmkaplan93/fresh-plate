@@ -10,6 +10,26 @@ CREATE SEQUENCE seq_user_id
   CACHE 1;
 
 
+CREATE TABLE security_questions(
+        security_question_id    int,
+        security_questions      varchar(100),
+        CONSTRAINT PK_security_question PRIMARY KEY (security_question_id)
+);
+        INSERT INTO security_questions (security_question_id, security_questions)
+        VALUES(1, 'What are the last five digits of your driver''s license number?');
+        
+        INSERT INTO security_questions (security_question_id, security_questions)
+        VALUES(2, 'What is your oldest sibling''s middle name?');
+        
+        INSERT INTO security_questions (security_question_id, security_questions)
+        VALUES(3, 'In what city or town was your first job?');
+        
+        INSERT INTO security_questions (security_question_id, security_questions)
+        VALUES(4, 'What is the name of a college you applied but didn''t attend?');
+        
+        INSERT INTO security_questions (security_question_id, security_questions)
+        VALUES(5, 'Who was your childhood hero?');
+
 CREATE TABLE users (
 	user_id int DEFAULT nextval('seq_user_id'::regclass) NOT NULL,
 	username varchar(50) NOT NULL UNIQUE,
@@ -22,8 +42,8 @@ CREATE TABLE users (
 );
 
 
-INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
-INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
+INSERT INTO users (username,password_hash,role, security_question_id, answer) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER', 1, '12345');
+INSERT INTO users (username,password_hash,role, security_question_id, answer) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN', 2, 'Steve');
 
 
 
@@ -98,10 +118,7 @@ CREATE TABLE plan_recipes(
         CONSTRAINT fk_recipe_id FOREIGN KEY (recipe_id) REFERENCES recipes (recipe_id)
 );
 
-CREATE TABLE security_questions(
-        security_question_id    int NOT NULL,
-        security_questions      varchar(100)
-);
+
 
 
 COMMIT TRANSACTION;
