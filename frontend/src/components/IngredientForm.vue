@@ -1,9 +1,10 @@
 <template>
     <div class="container">
-        <button class="btn" type="button" id="ingredient-btn" v-on:click.prevent="addNewIngredientForm">Add Ingredient</button>
+        <button class="btn" type="button" id="ingredient-btn" v-on:click.prevent="addNewIngredientForm">Add Ingredient to Recipe</button>
         <div class="ingredient-card"
             v-for="ingredient in ingredients" v-bind:key="ingredient.ingredientName">
             <div class="card-body">
+                
                 <h3 class="card-title">New ingredient</h3>   
                 <div class="ingredient-form">
                     <label id="quantity-label" for="quantity">Quantity: </label>
@@ -31,12 +32,13 @@
 
                     <label id="ingredient-label" for="ingredient">Ingredient: </label>
                     <input type="text" id="ingredient" class="form-control" v-model="ingredient.ingredientName" />
-
-                 
-
                 </div>
             </div>    
          </div>
+                <div class="ingredient-list" v-for="ingredient in this.$store.state.ingredientList"
+                        v-bind:key="ingredient.ingredientId">
+                        {{ ingredient.ingredientName }}                  
+                </div>
     </div>             
 </template>
 
@@ -44,25 +46,41 @@
 
 
 <script>
+import RecipeService from '../services/RecipeService';
 export default {
     data() {
         return {
             ingredients: [
                 {
                     quantity: '',
-                    unit: '',
+                    ingredientUnit: '',
                     ingredientName: ''
                 },
-            ]
+            ],
+            ingredientList: []
         }
     },
+    created() {
+        this.retrieveIngredients();
+    },
+    
     methods: {
+        retrieveIngredients() {
+            RecipeService.getIngredients().then(response => {
+                this.$store.commit("SET_INGREDIENTS", response.data)
+            })
+        },
+        
         addNewIngredientForm() {
             this.ingredients.push ({
                 quantity: '',
                 unit: '',
                 ingredientName: ''
             })
+        },
+
+        cancelForm() {
+            
         }
     },  
 }
@@ -73,6 +91,7 @@ export default {
 #ingredient-btn {
     color: rgb(211, 208, 208);
     background-color: rgb(2, 87, 2);
+    width: max-content;
 }
 
 label {
@@ -90,6 +109,7 @@ label {
     border: 1px solid black;
     border-radius: 0.25rem; 
     margin-bottom: 15px;  
+    margin-left: 5px;
 }
 
 .card-body {

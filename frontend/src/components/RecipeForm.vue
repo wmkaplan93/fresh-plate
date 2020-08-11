@@ -10,7 +10,7 @@
             <input type="text" id="description" class="form-control" v-model="description" /> 
         </div>    
         <div class="type-dropdown">
-         <!--   <p>Recipe Type: </p>
+            <!-- <p>Recipe Type: </p>
             <label class="type-options" for="option1">
             <input type="checkbox" id="option1" value="breakfast" v-model="recipeType"><span>breakfast</span>
             </label>
@@ -32,8 +32,9 @@
              <label class="type-options" for="option7">
              <input type="checkbox" id="option7" value="dessert" v-model="recipeType"><span>dessert</span>
              </label> -->
+
             <label id="type-label" for="recipe-type">Recipe Type: </label>
-            <select name="basic-dropdown" id="recipe-type" multiple v-model="type">
+            <select name="basic-dropdown" id="recipe-type" multiple v-model="typeList">
                     <option>breakfast</option>
                     <option>lunch</option>
                     <option>dinner</option>
@@ -44,9 +45,31 @@
                 </select><br><br>
         </div>
         <div class="form-group">
-            <label id="yield-label" for="servings">Servings: </label>
-            <input type="text" id="servings" class="form-control" v-model="servings" />
+            <div class="servings">
+                <label id="yield-amount-label" for="yield-amount">Servings: </label>
+                <input type="text" id="yield-amount" class="form-control" v-model="yieldAmount" />
+                <label id="yield-amount-unit" for="yield-unit">Unit: </label>
+                 <select name="basic-dropdown" id="yield-unit" v-model="yieldUnit">
+                        <option value='teaspoon'>teaspoon</option>
+                        <option value='tablespoon'>tablespoon</option>
+                        <option value='ounce'>ounce</option>
+                        <option value='cup'>cup</option>
+                        <option value='quart'>quart</option>
+                        <option value='pound'>pound</option>
+                        <option value='gallon'>gallon</option>
+                        <option value='gram'>gram</option>
+                        <option value='kilogram'>kilogram</option>
+                        <option value='milliliter'>milliliter</option>
+                        <option value='liter'>liter</option>
+                        <option value='pinch'>pinch</option>
+                        <option value='each'>each</option>
+                        <option value='serving'>serving</option>
+                        <option value='piece'>piece</option>
+                        <option value='sheet'>sheet</option>
+                    </select>
+            </div>    
         </div>
+
         <div class="form-group">
             <label id="time-label" for="duration">Total Time: </label>
             <input type="text" id="duration" class="form-control" v-model="duration" />
@@ -56,17 +79,27 @@
              
 
              
-               <!-- <option value=
-                 <select v-model="ingredient"
-                options="formProperty | extract 'ingredients'">
-                </select> -->         
+             
         </div>    
         <div class="form-group">
-            <label id="instructions-label" for="instructions">Instructions:  </label>
-            <textarea id="instructions" class="form-control" v-model="instructions" />
+            <label id="instructions-label" for="instructions">Instructions:  </label><br>
+            <button class="btn" type="button" id="ingredient-btn" v-on:click.prevent="addNewInstructionForm">Add Instruction Step</button>
+            <textarea id="instructions" class="form-control" v-model="recipeMethod" />
            
         </div>
-        <button type="submit">Submit</button>
+
+        <div class="form-group">
+            <label id="public-checkbox" for="public-recipe">Make this recipe public </label>
+            <input type="checkbox" id="public-recipe" v-model="isPublic" />
+        </div>
+
+        <div class="form-group">
+            <label id="favorite-checkbox" for="favorite-recipe">Add to favorites</label>
+            <input type="checkbox" id="favorite-recipe" v-model="isFavorite" />
+        </div>
+
+        <button class="btn btn-submit" v-on:click="addNewRecipe">Submit</button>
+        <!--where should user be directed after hitting submit -->
        
         
     </form>   
@@ -75,7 +108,7 @@
 
 <script>
 
-import recipeService from "../services/RecipeService";
+import recipesService from "../services/RecipeService";
 import IngredientForm from "../components/IngredientForm";
 
 export default {
@@ -86,16 +119,26 @@ export default {
     
     data() {
         return {
+            username: '',
+            ownername: '',
             name: '',
             description: '',
-            type: [],
-            servings: '',
+            typeList: [],
+            yieldAmount: '',
+            yieldUnit: '',
             duration: '',
-            instructions: ''
+            recipeMethod: [],
+            isPublic: false,
+            isFavorite: false,
+            ingredientList: []
             
         };
     },
     methods: {
+        addNewInstructionForm() {
+            this.recipeMethod.push ('')
+        },
+        
         addIngredient() {
             const newIngredient = {
                 quantity: this.quantity,
@@ -104,47 +147,39 @@ export default {
             }
         },
         
-        submit() {
+        addNewRecipe() {
             const newRecipe = {
-                userId: Number(this.$route.params.userId),
+                username: this.$route.params.username,
+                ownername: this.$route.params.username,
                 name: this.recipe.name,
                 description: this.recipe.description,
-                type: this.recipe.type, /* return an array */
-                servings: this.recipe.servings,
+                typeList: this.recipe.typeList, /* return an array */
+                yieldAmount: this.recipe.yieldAmount,
+                yieldUnit: this.recipe.yieldUnit,
                 duration: this.recipe.duration,
-                instructions: this.recipe.instructions,
-                ingredients: this.newIngredient,
+                recipeMethod: this.recipe.recipeMethod,
+                isPublic: this.recipe.isPublic,
+                isFavorite: this.recipe.isFavorite,
+                ingredientList: this.recipe.ingredientList
+      
             };
         
             
-                recipeService
-                .addRecipe(newRecipe)
-                .then(response => {
-                    if (response.status === 201) {
-                        this.$router.push('myRecipes');
-                    }
-                })
-                .catch(error => {
-                    this.handleErrorResponse(error, "adding");
-                })
-            
-        },
-
+            recipesService
+            .addRecipe(newRecipe).then(response => {
+                this.$store.commit("SET_RECIPE", response.data);
+            })
+        },    
+                
         getFormObjects() {
-            recipeService
+            recipesService
             .getFormProperties().then((response) => {
                 this.recipeTypes = response.data.types.type;
                 this.units = response.data.units.unitName;
                 this.ingredients = response.data.ingredients.ingredient
             })
         },
-        filters: {
-            extract: function (value, keyToExtract) {
-            return value.map(function (item) {
-                return item[keyToExtract]
-                })
-            }
-        } 
+        
     }   
 }
 </script>
@@ -208,6 +243,17 @@ label {
 
 textarea.form-control {
     height: 50px;
+}
+
+.servings {
+    display: flex;
+    flex-direction: row;
+    width: 5vw;
+}
+
+#favorite-recipe, #public-recipe {
+    width: 10vw;
+    height: 3vh;
 }
 
 
