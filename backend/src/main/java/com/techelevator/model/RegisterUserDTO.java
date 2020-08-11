@@ -12,8 +12,27 @@ public class RegisterUserDTO {
     private String confirmPassword;
     @NotEmpty(message = "Please select a role for this user.")
     private String role;
+    private long securityQuestionID;
+    @NotEmpty
+    private String answer;
 
-    public String getUsername() {
+    public long getSecurityQuestionID() {
+		return securityQuestionID;
+	}
+
+	public void setSecurityQuestionID(long securityQuestionID) {
+		this.securityQuestionID = securityQuestionID;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+
+	public String getUsername() {
         return username;
     }
 

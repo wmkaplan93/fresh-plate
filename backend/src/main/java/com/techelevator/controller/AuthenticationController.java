@@ -1,5 +1,8 @@
 package com.techelevator.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.http.HttpHeaders;
@@ -10,12 +13,18 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.techelevator.dao.UserDAO;
 import com.techelevator.model.LoginDTO;
 import com.techelevator.model.RegisterUserDTO;
+import com.techelevator.model.SecurityQuestionDTO;
 import com.techelevator.model.User;
 import com.techelevator.model.UserAlreadyExistsException;
 import com.techelevator.security.jwt.JWTFilter;
@@ -59,9 +68,25 @@ public class AuthenticationController {
             User user = userDAO.findByUsername(newUser.getUsername());
             throw new UserAlreadyExistsException();
         } catch (UsernameNotFoundException e) {
-            userDAO.create(newUser.getUsername(),newUser.getPassword(), newUser.getRole());
+            userDAO.create(newUser.getUsername(),newUser.getPassword(), newUser.getRole(), newUser.getSecurityQuestionID());
         }
     }
+    
+    @RequestMapping(value= "/register", method = RequestMethod.GET)
+    public List<SecurityQuestionDTO> securityQuestions (){
+    	return userDAO.getAllSecurityQuestions();
+    }
+    
+    @RequestMapping(value= "/resetPassword", method = RequestMethod.GET)
+    public String getAnswer(@RequestBody User user) {
+    	return userDAO.getAnswer(user.getUsername());
+    }
+    
+    @RequestMapping(value= "/resetPassword", method = RequestMethod.PUT)
+    public void updatePassword(@Valid @RequestBody User user, String newPassword) {
+    	userDAO.updatePassword(user.getUsername(), newPassword);
+    }
+    
 
     /**
      * Object to return as body in JWT Authentication.
