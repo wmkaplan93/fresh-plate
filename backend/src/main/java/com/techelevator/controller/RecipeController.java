@@ -82,12 +82,12 @@ public class RecipeController {
 		return recipeDAO.findPublicRecipesByType(type);
 	}
 	
-	@RequestMapping(path = "users/{username}/myRecipes/addRecipe", method = RequestMethod.POST)
+	@RequestMapping(path = "users/{username}/addRecipe", method = RequestMethod.POST)
 	public void addRecipe(@Valid @RequestBody RecipeDTO newRecipe, @PathVariable String username) {
 		recipeDAO.createRecipe(newRecipe, username);
 	}
 	
-	@RequestMapping(path = "users/{username}/myRecipes/addRecipe", method = RequestMethod.GET)
+	@RequestMapping(path = "users/{username}/addRecipe", method = RequestMethod.GET)
 	public FormPropertiesDTO getFormProperties() {
 		
 		FormPropertiesDTO formProperties = new FormPropertiesDTO();
