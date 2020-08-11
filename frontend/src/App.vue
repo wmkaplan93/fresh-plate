@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
+      <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet'>
       <router-link v-bind:to="{ name: 'home' }" v-if="$store.state.token == ''">
         <button type="home-button">Home</button>
       </router-link>
@@ -25,7 +26,7 @@
 </template>
 <style scoped>
 #nav {
-  background: linear-gradient(90deg, rgba(156, 13, 8, 0.7) 0%, rgba(255,255,255,1) 60%);
+  background: linear-gradient(90deg, rgba(156, 13, 8, 0.7) 0%, rgba(255,255,255,.5) 60%);
   height: 5vh;
   font-size: 22px;
   font-family: 'Lora';
@@ -39,7 +40,9 @@
 #app {
   background-image: url("../public/background options/O8RDSC0.jpg");
   background-size: cover;
-  background-repeat: no-repeat;  height: 100vh;
+  background-repeat: repeat-y;  
+  background-attachment: fixed;
+  height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;

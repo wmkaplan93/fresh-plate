@@ -1,6 +1,5 @@
 <template>
     <div id="user-landing-sidebar">
-    <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet'>
         <h1 id="user-landing-title">Welcome</h1>
         <h1 id="user-landing-name">{{username}}</h1>
         <div id="button-list">
@@ -62,8 +61,9 @@ h1 {
 }
 
 #user-landing-title {
-    padding-top: 4vh;
+    padding-top: 6vh;
     font-size: 5vh;
+    padding-bottom: 6vh;
 }
 
 #user-landing-name {

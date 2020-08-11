@@ -1,42 +1,127 @@
 <template>
-    <div id="explore-recipes-content">
-        <h1 id="explore-recipes-title">Explore Recipes</h1>
-        <div id="explore-recipes">  
-            <!-- <div class="loading" v-if="isLoading">
-                <img src="../../public/loader-for-dribble.gif">
-            </div> -->
-            <router-link :to="{ name: 'RecipeDetails', params: { recipeId: recipe.recipeId } }"
-                class="recipe"
-                v-for="recipe in this.$store.state.allRecipes"
-                v-bind:key="recipe.recipeId"
-                tag="div"
-            >
-            {{ recipe.name }} <br>
-            {{ recipe.description }}
-            </router-link>
-        </div>
+    <div class="overview" data-app>
+        <h1 class="subheading black--text">Explore Recipes</h1>
+        <v-container class="recipe-cards">
+        
+            <v-layout row wrap>
+                <v-flex xs12 sm6 md4 lg3 
+                v-for="recipe in showRecipes" 
+                :key="recipe.recipeId">
+                <v-card class="text-xs-center ma-3">
+                    <v-card-text>
+                        <div class="subheading"><strong>{{ recipe.name }}</strong></div>
+                        <div class="gray--text">{{ recipe.description }}</div>
+                    </v-card-text>
+                    <v-card-actions class="text-center d-flex align-center">
+                        <v-menu light transition="scale-transition" origin="center center">
+                            <template v-slot:activator="{ on: menu, attrs }">
+                                <v-tooltip bottom>
+                                    <template v-slot:activator="{ on: tooltip }">
+                                        <v-btn
+                                        icon
+                                        v-bind="attrs"
+                                        v-on="{ ...tooltip, ...menu }"
+                                        ><v-icon medium center>playlist_add</v-icon></v-btn>
+                                    </template>
+
+                                    <span>Add to My Plans</span>
+                                </v-tooltip>
+                            </template>
+                            <v-list>
+                                <v-list-item v-for="(item, index) in items" :key="index" @click="addToList()">
+                                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+                                </v-list-item>
+                            </v-list>
+                        </v-menu>
+                        <v-divider></v-divider>
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn 
+                                icon 
+                                v-on="on" 
+                                v-bind="attrs"
+                                @click="favorite = !favorite"
+                                ><v-icon medium center>{{ favorite ? 'favorite' : 'favorite_border'}}</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>{{favorite ? "Remove from My Recipes" : "Add to My Recipes"}}</span>
+                        </v-tooltip>
+                        <v-divider></v-divider>
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn 
+                                icon 
+                                color="blue" 
+                                v-on="on" 
+                                v-bind="attrs"
+                                @click="recipe.show = !recipe.show"
+                                ><v-icon medium center>{{ recipe.show ? 'expand_less' : 'expand_more'}}</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>{{recipe.show ? "Less Information" : "More Information"}}</span>
+                        </v-tooltip>
+                    </v-card-actions>
+                    <v-expand-transition>
+                        <div v-show="recipe.show">
+                            <v-divider></v-divider>
+                            <v-card-text>
+                                <div>Total Time: {{ recipe.duration }}</div>
+                                <v-divider></v-divider>
+                                <div><strong>Method: </strong></div>
+                                <br>
+                                <div>{{ recipe.recipeMethod }}</div>
+                                <v-divider></v-divider>
+                                <div>Yield: {{ recipe.yieldAmount }} {{recipe.yieldUnit }}</div>
+                            </v-card-text>
+                        </div>
+                    </v-expand-transition>
+                </v-card>
+                </v-flex>
+            </v-layout>
+        </v-container>
     </div>
 </template>
 
 <script>
-import recipesService from "../services/RecipeService";
+import recipeService from "../services/RecipeService";
 
 export default {
     name: "explore-recipes-content",
     data() {
         return {
-            recipes: [],
-            isLoading: true
-        };
+            showRecipes: [],
+            selectedindex: null,
+            favorite: false,
+            items: [
+                { title: 'Sunday Splurge' },
+                { title: 'Rabbit Food' },
+                { title: 'Carnivore Crunch' },
+                { title: 'Midnight Munchies' },
+                { title: 'Everything is Cake' }
+            ],
+        }
     },
     created() {
         this.retrieveRecipes();
     },
+    mounted() {
+        this.addShow();
+    },
     methods: {
         retrieveRecipes() {
-            recipesService.getRecipes().then(response => {
-                this.$store.commit("GET_RECIPES", response.data);
+            recipeService.getRecipes().then(response => {
+                this.$store.commit("GET_PUBLIC_RECIPES", response.data);
             })
+        },
+        addToList() {
+            alert("Success")
+            return '';
+        },
+        addShow() {
+            this.showRecipes = this.$store.state.allRecipes.map(recipe => ({
+                ...recipe,
+                show: false
+            }))
         }
     }
 }
