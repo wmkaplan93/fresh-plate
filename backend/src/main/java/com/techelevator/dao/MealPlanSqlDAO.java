@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Service;
 
 import com.techelevator.model.MealPlan;
 import com.techelevator.model.Recipe;
 
+@Service
 public class MealPlanSqlDAO implements MealPlanDAO {
 	
 	private JdbcTemplate jdbcTemplate;
