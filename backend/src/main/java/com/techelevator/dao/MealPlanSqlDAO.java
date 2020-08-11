@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.techelevator.model.MealPlan;
 import com.techelevator.model.Recipe;
+import com.techelevator.model.RecipeIngredient;
 
 @Service
 public class MealPlanSqlDAO implements MealPlanDAO {
@@ -114,6 +115,22 @@ public class MealPlanSqlDAO implements MealPlanDAO {
 		return recipeList;
 	}
 	
+	public List<RecipeIngredient> getGroceryListByPlanId(long plan_id) {
+		List<RecipeIngredient> ingredientList = null;
+		String sql = "SELECT quantity, unit_name, ingredient_name " + 
+				"FROM recipe_ingredients " + 
+				"JOIN units_of_measure ON recipe_ingredients.unit_id = units_of_measure.unit_id " + 
+				"JOIN ingredients ON recipe_ingredients.ingredient_id = ingredients.ingredient_id " + 
+				"JOIN plan_recipes ON recipe_ingredients.recipe_id = plan_recipes.recipe_id " + 
+				"WHERE plan_id = ? " + 
+				"ORDER BY ingredient_name;";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, plan_id);
+		while (results.next()) {
+			ingredientList.add(mapRowToRecipeIngredient(results));
+		}
+		return ingredientList;
+	}
+	
 	//Helper methods
 	
 	private MealPlan mapRowToMealPlan(SqlRowSet results) {
@@ -141,6 +158,16 @@ public class MealPlanSqlDAO implements MealPlanDAO {
 		recipe.setOwnername(results.getString("ownername"));
 		
 		return recipe;
+	}
+	
+	private RecipeIngredient mapRowToRecipeIngredient(SqlRowSet results) {
+		RecipeIngredient ingredient = new RecipeIngredient();
+		
+		ingredient.setQuantity(results.getBigDecimal("quantity"));
+		ingredient.setUnitName(results.getString("unit_name"));
+		ingredient.setIngredient(results.getString("ingredient_name"));
+		
+		return ingredient;
 	}
 	
 	private long getNextMealPlanID() {
