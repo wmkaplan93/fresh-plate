@@ -1,14 +1,37 @@
 <template>
-    <div id="plans-content">
-        <div id="user-plans">
-            <h1 id="plans-title">My Meal Plans</h1>
-        </div>
+    <div id="plans-content" data-app>
+        <h1 class="subheading black--text">My Plans</h1>
+        <v-container>
+            <v-expansion-panels popout row wrap >
+                <v-expansion-panel v-for="(plan, index) in plans" :key="index">
+                    
+                    <v-expansion-panel-header>{{ plan.title }}</v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                        Sample Recipe 1<br>Sample Recipe 2<br>Sample Recipe 3
+                    </v-expansion-panel-content>
+                </v-expansion-panel>
+            </v-expansion-panels>
+        </v-container>
+
     </div>
 </template>
 
 <script>
 export default {
-    name: "plans-content"
+    name: "plans-content",
+    data() {
+        return {
+            show: false,
+            plans: [
+                { title: 'Sunday Splurge' },
+                { title: 'Rabbit Food' },
+                { title: 'Carnivore Crunch' },
+                { title: 'Midnight Munchies' },
+                { title: 'Everything is Cake' }
+            ],
+        }
+        
+    }
 }
 </script>
 <style scoped>
