@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.techelevator.model.SecurityQuestionDTO;
 import com.techelevator.model.User;
 
 @Service
@@ -63,7 +64,7 @@ public class UserSqlDAO implements UserDAO {
     }
 
     @Override
-    public boolean create(String username, String password, String role) {
+    public boolean create(String username, String password, String role, long securityQuestionID) {
         boolean userCreated = false;
 
         // create user
@@ -78,6 +79,7 @@ public class UserSqlDAO implements UserDAO {
                     ps.setString(1, username);
                     ps.setString(2, password_hash);
                     ps.setString(3, ssRole);
+                    ps.setLong(4, securityQuestionID);
                     return ps;
                 }
                 , keyHolder) == 1;
@@ -85,6 +87,30 @@ public class UserSqlDAO implements UserDAO {
 
         return userCreated;
     }
+    
+    @Override
+	public String getSecurityQuestion(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+    
+    @Override
+	public List<SecurityQuestionDTO> getAllSecurityQuestions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getAnswer(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updatePassword(String username, String newPassword) {
+		// TODO Auto-generated method stub
+		
+	}
 
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();
@@ -95,4 +121,6 @@ public class UserSqlDAO implements UserDAO {
         user.setActivated(true);
         return user;
     }
+
+	
 }

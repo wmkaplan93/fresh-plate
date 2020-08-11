@@ -15,8 +15,12 @@ CREATE TABLE users (
 	username varchar(50) NOT NULL UNIQUE,
 	password_hash varchar(200) NOT NULL,
 	role varchar(50) NOT NULL,
-	CONSTRAINT PK_user PRIMARY KEY (user_id)
+	security_question_id int NOT NULL,
+	answer varchar(50),
+	CONSTRAINT PK_user PRIMARY KEY (user_id),
+	CONSTRAINT fk_security_question_id FOREIGN KEY (security_question_id) REFERENCES security_questions(security_question_id)
 );
+
 
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
@@ -92,6 +96,11 @@ CREATE TABLE plan_recipes(
         recipe_id       int NOT NULL,
         CONSTRAINT fk_plan_id FOREIGN KEY (plan_id) REFERENCES meal_plans (plan_id),
         CONSTRAINT fk_recipe_id FOREIGN KEY (recipe_id) REFERENCES recipes (recipe_id)
+);
+
+CREATE TABLE security_questions(
+        security_question_id    int NOT NULL,
+        security_questions      varchar(100)
 );
 
 
