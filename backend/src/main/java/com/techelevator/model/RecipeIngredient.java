@@ -6,17 +6,11 @@ public class RecipeIngredient {
 	
 	private BigDecimal quantity;
 	
-	private String ingredient;
+	private String ingredientName;
 	
 	private String unitName;
 	
-	public RecipeIngredient() {}
 	
-	public RecipeIngredient(BigDecimal quantity, String ingredient, String unitName) {
-		this.quantity = quantity;
-		this.ingredient = ingredient;
-		this.unitName = unitName;
-	}
 
 	public BigDecimal getQuantity() {
 		return quantity;
@@ -26,12 +20,12 @@ public class RecipeIngredient {
 		this.quantity = quantity;
 	}
 
-	public String getIngredient() {
-		return ingredient;
+	public String getIngredientName() {
+		return ingredientName;
 	}
 
-	public void setIngredient(String ingredient) {
-		this.ingredient = ingredient;
+	public void setIngredient(String ingredientName) {
+		this.ingredientName = ingredientName;
 	}
 
 	public String getUnitName() {

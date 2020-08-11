@@ -10,9 +10,9 @@ public class Recipe {
 	
 	private String description;
 	
-	private BigDecimal yield;
+	private BigDecimal yieldAmount;
 	
-	private String unitName;
+	private String yieldUnit;
 	
 	private String duration;
 	
@@ -20,23 +20,11 @@ public class Recipe {
 	
 	private boolean isPublic;
 	
-	private boolean isFavorite;
+	private String ownername;
 	
-	
-	public Recipe () {}
-	
-	public Recipe( long recipeId, String name, String description, BigDecimal yield, String unitName, String duration, String recipeMethod, boolean isPublic, boolean isFavorite) {
-		this.recipeId = recipeId;
-		this.name = name;
-		this.description = description;
-		this.yield = yield;
-		this.unitName = unitName;
-		this.duration = duration;
-		this.recipeMethod = recipeMethod;
-		this.isPublic = isPublic;
-		this.isFavorite = isFavorite;
-	}
 
+	
+	
 	public long getRecipeId() {
 		return recipeId;
 	}
@@ -61,20 +49,20 @@ public class Recipe {
 		this.description = description;
 	}
 
-	public BigDecimal getYield() {
-		return yield;
+	public BigDecimal getYieldAmount() {
+		return yieldAmount;
 	}
 
-	public void setYield(BigDecimal yield) {
-		this.yield = yield;
+	public void setYieldAmount(BigDecimal yieldAmount) {
+		this.yieldAmount = yieldAmount;
 	}
 
-	public String getUnitName() {
-		return unitName;
+	public String getYieldUnit() {
+		return yieldUnit;
 	}
 
-	public void setUnitName(String unitName) {
-		this.unitName = unitName;
+	public void setYieldUnit(String yieldUnit) {
+		this.yieldUnit = yieldUnit;
 	}
 
 	public String getDuration() {
@@ -101,14 +89,16 @@ public class Recipe {
 		this.isPublic = isPublic;
 	}
 
-	public boolean isFavorite() {
-		return isFavorite;
+	public String getOwnername() {
+		return ownername;
 	}
 
-	public void setFavorite(boolean isFavorite) {
-		this.isFavorite = isFavorite;
+	public void setOwnername(String ownername) {
+		this.ownername = ownername;
 	}
 
-	
 	
 }
+	
+	
+	

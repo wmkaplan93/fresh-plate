@@ -2,6 +2,7 @@ package com.techelevator.dao;
 
 import java.util.List;
 
+import com.techelevator.model.Ingredient;
 import com.techelevator.model.Recipe;
 import com.techelevator.model.RecipeDTO;
 import com.techelevator.model.RecipeIngredient;
@@ -31,11 +32,12 @@ public interface RecipeDAO {
 	
 	 void createRecipe (RecipeDTO newRecipe, String username);
 	 
-	 void updateRecipe (Recipe recipe, long recipeId);
+//	 void deleteRecipe (long recipeId, String username);
+//	 
+//	 void createIngredient (Ingredient ingredient);
+//
+//	 void updateRecipe(RecipeDTO recipeDTO, long recipeId);
 	 
-	 void deleteRecipe (long recipeId);
-	 
-	 void createIngredient (RecipeIngredient recipeIngredient);
 	 
 
 }
