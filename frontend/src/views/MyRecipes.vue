@@ -1,13 +1,12 @@
 <template>
     <div id="overview">
-        <user-landing-sidebar />
+        <user-landing-sidebar />  
+        <recipes-content />
         <div id="add-recipe-button">
             <router-link v-bind:to="{ name: 'addRecipe', params: {username:username} }">
             <button type="add-recipe">Add New Recipe</button>
             </router-link> 
-        </div>    
-        <recipes-content />
-        
+        </div>  
     </div>
 </template>
 
@@ -22,7 +21,7 @@ export default {
     },
     data() {
         return {
-            name: this.$store.state.user.username
+            username: this.$store.state.user.username
 
         }
     }
@@ -31,6 +30,7 @@ export default {
 <style scoped>
 #overview {
     display: flex;
+    justify-content: right;
 }
 #recipes-title {
     font-family: 'Allan';
@@ -47,5 +47,11 @@ export default {
 
 button {
     background: rgba(255, 255, 255, .6);
+    margin-left: 10vw;
+    border: 2px solid;
+}
+
+a {
+    color: black;
 }
 </style>
