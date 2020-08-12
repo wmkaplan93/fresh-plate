@@ -26,6 +26,10 @@ export default {
   height: 90vh;
 }
 
+a {
+  color: black;
+}
+
 h1 {
   font-size: 9vw;
   grid-column-start: 4;
@@ -43,6 +47,7 @@ h1 {
   grid-row-end: 5;
   align-self: start;
   justify-self: end;
+  background-color: rgba(255, 255, 255, .6);
 }
 
 #register-button {
@@ -52,6 +57,7 @@ h1 {
   align-self: start;
   justify-self: start;
   margin-left: 10px;
+  background-color: rgba(255, 255, 255, .6);
 }
 
 #register-button button,

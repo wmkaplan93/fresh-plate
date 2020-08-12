@@ -15,5 +15,29 @@ export default {
 
   getRecipes() {
     return http.get('/exploreRecipes');
+  },
+
+  addToLibrary(recipe) {
+    return http.post(`/exploreRecipes/${recipe.recipeId}`, recipe)
+  },
+
+  getUserRecipes(username) {
+    return http.get(`/users/${username}/myRecipes`)
+  },
+
+  getUserPlans(username) {
+    return http.get(`/users/${username}/myPlans`)
+  },
+
+  getGroceryList(planId) {
+    return http.get(`/myGroceryList/${planId}`)
+  },
+
+  getPlanDetails(planId) {
+    return http.get(`/myPlans/${planId}`)
+  },
+
+  getRecipeDetails(recipeId) {
+    return http.get(`/myRecipes/${recipeId}`)
   }
 }
