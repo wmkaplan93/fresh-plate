@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.techelevator.model.RegisterUserDTO;
+import com.techelevator.model.SecurityAnswerDTO;
 import com.techelevator.model.SecurityQuestion;
 import com.techelevator.model.User;
 
@@ -92,7 +94,7 @@ public class UserSqlDAO implements UserDAO {
     @Override
 	public SecurityQuestion getSecurityQuestion(String username) {
     	SecurityQuestion securityQuestion = null;
-		String sql = "SELECT security_questions.security_questions FROM security_questions " + 
+		String sql = "SELECT security_questions.security_question_id, security_questions.security_questions FROM security_questions " + 
 						"JOIN users ON security_questions.security_question_id = users.security_question_id " + 
 						"WHERE users.username = ?";
 		
@@ -117,11 +119,11 @@ public class UserSqlDAO implements UserDAO {
 	}
 
 	@Override
-	public boolean compareAnswer(String username, String answer) {
-		boolean response = false;
+	public boolean compareAnswer(SecurityAnswerDTO answer) {
+		boolean response = true;
 		
 		String sql = "SELECT (answer = ?) FROM users WHERE username = ?";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql,answer, username);
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, answer.getAnswer(), answer.getUsername());
 		while(results.next()) {
 			response = results.getBoolean(1);
 		}
@@ -129,11 +131,11 @@ public class UserSqlDAO implements UserDAO {
 	}
 
 	@Override
-	public void updatePassword(String username, String newPassword) {
-		String password_hash = new BCryptPasswordEncoder().encode(newPassword);
+	public void updatePassword(RegisterUserDTO user) {
+		String password_hash = new BCryptPasswordEncoder().encode(user.getPassword());
 		String sql = "UPDATE users SET password_hash = ? WHERE username = ?";
-		jdbcTemplate.update(sql, password_hash, username);
-		
+		jdbcTemplate.update(sql, password_hash, user.getUsername());
+                
 	}
 
     private User mapRowToUser(SqlRowSet rs) {
