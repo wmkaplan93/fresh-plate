@@ -39,15 +39,12 @@ export default {
     created() {
         this.retrieveGroceryList();
         this.retrieveUserPlans();
-        this.addShow();
     },
-    // mounted() {
-    //     this.addShow();
-    // },
     methods: {
         retrieveGroceryList() {
             recipeService.getGroceryList(this.$route.params.planId).then(response => {
                 this.$store.commit("GET_GROCERY_LIST", response.data);
+                this.addShow();
             })
         },
         retrieveUserPlans() {

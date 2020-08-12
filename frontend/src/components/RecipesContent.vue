@@ -1,5 +1,6 @@
 <template>
-    <div class="overview" data-app>
+    <div data-app>
+        <v-card id="overview">
         <h1 class="subheading black--text">My&nbsp;Recipes</h1>
         <v-container class="recipe-cards">
         
@@ -66,10 +67,6 @@
                             <v-card-text>
                                 <div>Total Time: {{ recipe.duration }}</div>
                                 <v-divider></v-divider>
-                                <div><strong>Method: </strong></div>
-                                <br>
-                                <div>{{ recipe.recipeMethod }}</div>
-                                <v-divider></v-divider>
                                 <div>Yield: {{ recipe.yield }}</div>
                             </v-card-text>
                         </div>
@@ -77,8 +74,8 @@
                 </v-card>
                 </v-flex>
             </v-layout>
-
         </v-container>
+        </v-card>
     </div>
 </template>
 
@@ -95,9 +92,6 @@ export default {
     created() {
         this.retrieveUserRecipes();
     },
-    // mounted() {
-    //     this.addShow();
-    // },
     methods: {
         retrieveUserRecipes() {
             recipeService.getUserRecipes(this.$store.state.user.username).then(response => {
@@ -121,7 +115,14 @@ export default {
 </script>
 <style scoped>
 #overview {
-    display: flex;
     width: 65vw;
+    background-color: rgba(255,255,255,0.25) !important;
+    min-height: 90vh !important;
+    justify-content: center;
+}
+
+h1{ 
+    text-align: center !important;
+
 }
 </style>

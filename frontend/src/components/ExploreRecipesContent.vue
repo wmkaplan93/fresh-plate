@@ -1,6 +1,7 @@
 <template>
-    <div class="overview" data-app>
-        <h1 class="subheading black--text">Explore Recipes</h1>
+    <div data-app>
+        <v-card id="overview">
+        <h1 class="subheading black--text">Explore&nbsp;Recipes</h1>
         <v-container class="recipe-cards">
         
             <v-layout row wrap>
@@ -66,13 +67,6 @@
                             <v-card-text>
                                 <div>Total Time: {{ recipe.duration }}</div>
                                 <v-divider></v-divider>
-                                <!-- <div><strong>Ingredients: </strong></div>
-                                <br>
-                                <div>{{ recipe.ingredientsList }}</div>
-                                <v-divider></v-divider>                                <div><strong>Method: </strong></div> -->
-                                <br>
-                                <div>{{ recipe.recipeMethod }}</div>
-                                <v-divider></v-divider>
                                 <div>Yield: {{ recipe.yieldAmount }} {{recipe.yieldUnit }}</div>
                             </v-card-text>
                         </div>
@@ -81,6 +75,7 @@
                 </v-flex>
             </v-layout>
         </v-container>
+        </v-card>
     </div>
 </template>
 
@@ -123,3 +118,15 @@ export default {
     }
 }
 </script>
+<style scoped>
+#overview {
+    width: 65vw;
+    background-color: rgba(255,255,255,0.25) !important;
+    min-height: 90vh !important;
+    justify-content: center;
+}
+
+h1{ 
+    text-align: center !important;
+}
+</style>

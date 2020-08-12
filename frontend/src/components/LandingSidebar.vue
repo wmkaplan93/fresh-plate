@@ -44,7 +44,7 @@ export default {
     height: 90vh;
     font-family: 'Lora';
     border-right: 10px solid rgba(74, 74, 74, .5);
-    background-color:rgba(255, 255, 255, 0.5);
+    background-color:rgba(255, 255, 255, 0.35);
 }
 
 a {
@@ -89,7 +89,7 @@ h1 {
     flex-direction: column;
     display: flex;
     border-radius: 0px;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.35);
     width: 17vw;
     height: 4.5vh;
     font-size: 3vh;

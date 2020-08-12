@@ -8,7 +8,7 @@
                 View Grocery List
             </v-btn>
             <v-layout row wrap>
-                <v-flex xs12 sm12 md12 lg12
+                <v-flex xs12 sm12 md6 lg6
                 v-for="recipe in showRecipes" :key="recipe.recipeId">
                 <v-card class="text-center ma-5"> 
                     <v-card-text>
@@ -28,7 +28,7 @@
                             </template>
                             <span>Recipe Details</span>
                         </v-tooltip>                        <v-divider></v-divider>
-                        <v-tooltip bottom>
+                        <!-- <v-tooltip bottom>
                             <template v-slot:activator="{ on, attrs }">
                                 <v-btn 
                                 icon 
@@ -39,9 +39,9 @@
                                 </v-btn>
                             </template>
                             <span>{{recipe.show ? "Less Information" : "More Information"}}</span>
-                        </v-tooltip>
+                        </v-tooltip> -->
                     </v-card-actions>
-                        <v-expand-transition>
+                        <!-- <v-expand-transition>
                             <div v-show="recipe.show">
                                 <v-divider></v-divider>
                                 <v-card-text>
@@ -58,7 +58,7 @@
                                     <div>Yield: {{ recipe.yieldAmount }} {{recipe.yieldUnit }}</div>
                                 </v-card-text>
                             </div>
-                        </v-expand-transition>
+                        </v-expand-transition> -->
                     </v-card>
                 </v-flex>
             </v-layout>
