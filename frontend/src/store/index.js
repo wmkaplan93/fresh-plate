@@ -96,8 +96,8 @@ export default new Vuex.Store({
       yieldUnit: '',
       duration: '',
       recipeMethod: [],
-      isPublic: false,
-      isFavorite: false,
+      public: false,
+      favorite: false,
       ingredientList: []
     },
 

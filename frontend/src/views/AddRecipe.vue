@@ -31,7 +31,7 @@ export default {
 
 #form {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-self: flex-start;
 }
 
