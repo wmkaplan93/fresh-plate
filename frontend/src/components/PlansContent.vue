@@ -1,6 +1,7 @@
 <template>
-    <div id="plans-content" data-app>
-        <h1 class="subheading black--text">My&nbsp;Plans</h1>
+    <div data-app>
+         <h1 class="subheading black--text">My&nbsp;Plans</h1>
+        <v-card class="text-center" id="overview">
         <v-container>
             <v-expansion-panels popout row wrap >
                 <v-expansion-panel v-for="plan in this.$store.state.userPlans" :key="plan.plan_id">
@@ -45,7 +46,7 @@
                 </v-expansion-panel>
             </v-expansion-panels>
         </v-container>
-
+    </v-card>
     </div>
 </template>
 
@@ -73,20 +74,17 @@ export default {
 }
 </script>
 <style scoped>
-#plans-content {
-    display: flex;
-    justify-content: center;
+
+#overview {
     width: 65vw;
-    background: rgba(194,168,36,0.1);
-}
-#plans-title {
-    font-size: 8vh;
-    text-decoration: underline overline;
+    background-color: rgba(255,255,255,0.25) !important;
+    min-height: 71vh !important;
+    justify-content: center;
+    justify-items: center;
+    display: flex;
 }
 
-#user-plans {
-    display: flex;
-    justify-content: center;
-    align-self: flex-start;
+h1 {
+    text-align: center !important
 }
 </style>
