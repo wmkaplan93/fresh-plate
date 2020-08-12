@@ -5,7 +5,7 @@
         <v-container class="recipe-cards">
         
             <v-layout row wrap>
-                <v-flex xs12 sm6 md6 lg4 
+                <v-flex xs12 sm6 md4 lg4 
                 v-for="recipe in showRecipes" 
                 :key="recipe.recipeId">
                 <v-card class="text-xs-center ma-3">

@@ -5,7 +5,7 @@
       <router-link v-bind:to="{ name: 'home' }" v-if="$store.state.token == ''">
         <button type="home-button"><v-icon small>home</v-icon> Home</button>
       </router-link>
-      <router-link v-bind:to="{ name: 'UserLanding', params: {username: this.$store.state.user.username} }" v-else>
+      <router-link v-bind:to="{ name: 'myPlans', params: {username: this.$store.state.user.username} }" v-else>
         <button type="my-home-button"><v-icon small>home</v-icon> My Home</button>
       </router-link>
       <router-link v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">
