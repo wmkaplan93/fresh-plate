@@ -133,6 +133,7 @@ h2 {
   grid-row-start: 4;
   justify-self: start;
   width: 12vw;
+  background-color: rgba(255, 255, 255, .6);
 }
 
 #password {
@@ -140,6 +141,7 @@ h2 {
   grid-row-start: 5;
   justify-self: start;
   width: 12vw;
+  background-color: rgba(255, 255, 255, .6);
 }
 
 .btn {
@@ -149,6 +151,8 @@ h2 {
   grid-row-end: 8;
   justify-self: start;
   align-self: center;
+  color: black;
+  background-color: rgba(255, 255, 255, .6)
 }
 
 #need-account, #need-account button {
@@ -160,6 +164,8 @@ h2 {
   align-self: center;
   height: 3vh;
   width: 11vw;
+  color: black;
+  background-color: rgba(255, 255, 255, .6);
 }
 
 #thanks-message {
