@@ -22,6 +22,22 @@ export default {
   },
 
   getUserRecipes(username) {
-    return http.get(`/user/${username}/myRecipes`)
+    return http.get(`/users/${username}/myRecipes`)
+  },
+
+  getUserPlans(username) {
+    return http.get(`/users/${username}/myPlans`)
+  },
+
+  getGroceryList(planId) {
+    return http.get(`/myGroceryList/${planId}`)
+  },
+
+  getPlanDetails(planId) {
+    return http.get(`/myPlans/${planId}`)
+  },
+
+  getRecipeDetails(recipeId) {
+    return http.get(`/myRecipes/${recipeId}`)
   }
 }

@@ -9,9 +9,9 @@
             <router-link v-bind:to="{ name: 'myRecipes', params: {username:username} }">
                 <button type="my-recipes">My Recipes</button>
             </router-link>
-            <router-link v-bind:to="{ name: 'myGroceryList', params: {username:username} }">
+            <!-- <router-link v-bind:to="{ name: 'myGroceryList', params: {username:username} }">
                 <button type="my-grocery-list">My Grocery List</button>
-            </router-link>
+            </router-link> -->
             <router-link v-bind:to="{ name : 'exploreRecipes' }">
                 <button type="exploreRecipes">Explore Recipes</button>
             </router-link>

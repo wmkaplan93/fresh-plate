@@ -51,7 +51,6 @@
                             <template v-slot:activator="{ on, attrs }">
                                 <v-btn 
                                 icon 
-                                class="blue--text" 
                                 v-on="on" 
                                 v-bind="attrs"
                                 @click="show = !show"
@@ -108,15 +107,14 @@ export default {
     },
     methods: {
         retrieveUserRecipes() {
-            recipeService.getUserRecipes().then(response => {
+            recipeService.getUserRecipes(this.$store.state.user.username).then(response => {
                 this.$store.commit("GET_USER_RECIPES", response.data);
             })
         },
         addShow() {
-            this.showRecipes = this.$store.state.allRecipes.map(recipe => ({
+            this.showRecipes = this.$store.state.userRecipes.map(recipe => ({
                 ...recipe,
                 show: false,
-                username: this.$store.state.user.username
             }))
         },    
     }

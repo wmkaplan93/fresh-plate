@@ -67,7 +67,10 @@
                             <v-card-text>
                                 <div>Total Time: {{ recipe.duration }}</div>
                                 <v-divider></v-divider>
-                                <div><strong>Method: </strong></div>
+                                <div><strong>Ingredients: </strong></div>
+                                <br>
+                                <div>{{ recipe.ingredientsList }}</div>
+                                <v-divider></v-divider>                                <div><strong>Method: </strong></div>
                                 <br>
                                 <div>{{ recipe.recipeMethod }}</div>
                                 <v-divider></v-divider>
@@ -130,31 +133,3 @@ export default {
     }
 }
 </script>
-<style scoped>
-#explore-recipes-title {
-    font-size: 8vh;
-    text-decoration: underline overline;
-    display: flex;
-    justify-content: center;
-    align-self: flex-start;
-}
-
-#explore-recipes {
-    display: flex;
-    justify-content: center;
-    width: 65vw;
-    background: rgba(170,12,7,0.1);
-}
-
-.recipe {
-    background-color: pink;
-    padding: 10px;
-    margin: 10px;
-    flex: 1;
-    text-align: center;
-}
-/*
-.loading {
-    flex: 1;
-}*/
-</style>

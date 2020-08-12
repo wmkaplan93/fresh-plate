@@ -11,6 +11,8 @@ import MyPlans from '../views/MyPlans.vue'
 import ExploreRecipes from '../views/ExploreRecipes.vue'
 import MyGroceryList from '../views/MyGroceryList.vue'
 import AddRecipe from '../views/AddRecipe.vue'
+import MyPlanDetails from '../views/MyPlanDetails.vue'
+import RecipeDetails from '../views/RecipeDetails.vue'
 
 Vue.use(Router)
 
@@ -108,14 +110,6 @@ const router = new Router({
       }
     },
     {
-      path: "/users/:username/myGroceryList",
-      name: "myGroceryList",
-      component: MyGroceryList,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
       path: "/exploreRecipes",
       name: "exploreRecipes",
       component: ExploreRecipes,
@@ -123,6 +117,31 @@ const router = new Router({
         requiresAuth: true
       }
     },
+    {
+
+      path: '/myGroceryList/:planId',
+      name: "myGroceryList",
+      component: MyGroceryList,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/myPlans/:planId',
+      name: "myPlanDetails",
+      component: MyPlanDetails,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/myRecipes/:recipeId',
+      name: "recipeDetails",
+      component: RecipeDetails,
+      meta: {
+        requiresAuth: true
+      }
+    }
     // {
     //   path: "/exploreRecipes/:recipeId",
     //   name: "toggleFavorite",
