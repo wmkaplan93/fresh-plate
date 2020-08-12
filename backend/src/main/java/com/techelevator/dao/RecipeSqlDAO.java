@@ -35,8 +35,7 @@ public class RecipeSqlDAO implements RecipeDAO {
 		String sql = "SELECT recipes.recipe_id, recipe_name, description, yield_amount, unit_name, duration, recipe_method, is_public, ownername " + 
 				"FROM recipes " + 
 				"JOIN units_of_measure ON recipes.yield_unit_id = units_of_measure.unit_id " + 
-				"JOIN user_recipes ON recipes.recipe_id = user_recipes.recipe_id " + 
-				"WHERE username = ?;";
+				"WHERE ownername = ?;";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userName);
 		while (results.next()) {
