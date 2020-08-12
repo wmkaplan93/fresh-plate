@@ -77,7 +77,6 @@ export default {
     display: flex;
     justify-content: center;
     width: 65vw;
-    background: rgba(194,168,36,0.1);
 }
 #plans-title {
     font-size: 8vh;

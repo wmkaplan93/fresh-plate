@@ -1,30 +1,63 @@
 <template>
-    <div id="overview" data-app>
-        <h1 class="subheading black--text">{{this.$store.state.recipeDetails.name}}</h1>
-        <h2>{{this.$store.state.recipeDetails.description}}</h2>
-        <v-divider></v-divider>
-        <h3><strong>Yield:</strong>{{this.$store.state.recipeDetails.yieldAmount}} {{this.$store.state.recipeDetails.yieldUnit}}</h3>
-        <v-divider></v-divider>
-        <h3 v-for="thing in this.$store.state.recipeDetails.typeList" :key="thing.typeId">
-            <i>{{thing.type}}</i>
-        </h3>
-        <v-divider></v-divider>
-        <v-container class="recipe-detail-cards">
-            <v-flex xs10 sm6 md5 lg4
-            v-for="ing in this.$store.state.recipeDetails.ingredientList"
-            :key="ing.ingredientName">
-            <v-card class="text-xs-center ma-4">
-                <v-card-text>
-                    <div class="subheading"><strong>{{ ing.ingredientName }}</strong></div>
-                    <div class="gray--text">{{ ing.quantity }} {{ing.unitName }}</div>
-                </v-card-text>
-            </v-card>
-
-            </v-flex>
+    <v-card max-width="600" class="mx-auto">
+        <v-container>
+            <v-row dense>
+                <v-col cols="12">
+                    <v-card>
+                        <v-card-title class="headline">
+                            {{this.$store.state.recipeDetails.name}}
+                        </v-card-title>
+                        <v-card-subtitle>
+                            {{this.$store.state.recipeDetails.description}}
+                        </v-card-subtitle>
+                    </v-card>
+                </v-col>
+                <v-divider></v-divider>
+                <v-col cols="12">
+                    <v-card>
+                        <v-card-title class="headline">Types</v-card-title>
+                        <v-card-subtitle v-for="type in $store.state.recipeDetails.typeList" :key="type.typeId">{{type.type}}</v-card-subtitle>
+                    </v-card>
+                </v-col>
+                <v-divider></v-divider>
+                <v-col cols="12">
+                    <v-card>
+                        <v-card-title class="headline">Yield</v-card-title>
+                        <v-card-subtitle>
+                            {{this.$store.state.recipeDetails.yieldAmount}}
+                            {{this.$store.state.recipeDetails.yieldUnits}}
+                        </v-card-subtitle>
+                    </v-card>
+                </v-col>
+                <v-col cols="12">
+                    <v-card>
+                        <v-card-title class="headline">Total Time</v-card-title>
+                        <v-card-subtitle>
+                            {{this.$store.state.recipeDetails.duration}}
+                        </v-card-subtitle>
+                    </v-card>
+                </v-col>
+                <v-col cols="12">
+                    <v-card>
+                        <v-card-title class="headline">Method</v-card-title>
+                        <v-card-subtitle>
+                            {{this.$store.state.recipeDetails.recipeMethod}}
+                        </v-card-subtitle>
+                    </v-card>
+                </v-col>
+                <v-col cols="12">
+                    <v-card>
+                        <v-card-title class="headline">Ingredients</v-card-title>
+                        <v-card-subtitle v-for="item in $store.state.recipeDetails.ingredientList" :key="item">
+                            {{item.quantity}}
+                            {{item.unitName}} | 
+                            {{item.ingredientName}}
+                        </v-card-subtitle>
+                    </v-card>
+                </v-col>
+            </v-row>
         </v-container>
-
-
-    </div>
+    </v-card>
 </template>
 
 <script>
@@ -37,7 +70,7 @@ export default {
     },
     methods: {
         retrieveRecipeDetails() {
-            recipeService.getRecipeDetails().then(response => {
+            recipeService.getRecipeDetails(this.$route.params.recipeId).then(response => {
                 this.$store.commit("GET_RECIPE_DETAILS", response.data);
             })
         }

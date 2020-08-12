@@ -39,10 +39,11 @@ export default {
     created() {
         this.retrieveGroceryList();
         this.retrieveUserPlans();
-    },
-    mounted() {
         this.addShow();
     },
+    // mounted() {
+    //     this.addShow();
+    // },
     methods: {
         retrieveGroceryList() {
             recipeService.getGroceryList(this.$route.params.planId).then(response => {
@@ -55,7 +56,7 @@ export default {
             })
         },
         addShow() {
-            this.showItems = this.$store.state.items.map(item => ({
+            this.showItems = this.$store.state.groceryList.map(item => ({
                 ...item,
                 show: true
             }))

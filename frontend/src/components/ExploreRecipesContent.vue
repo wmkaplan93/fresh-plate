@@ -4,7 +4,7 @@
         <v-container class="recipe-cards">
         
             <v-layout row wrap>
-                <v-flex xs12 sm6 md4 lg3 
+                <v-flex xs12 sm6 md5 lg4 
                 v-for="recipe in showRecipes" 
                 :key="recipe.recipeId">
                 <v-card class="text-xs-center ma-3">
@@ -28,26 +28,25 @@
                                 </v-tooltip>
                             </template>
                             <v-list>
-                                <v-list-item v-for="(item, index) in items" :key="index" @click="addToList()">
-                                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+                                <v-list-item v-for="plan in $store.state.userPlans" :key="plan.plan_id" @click="addToList()">
+                                    <v-list-item-title>{{ plan.plan_name }}</v-list-item-title>
                                 </v-list-item>
                             </v-list>
                         </v-menu>
                         <v-divider></v-divider>
-                        <!-- <v-tooltip bottom>
+                        <v-tooltip bottom>
                             <template v-slot:activator="{ on, attrs }">
                                 <v-btn 
                                 icon 
                                 v-on="on" 
                                 v-bind="attrs"
-                                @click="recipe.isFavorite = !recipe.isFavorite; 
-                                        addToLibrary(recipe)">
-                                    <v-icon medium center>{{ recipe.isFavorite ? 'remove_circle_outline' : 'add_circle_outline'}}</v-icon>
+                                router :to="{name: 'recipeDetails', params: { recipeId:recipe.recipeId} }">
+                                    <v-icon medium center>info_outline</v-icon>
                                 </v-btn>
                             </template>
-                            <span>{{recipe.isFavorite ? "Remove from My Recipes" : "Add to My Recipes"}}</span>
+                            <span>Recipe Details</span>
                         </v-tooltip>
-                        <v-divider></v-divider> -->
+                        <v-divider></v-divider>
                         <v-tooltip bottom>
                             <template v-slot:activator="{ on, attrs }">
                                 <v-btn 
@@ -67,10 +66,10 @@
                             <v-card-text>
                                 <div>Total Time: {{ recipe.duration }}</div>
                                 <v-divider></v-divider>
-                                <div><strong>Ingredients: </strong></div>
+                                <!-- <div><strong>Ingredients: </strong></div>
                                 <br>
                                 <div>{{ recipe.ingredientsList }}</div>
-                                <v-divider></v-divider>                                <div><strong>Method: </strong></div>
+                                <v-divider></v-divider>                                <div><strong>Method: </strong></div> -->
                                 <br>
                                 <div>{{ recipe.recipeMethod }}</div>
                                 <v-divider></v-divider>
@@ -94,26 +93,17 @@ export default {
     },
     data() {
         return {
-            showRecipes: [],
-            items: [
-                { title: 'Sunday Splurge' },
-                { title: 'Rabbit Food' },
-                { title: 'Carnivore Crunch' },
-                { title: 'Midnight Munchies' },
-                { title: 'Everything is Cake' }
-            ],
+            showRecipes: []
         }
     },
     created() {
         this.retrieveRecipes();
     },
-    mounted() {
-        this.addShow();
-    },
     methods: {
         retrieveRecipes() {
             recipeService.getRecipes().then(response => {
                 this.$store.commit("GET_PUBLIC_RECIPES", response.data);
+                this.addShow();
             })
         },
         addToList() {

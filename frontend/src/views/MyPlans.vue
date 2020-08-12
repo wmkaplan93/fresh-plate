@@ -2,7 +2,6 @@
     <div id="overview">
         <user-landing-sidebar />
         <plans-content />
-
     </div>
 </template>
 

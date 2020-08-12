@@ -16,7 +16,18 @@
                         <div class="gray--text">{{ recipe.description }}</div>
                     </v-card-text>
                     <v-card-actions class="text-center d-flex align-center">
-                        <v-divider></v-divider>
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn 
+                                icon 
+                                v-on="on" 
+                                v-bind="attrs"
+                                router :to="{name: 'recipeDetails', params: { recipeId:recipe.recipeId} }"
+                                ><v-icon medium center>info_outline</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>Recipe Details</span>
+                        </v-tooltip>                        <v-divider></v-divider>
                         <v-tooltip bottom>
                             <template v-slot:activator="{ on, attrs }">
                                 <v-btn 
@@ -68,13 +79,11 @@ export default {
     created() {
         this.retrievePlanDetails();
     },
-    mounted() {
-        this.addShow();
-    },
     methods: {
         retrievePlanDetails() {
             recipeService.getPlanDetails(this.$route.params.planId).then(response => {
                 this.$store.commit("GET_PLAN_DETAILS", response.data);
+                this.addShow();
             })
         },
         addShow() {

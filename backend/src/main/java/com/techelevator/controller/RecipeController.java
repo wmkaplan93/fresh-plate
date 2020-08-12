@@ -40,7 +40,7 @@ public class RecipeController {
 	// Get Methods
 	
 	@RequestMapping(path = "/myRecipes/{recipeId}", method = RequestMethod.GET)
-	public RecipeDTO getRecipeDTOByRecipeId(@PathVariable Long recipeId) {
+	public RecipeDTO getRecipeDTOByRecipeId(@PathVariable long recipeId) {
 		
 		Recipe recipe = recipeDAO.findRecipeById(recipeId);
 		List<RecipeIngredient> ingredientList = recipeDAO.findIngredientsByRecipeId(recipeId);
