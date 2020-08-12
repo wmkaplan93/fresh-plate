@@ -39,6 +39,29 @@
           v-model="user.confirmPassword"
           required
         />
+
+        <br><br>
+      <label id="listOfSecurityQuestions">Security Question</label>
+        <select
+          name="basic-dropdown"
+          id="securityQuestions"
+          class="form-control"
+          placeholder="Please Select A Security Question"
+          v-model="user.securityQuestionID"
+          required>
+        <option v-for="question in securityQuestions" v-bind:key="question.securityQuestionID" :value="question.securityQuestionID">{{ question.securityQuestion }}</option>
+       </select>
+
+        <br><br>
+        <label id="securityQuestionAnswer">Answer</label>
+        <input
+          type="text"
+          id="SQAnswer"
+          class="form-control"
+          placeholder="Answer"
+          v-model="user.answer"
+          required
+        />
         &nbsp;<br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">
           Create Account
@@ -62,12 +85,23 @@ export default {
         password: '',
         confirmPassword: '',
         role: 'user',
-        securityQuestionId: 0,
-        answer: ''
+        securityQuestionID: 0,
+        answer: '',
       },
+      securityQuestions: [
+          {
+            securityQuestionID: 0,
+            securityQuestion: ''
+          }
+      ],
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
     };
+  },
+  created() {
+    authService.allSecurityQuestions().then (response => {
+      this.securityQuestions = response.data
+    })
   },
   methods: {
     register() {
@@ -105,6 +139,10 @@ export default {
 </script>
 
 <style>
+option {
+  background-color: rgba(255, 255, 255, 0.2);
+  }
+
 #register-form-styling {
   font-family:"Lora";
   display: grid;

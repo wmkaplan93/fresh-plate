@@ -14,8 +14,8 @@ export default {
     return axios.get(`/resetPassword/${username}`)
   },
 
-  allSecurityQuestions(user) {
-    return axios.get('/register', user)
+  allSecurityQuestions() {
+    return axios.get('/register')
   },
 
   resetPassword(securityAnswer) {
