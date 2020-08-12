@@ -237,7 +237,6 @@ export default {
     flex-direction: column;
     justify-content: flex-end;
     width: 60vw;
-    background-color:rgb(255, 255, 255, 0.2);
 }
 
 label {
