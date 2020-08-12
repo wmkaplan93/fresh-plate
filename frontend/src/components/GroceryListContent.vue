@@ -9,7 +9,7 @@
                             <v-list-item :key="item">
                                 <v-btn icon @click="item.show = !item.show">
                                     <v-icon>
-                                        {{ item.show ? 'check_box_outline' : 'check_box'}}
+                                        {{ item.show ? 'radio_button_unchecked' : 'radio_button_checked'}}
                                     </v-icon>
                                 </v-btn>
                             <v-list-item-content>
@@ -40,13 +40,11 @@ export default {
         this.retrieveGroceryList();
         this.retrieveUserPlans();
     },
-    mounted() {
-        this.addShow();
-    },
     methods: {
         retrieveGroceryList() {
             recipeService.getGroceryList(this.$route.params.planId).then(response => {
                 this.$store.commit("GET_GROCERY_LIST", response.data);
+                this.addShow();
             })
         },
         retrieveUserPlans() {
@@ -55,7 +53,7 @@ export default {
             })
         },
         addShow() {
-            this.showItems = this.$store.state.items.map(item => ({
+            this.showItems = this.$store.state.groceryList.map(item => ({
                 ...item,
                 show: true
             }))
@@ -68,7 +66,7 @@ export default {
     display: flex;
     justify-content: center;
     width: 65vw;
-    background: rgba(36,87,194,0.1);
+    background-color: rgba(255,255,255,.3);
 }
 #grocery-list-title {
     font-size: 8vh;

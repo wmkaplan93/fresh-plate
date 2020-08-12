@@ -1,39 +1,61 @@
 <template>
-    <div class="app">
+    <div data-app id="app">
+        <v-card class="text-center mx-auto" id="overview">
         <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet'>
-        <form class="container" v-on:submit.prevent="addNewRecipe" >
+        <v-container>
             <h2>New Recipe</h2>
+        <form class="container" v-on:submit.prevent="addNewRecipe" >
             <div class="form-group">
                 <label for="recipe-name">Recipe Name: </label>
-                <input type="text" id="recipe-name" class="form-control" v-model="recipe.name" />
+                <input 
+                type="text" 
+                id="recipe-name" 
+                class="form-control" 
+                v-model="recipe.name"
+                placeholder="Recipe Name" />
             </div>
             <div class="form-group">
                 <label for="recipe-description">Recipe Description: </label>
-                <input type="text" id="recipe-description" class="form-control" v-model="recipe.description" />
+                <input 
+                type="text" 
+                id="recipe-description" 
+                class="form-control" 
+                v-model="recipe.description"
+                placeholder="Description" />
             </div>
             <div class="form-group">
-                <label>Recipe Type: </label>
+                <label>Recipe Type: <i>Choose all that apply</i></label>
                 <div class="recipe-type" v-for="typename in formProperties.types" v-bind:key="typename.typeId">
+                <input type="checkbox" id="type-checkbox" v-model="recipe.typeList" :value="typename" />
                 <label id="type-label"> {{typename.type}} </label> 
-                <input type="checkbox" id="type-checkbox" v-model="recipe.typeList" :value="typename" /> 
                 </div>
             </div>  
             <div class="form-group">
                 <label for="yield-amount">Servings: </label>
-                <input type="text" id="yield-amount" class="form-control" v-model="recipe.yieldAmount" />
+                <input type="text" 
+                id="yield-amount" 
+                class="form-control" 
+                v-model="recipe.yieldAmount"
+                placeholder="Number of Servings" />
 
                 <div class="serving-unit">
                 <label for="yield-unit">Unit: </label>    
                 <select name="basic-dropdown" id="yield-unit" class="form-control" v-model="recipe.yieldUnit">
+                    
                     <option v-for="unit in formProperties.units" v-bind:key="unit.unitId" :value="unit.unitName"> 
                         {{unit.unitName}}
                     </option>
-                </select>   
+                </select>
+                <v-icon small>unfold_more</v-icon>   
                 </div> 
             </div>
             <div class="form-group">
                 <label id="time-label" for="duration">Total Time: </label>
-                <input type="text" id="duration" class="form-control" v-model="recipe.duration" />
+                <input type="text" 
+                id="duration" 
+                class="form-control" 
+                v-model="recipe.duration"
+                placeholder="Total Cook Time" />
             </div>  
             <div class="ingredient-form">
                     <button class="btn" type="button" id="ingredient-btn" v-on:click.prevent="addNewIngredientForm">
@@ -42,24 +64,33 @@
                         <div class="card-body">
                         <span class="delete-box" v-on:click="deleteIngredientForm(index)">X</span>
                 
-                            <h3 class="card-title">Ingredient Details (Ingredient: {{ index }}) </h3>
+                            <h3 class="card-title">Ingredient Details (Ingredient# {{ index + 1 }}) </h3>
                             <div class="recipe-ingredient-form">
                                 <label for="ingredient-quantity">Quantity: </label>
-                                <input type="number" id="ingredient-quantity" class="form-control" v-model="ingredient.quantity" />
+                                <input type="number" 
+                                id="ingredient-quantity" 
+                                class="form-control" 
+                                v-model="ingredient.quantity" />
                                 <label for="ingredient-unit">Unit: </label>
                                 <select name="basic-dropdown" id="ingredient-unit" class="form-control" v-model="ingredient.unitName">
                                     <option v-for="unit in formProperties.units" v-bind:key="unit.unitId" :value="unit.unitName"> 
                                         {{unit.unitName}}
                                     </option>
-                                </select>   
-                                <label for="database-ingredients">Ingredient: </label>
+                                </select> 
+                                <v-icon small>unfold_more</v-icon> <br>  
+                                <label for="database-ingredients">Select an ingredient: </label>
                                 <select name="basic-dropdown" id="database-ingredients" class="form-control" v-model="ingredient.ingredientName">
                                     <option v-for="ingredient in formProperties.ingredients" v-bind:key="ingredient.ingredientId" :value="ingredient.ingredientName">
                                         {{ingredient.ingredientName}}
                                     </option>
-                                </select>  
-                                <!-- <label for="new-ingredient">Add new ingredient: </label>
-                                <input type="text" id="new-ingredient" class="form-control" v-model="ingredient.ingredientName">        -->
+                                </select>
+                                <v-icon small>unfold_more</v-icon>  <br> 
+                                <label for="new-ingredient">&nbsp;&nbsp;&nbsp;&nbsp;Or add a new one: </label>
+                                <input type="text" 
+                                id="new-ingredient" 
+                                class="form-control" 
+                                v-model="ingredient.ingredientName"
+                                placeholder="New Ingredient" />       
                             </div>   
                         </div>
                     </div>                 
@@ -70,19 +101,21 @@
                 <textarea id="instructions" class="form-control" v-model="recipe.recipeMethod" />
             </div>
              
-            <div class="form-group">
-                <label id="public-checkbox" for="public-recipe">Make this recipe public </label>
+            <div class="form-group2">
+                <label id="public-checkbox" for="public-recipe">Make this recipe public: </label>
                 <input type="checkbox" id="public-recipe" v-model="recipe.public" />
             </div>
 
-            <div class="form-group">
-                <label id="favorite-checkbox" for="favorite-recipe">Add to favorites</label>
+            <div class="form-group2">
+                <label id="favorite-checkbox" for="favorite-recipe">Add to favorites:</label>
                 <input type="checkbox" id="favorite-recipe" v-model="recipe.favorite" />
             </div>
 
 
-            <input type="submit" class="btn btn-submit" value="Submit"/>
-        </form>        
+            <input type="submit" id="submit-button" class="btn btn-submit" value="Submit"/>
+        </form> 
+        </v-container>   
+        </v-card>    
     </div>        
 </template>
 
@@ -90,7 +123,7 @@
 import recipeService from "../services/RecipeService"
 
 export default {
-    name: "recipe-form",
+    name: "add-recipe-form",
     data() {
         return {
             formProperties: {
@@ -167,7 +200,7 @@ export default {
             
             recipeService.addRecipe(newRecipe).then(response => {
                 if (response.status === 201) {
-                    this.$router.push(`/user/${newRecipe.username}/myRecipes`);
+                    this.$router.push({name: 'myRecipes', params: {username:this.$store.state.user.username}});
                 }
             })
         },
@@ -191,11 +224,12 @@ export default {
 </script>
 
 <style scoped>
-
-.app {
+#overview {
+    background-color: rgba(255,255,255,.35) !important;
     display: flex;
     flex-direction: column;
     font-family: "Lora", Arial, Helvetica, sans-serif;
+    min-width: 65vw;
 }
 
 .container {
@@ -212,28 +246,42 @@ label {
 .form-group {
     padding-bottom: 10px;
 }
-input, input #ingredient-quantity {
+
+.form-group2 {
+    padding-bottom: 10px;
+    align-self: center;
+}
+
+input {
     margin-right: 15px;
-    background-color: rgb(255, 255, 255, 0.2);
+    background-color: rgb(255, 255, 255, 0.3);
     height: 5vh;
     width: 20vw;
     font-size: 3vh;
     align-items: center;
+    border: 1px solid;
 }
+
+#ingredient-quantity {
+    height: 5vh;
+    width: 5vw;
+}
+
 
 textarea {
     border-radius: 0px;
-    background-color: rgb(255, 255, 255, 0.2);
+    background-color: rgb(255, 255, 255, 0.3);
     height: 10vh;
     width: 40vw;
+    border: 1px solid;
 }
 #ingredient-btn {
-    color: rgb(211, 208, 208);
-    background-color: green;
+    background-color: rgba(157, 223, 155, 0.5);
     width: max-content;
     font-size: 1.5vw;
     padding-left: 5px;
     padding-right: 5px;
+    border: 1px solid green;
 }
 
 .btn btn-submit {
@@ -245,8 +293,10 @@ textarea {
 .card-body {
     margin-top: 15px;
     margin-bottom: 15px;
-    border: 2px solid black;
+    border: 2px solid green;
     width: 55vw;
+    background-color: rgba(157, 223, 155, 0.5);
+
 }
 
 .recipe-type input {
@@ -270,5 +320,14 @@ textarea {
 select {
     border: 1px solid black;
 }
+
+#yield-unit {
+    background-color: rgba(255,255,255,0.35);
+}
+
+#submit-button {
+    align-self: center;
+}
+
 
 </style>

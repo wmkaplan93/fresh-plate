@@ -1,25 +1,19 @@
 <template>
-    <div id="container">
-       
-        <div id="form">
-            <add-recipe-form /> 
-        </div>    
+    <div id="overview">
+        <user-landing-sidebar />
+        <add-recipe-form /> 
     </div>
 </template>
 
 <script>
-
+import UserLandingSidebar from "../components/LandingSidebar";
 import AddRecipeForm from "../components/RecipeForm";
 
 
 export default {
     components: { 
-        AddRecipeForm 
-    },
-    data() {
-        return {
-            name: this.$store.state.user.username
-        }
+        AddRecipeForm,
+        UserLandingSidebar
     }
 }
 </script>
@@ -28,12 +22,5 @@ export default {
 #overview {
     display: flex;
 }
-
-#form {
-    display: flex;
-    justify-content: flex-end;
-    align-self: flex-start;
-}
-
 </style>
 
