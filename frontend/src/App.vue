@@ -37,6 +37,10 @@
   display: flex;
 }
 
+a {
+  color: black;
+}
+
 #app {
   background-image: url("../public/background options/O8RDSC0.jpg");
   background-size: cover;

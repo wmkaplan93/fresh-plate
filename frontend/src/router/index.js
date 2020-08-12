@@ -11,6 +11,7 @@ import MyPlans from '../views/MyPlans.vue'
 import ExploreRecipes from '../views/ExploreRecipes.vue'
 import MyGroceryList from '../views/MyGroceryList.vue'
 import AddRecipe from '../views/AddRecipe.vue'
+import MyPlanDetails from '../views/MyPlanDetails.vue'
 import RecipeDetails from '../views/RecipeDetails.vue'
 import ForgotPassword from '../views/ForgotPassword.vue'
 import UserForgotPassword from "../views/UserForgotPassword.vue"
@@ -111,14 +112,6 @@ const router = new Router({
       }
     },
     {
-      path: "/users/:username/myGroceryList",
-      name: "myGroceryList",
-      component: MyGroceryList,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
       path: "/exploreRecipes",
       name: "exploreRecipes",
       component: ExploreRecipes,
@@ -127,10 +120,26 @@ const router = new Router({
       }
     },
     {
-      path: "/exploreRecipes/:recipeId",
-      name: "RecipeDetails",
+
+      path: '/myGroceryList/:planId',
+      name: "myGroceryList",
+      component: MyGroceryList,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/myPlans/:planId',
+      name: "myPlanDetails",
+      component: MyPlanDetails,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/myRecipes/:recipeId',
+      name: "recipeDetails",
       component: RecipeDetails,
-      props: true,
       meta: {
         requiresAuth: true
       }
@@ -149,6 +158,14 @@ const router = new Router({
       component: UserForgotPassword,
       requiresAuth: false
     }
+    // {
+    //   path: "/exploreRecipes/:recipeId",
+    //   name: "toggleFavorite",
+    //   props: true,
+    //   meta: {
+    //     requiresAuth: true
+    //   }
+    // }
   ]
 })
 

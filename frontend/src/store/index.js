@@ -11,7 +11,6 @@ Vue.use(Vuex)
  */
 const currentToken = localStorage.getItem('token')
 const currentUser = JSON.parse(localStorage.getItem('user'));
-const allRecipes = JSON.parse(localStorage.getItem('recipe'));
 
 
 if(currentToken != null) {
@@ -34,6 +33,13 @@ export default new Vuex.Store({
       ingredientId: 0,
       ingredientName: ''
     },
+
+    groceryList: [],
+    items: {
+      quantity: 0,
+      ingredientName: '',
+      unitName: ''
+    },
     
     type: {
       typeId: 0,
@@ -45,8 +51,41 @@ export default new Vuex.Store({
       unitName: ''
     },
 
+    userPlans: [],
+    plan: {
+      plan_id: 0,
+      username: '',
+      plan_name: '',
+      plan_description: ''
+    },
 
-    recipeList: allRecipes || [],
+    planDetails: {},
+    details: {
+      mealPlan: {
+        plan_id: 0,
+        username: '',
+        plan_name: '',
+        plan_description: '',
+      },
+      recipeList: [
+        {
+          recipeId: 0,
+          name: '',
+          description: '',
+          yieldAmount: 0,
+          yieldUnit: '',
+          duration: '',
+          recipeMethod: '',
+          ownername: '',
+          public: false
+        }
+      ]
+    },
+
+
+    recipeList: [],
+    userRecipes: [],
+    allRecipes: [],
     recipe: {
       
       username: '',
@@ -61,6 +100,33 @@ export default new Vuex.Store({
       isPublic: false,
       isFavorite: false,
       ingredientList: []
+    },
+
+    recipeDetails: {
+      recipeId: 0,
+      name: '',
+      description: '',
+      yieldAmount: 0,
+      yieldUnit: '',
+      duration: '',
+      recipeMethod: '',
+      typeList: [
+        {
+          typeId: 0,
+          type: ''
+        }
+      ],
+      ingredientList: [
+        {
+          quantity: 0,
+          ingredientName: '',
+          unitName: ''
+        }
+      ],
+      username: '',
+      ownername: '',
+      public: false,
+      favorite: false
     }
   },
   mutations: {
@@ -94,6 +160,21 @@ export default new Vuex.Store({
     },
     SET_USERNAME (state, data) {
       state.usernameFP = data
+    },
+    GET_USER_RECIPES(state, data) {
+      state.userRecipes = data;
+    },
+    GET_USER_PLANS(state, data) {
+      state.userPlans = data;
+    },
+    GET_GROCERY_LIST(state, data) {
+      state.items = data;
+    },
+    GET_PLAN_DETAILS(state, data) {
+      state.details = data;
+    },
+    GET_RECIPE_DETAILS(state, data) {
+      state.recipeDetails = data;
     }
   }
 })

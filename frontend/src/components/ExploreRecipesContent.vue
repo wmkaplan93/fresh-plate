@@ -34,24 +34,24 @@
                             </v-list>
                         </v-menu>
                         <v-divider></v-divider>
-                        <v-tooltip bottom>
+                        <!-- <v-tooltip bottom>
                             <template v-slot:activator="{ on, attrs }">
                                 <v-btn 
                                 icon 
                                 v-on="on" 
                                 v-bind="attrs"
-                                @click="favorite = !favorite"
-                                ><v-icon medium center>{{ favorite ? 'favorite' : 'favorite_border'}}</v-icon>
+                                @click="recipe.isFavorite = !recipe.isFavorite; 
+                                        addToLibrary(recipe)">
+                                    <v-icon medium center>{{ recipe.isFavorite ? 'remove_circle_outline' : 'add_circle_outline'}}</v-icon>
                                 </v-btn>
                             </template>
-                            <span>{{favorite ? "Remove from My Recipes" : "Add to My Recipes"}}</span>
+                            <span>{{recipe.isFavorite ? "Remove from My Recipes" : "Add to My Recipes"}}</span>
                         </v-tooltip>
-                        <v-divider></v-divider>
+                        <v-divider></v-divider> -->
                         <v-tooltip bottom>
                             <template v-slot:activator="{ on, attrs }">
                                 <v-btn 
                                 icon 
-                                color="blue" 
                                 v-on="on" 
                                 v-bind="attrs"
                                 @click="recipe.show = !recipe.show"
@@ -67,7 +67,10 @@
                             <v-card-text>
                                 <div>Total Time: {{ recipe.duration }}</div>
                                 <v-divider></v-divider>
-                                <div><strong>Method: </strong></div>
+                                <div><strong>Ingredients: </strong></div>
+                                <br>
+                                <div>{{ recipe.ingredientsList }}</div>
+                                <v-divider></v-divider>                                <div><strong>Method: </strong></div>
                                 <br>
                                 <div>{{ recipe.recipeMethod }}</div>
                                 <v-divider></v-divider>
@@ -87,11 +90,11 @@ import recipeService from "../services/RecipeService";
 
 export default {
     name: "explore-recipes-content",
+    components: {
+    },
     data() {
         return {
             showRecipes: [],
-            selectedindex: null,
-            favorite: false,
             items: [
                 { title: 'Sunday Splurge' },
                 { title: 'Rabbit Food' },
@@ -120,38 +123,13 @@ export default {
         addShow() {
             this.showRecipes = this.$store.state.allRecipes.map(recipe => ({
                 ...recipe,
-                show: false
+                show: false,
+                username: this.$store.state.user.username
             }))
-        }
+        },
+        // addTolibrary(recipe) {
+        //     recipeService.addToLibrary(recipe)
+        // }
     }
 }
 </script>
-<style scoped>
-#explore-recipes-title {
-    font-size: 8vh;
-    text-decoration: underline overline;
-    display: flex;
-    justify-content: center;
-    align-self: flex-start;
-}
-
-#explore-recipes {
-    display: flex;
-    justify-content: center;
-    width: 65vw;
-    background: rgba(170,12,7,0.1);
-    align-items: center;
-}
-
-.recipe {
-    background-color: pink;
-    padding: 10px;
-    margin: 10px;
-    flex: 1;
-    text-align: center;
-}
-/*
-.loading {
-    flex: 1;
-}*/
-</style>
