@@ -82,6 +82,7 @@ public class RecipeController {
 		return recipeDAO.findPublicRecipesByType(type);
 	}
 	
+	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path = "users/{username}/addRecipe", method = RequestMethod.POST)
 	public void addRecipe(@RequestBody RecipeDTO newRecipe) {
 		recipeDAO.createRecipe(newRecipe);
