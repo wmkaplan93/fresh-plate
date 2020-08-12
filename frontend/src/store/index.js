@@ -35,7 +35,7 @@ export default new Vuex.Store({
     },
 
     groceryList: [],
-    items: {
+    item: {
       quantity: 0,
       ingredientName: '',
       unitName: ''
@@ -102,6 +102,7 @@ export default new Vuex.Store({
       ingredientList: []
     },
 
+    allRecipeDetails: {},
     recipeDetails: {
       recipeId: 0,
       name: '',
@@ -114,20 +115,19 @@ export default new Vuex.Store({
         {
           typeId: 0,
           type: ''
-        }
+        },
       ],
       ingredientList: [
         {
           quantity: 0,
           ingredientName: '',
           unitName: ''
-        }
+        },
       ],
-      username: '',
+      username: null,
       ownername: '',
-      public: false,
-      favorite: false
-    }
+      public: false
+    },
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -168,7 +168,7 @@ export default new Vuex.Store({
       state.userPlans = data;
     },
     GET_GROCERY_LIST(state, data) {
-      state.items = data;
+      state.groceryList = data;
     },
     GET_PLAN_DETAILS(state, data) {
       state.details = data;

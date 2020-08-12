@@ -1,10 +1,11 @@
 <template>
-    <div class="overview" data-app>
-        <h1 class="subheading black--text">My Recipes</h1>
+    <div data-app>
+        <h1 class="subheading black--text">My&nbsp;Recipes</h1>
+        <v-card id="overview">
         <v-container class="recipe-cards">
         
             <v-layout row wrap>
-                <v-flex xs12 sm6 md5 lg4 
+                <v-flex xs12 sm6 md4 lg4 
                 v-for="recipe in showRecipes" 
                 :key="recipe.recipeId">
                 <v-card class="text-xs-center ma-3">
@@ -28,57 +29,53 @@
                                 </v-tooltip>
                             </template>
                             <v-list>
-                                <v-list-item v-for="(item, index) in items" :key="index" @click="addToList()">
-                                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+                                <v-list-item v-for="plan in $store.state.userPlans" :key="plan.plan_id" @click="addToList()">
+                                    <v-list-item-title>{{ plan.plan_name }}</v-list-item-title>
                                 </v-list-item>
                             </v-list>
                         </v-menu>
                         <v-divider></v-divider>
-                        <!-- <v-tooltip bottom>
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-btn 
-                                icon 
-                                v-on="on" 
-                                v-bind="attrs"
-                                @click="recipe.isFavorite = !recipe.isFavorite"
-                                ><v-icon medium center>{{ recipe.isFavorite ? 'favorite' : 'favorite_border'}}</v-icon>
-                                </v-btn>
-                            </template>
-                            <span>{{recipe.isFavorite ? "Remove from My Recipes" : "Add to My Recipes"}}</span>
-                        </v-tooltip>
-                        <v-divider></v-divider> -->
                         <v-tooltip bottom>
                             <template v-slot:activator="{ on, attrs }">
                                 <v-btn 
                                 icon 
                                 v-on="on" 
                                 v-bind="attrs"
-                                @click="show = !show"
-                                ><v-icon medium center>{{ !show ? 'expand_more' : 'expand_less'}}</v-icon>
+                                router :to="{name: 'recipeDetails', params: { recipeId:recipe.recipeId} }"
+                                ><v-icon medium center>info_outline</v-icon>
                                 </v-btn>
                             </template>
-                            <span>{{show ? "Less Information" : "More Information"}}</span>
+                            <span>Recipe Details</span>
+                        </v-tooltip>
+                        <v-divider></v-divider>
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn 
+                                icon 
+                                v-on="on" 
+                                v-bind="attrs"
+                                @click="recipe.show = !recipe.show"
+                                ><v-icon medium center>{{ recipe.show ? 'expand_less' : 'expand_more'}}</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>{{recipe.show ? "Less Information" : "More Information"}}</span>
                         </v-tooltip>
                     </v-card-actions>
                     <v-expand-transition>
-                        <div v-show="show">
+                        <div v-show="recipe.show">
                             <v-divider></v-divider>
                             <v-card-text>
                                 <div>Total Time: {{ recipe.duration }}</div>
                                 <v-divider></v-divider>
-                                <div><strong>Method: </strong></div>
-                                <br>
-                                <div>{{ recipe.recipeMethod }}</div>
-                                <v-divider></v-divider>
-                                <div>Yield: {{ recipe.yield }}</div>
+                                <div>Yield: {{ recipe.yieldAmount }} {{recipe.yieldUnit }}</div>
                             </v-card-text>
                         </div>
                     </v-expand-transition>
                 </v-card>
                 </v-flex>
             </v-layout>
-
         </v-container>
+        </v-card>
     </div>
 </template>
 
@@ -89,52 +86,45 @@ export default {
     name: "recipes-content",
     data() {
         return {
-            showRecipes: [],
-            items: [
-                { title: 'Sunday Splurge' },
-                { title: 'Rabbit Food' },
-                { title: 'Carnivore Crunch' },
-                { title: 'Midnight Munchies' },
-                { title: 'Everything is Cake' }
-            ],
+            showRecipes: []
         }
     },
     created() {
         this.retrieveUserRecipes();
     },
-    mounted() {
-        this.addShow();
-    },
     methods: {
         retrieveUserRecipes() {
             recipeService.getUserRecipes(this.$store.state.user.username).then(response => {
                 this.$store.commit("GET_USER_RECIPES", response.data);
+                this.addShow();
             })
         },
         addShow() {
             this.showRecipes = this.$store.state.userRecipes.map(recipe => ({
                 ...recipe,
                 show: false,
+                username: this.$store.state.user.username
             }))
+        },    
+        addToList() {
+            alert("Success")
+            return '';
         },    
     }
 }
 </script>
 <style scoped>
-#recipes-content {
-    display: flex;
-    justify-content: center;
+#overview {
     width: 65vw;
-    background: rgba(120,36,194,0.1);
-}
-#recipes-title {
-    font-size: 8vh;
-    text-decoration: underline overline;
+    background-color: rgba(255,255,255,0.25) !important;
+    min-height: 74vh !important;
+    justify-content: center;
+    justify-items: center;
+    display: flex;
 }
 
-#user-recipes {
-    display: flex;
-    justify-content: center;
-    align-self: flex-start;
+h1{ 
+    text-align: center !important;
+
 }
 </style>
