@@ -1,7 +1,7 @@
 <template>
     <div class="app">
         <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet'>
-        <form class="container">
+        <form class="container" v-on:submit.prevent="addNewRecipe" >
             <h2>New Recipe</h2>
             <div class="form-group">
                 <label for="recipe-name">Recipe Name: </label>
@@ -45,7 +45,7 @@
                             <h3 class="card-title">Ingredient Details (Ingredient: {{ index }}) </h3>
                             <div class="recipe-ingredient-form">
                                 <label for="ingredient-quantity">Quantity: </label>
-                                <input type="text" id="ingredient-quantity" class="form-control" v-model="ingredient.quantity" />
+                                <input type="number" id="ingredient-quantity" class="form-control" v-model="ingredient.quantity" />
                                 <label for="ingredient-unit">Unit: </label>
                                 <select name="basic-dropdown" id="ingredient-unit" class="form-control" v-model="ingredient.unitName">
                                     <option v-for="unit in formProperties.units" v-bind:key="unit.unitId" :value="unit.unitName"> 
@@ -58,8 +58,8 @@
                                         {{ingredient.ingredientName}}
                                     </option>
                                 </select>  
-                                <label for="new-ingredient">Add new ingredient: </label>
-                                <input type="text" id="new-ingredient" class="form-control" v-model="ingredient.ingredientName">       
+                                <!-- <label for="new-ingredient">Add new ingredient: </label>
+                                <input type="text" id="new-ingredient" class="form-control" v-model="ingredient.ingredientName">        -->
                             </div>   
                         </div>
                     </div>                 
@@ -81,7 +81,7 @@
             </div>
 
 
-            <button class="btn btn-submit" v-on:click="addNewRecipe">Submit</button>
+            <input type="submit" class="btn btn-submit" value="Submit"/>
         </form>        
     </div>        
 </template>
@@ -126,7 +126,7 @@ export default {
             },
             ingredientList: [
                 {
-                quantity: '',
+                quantity: 0,
                 ingredientName: '',
                 unitName: ''
                 }
@@ -148,6 +148,7 @@ export default {
 
         addNewRecipe() {
             const newRecipe = {
+                recipeId: 0,
                 username: this.$store.state.user.username,
                 ownername: this.$store.state.user.username,
                 name: this.recipe.name,
@@ -157,20 +158,16 @@ export default {
                 yieldUnit: this.recipe.yieldUnit,
                 duration: this.recipe.duration,
                 recipeMethod: this.recipe.recipeMethod,
-                public: this.recipe.isPublic,
-                favorite: this.recipe.isFavorite,
-                ingredientList: this.recipe.ingredientList
+                public: this.recipe.public,
+                favorite: this.recipe.favorite,
+                ingredientList: this.ingredientList
       
-            };
-
-            const currentUser = {
-                username: this.$store.state.user.username,
             }
             
             
-            recipeService.addRecipe(currentUser, newRecipe).then(response => {
+            recipeService.addRecipe(newRecipe).then(response => {
                 if (response.status === 201) {
-                    this.$router.push('/user/currentUser/myRecipes');
+                    this.$router.push(`/user/${newRecipe.username}/myRecipes`);
                 }
             })
         },
