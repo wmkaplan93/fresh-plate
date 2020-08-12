@@ -12,6 +12,8 @@ import ExploreRecipes from '../views/ExploreRecipes.vue'
 import MyGroceryList from '../views/MyGroceryList.vue'
 import AddRecipe from '../views/AddRecipe.vue'
 import RecipeDetails from '../views/RecipeDetails.vue'
+import ForgotPassword from '../views/ForgotPassword.vue'
+import UserForgotPassword from "../views/UserForgotPassword.vue"
 
 Vue.use(Router)
 
@@ -132,6 +134,20 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: "/resetPassword/:username",
+      name: "forgotPassword",
+      component: ForgotPassword,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/resetPassword",
+      name: "enterUsername",
+      component: UserForgotPassword,
+      requiresAuth: false
     }
   ]
 })

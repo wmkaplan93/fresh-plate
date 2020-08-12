@@ -38,6 +38,8 @@
         required
       />
       &nbsp;<br>
+      <router-link :to="{ name: 'enterUsername'}" id="enter-username"><button id="forgot-password-btn">Forgot My Password</button></router-link>
+      &nbsp;<br>
       <button class='btn' type="submit">Sign in</button>
       <br><br>
       <router-link :to="{ name: 'register' }" id="need-account"><button id="need-account-btn">Need an account?</button></router-link>

@@ -62,6 +62,8 @@ export default {
         password: '',
         confirmPassword: '',
         role: 'user',
+        securityQuestionId: 0,
+        answer: ''
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
