@@ -18,6 +18,9 @@
             <router-link v-bind:to="{ name: 'addRecipe', params: {username:username} }">
                 <button type="add-recipe">Add New Recipe</button>
             </router-link> 
+            <router-link v-bind:to="{ name: 'addMealPlan', params: {username:username} }">
+                <button type="add-recipe">New Meal Plan</button>
+            </router-link> 
         </div>
     </div>
 </template>

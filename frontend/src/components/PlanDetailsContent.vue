@@ -1,14 +1,15 @@
 <template>
-    <div id="overview" data-app>
+    <div data-app>
         <h1 class="subheading black--text text-center">{{this.$store.state.details.mealPlan.plan_name}}</h1>
-        <!-- <h3 class="small text-center">{{this.$store.state.details.mealPlan.plan_description}}</h3> -->
+        <h3 class="small text-center">{{this.$store.state.details.mealPlan.plan_description}}</h3>
+        <v-card id="overview">
         <v-container class="plan-details-recipes">
             <v-btn depressed small router :to="{ name: 'myGroceryList', params: {planId:this.$store.state.details.mealPlan.plan_id} }">
                 <v-icon>shopping_cart</v-icon>
                 View Grocery List
             </v-btn>
             <v-layout row wrap>
-                <v-flex xs12 sm12 md6 lg6
+                <v-flex xs12 sm6 md4 lg4
                 v-for="recipe in showRecipes" :key="recipe.recipeId">
                 <v-card class="text-center ma-5"> 
                     <v-card-text>
@@ -27,19 +28,8 @@
                                 </v-btn>
                             </template>
                             <span>Recipe Details</span>
-                        </v-tooltip>                        <v-divider></v-divider>
-                        <!-- <v-tooltip bottom>
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-btn 
-                                icon 
-                                v-on="on" 
-                                v-bind="attrs"
-                                @click="recipe.show = !recipe.show"
-                                ><v-icon medium center>{{ recipe.show ? 'expand_less' : 'expand_more'}}</v-icon>
-                                </v-btn>
-                            </template>
-                            <span>{{recipe.show ? "Less Information" : "More Information"}}</span>
-                        </v-tooltip> -->
+                        </v-tooltip>                        
+                        <v-divider></v-divider>
                     </v-card-actions>
                         <!-- <v-expand-transition>
                             <div v-show="recipe.show">
@@ -63,6 +53,7 @@
                 </v-flex>
             </v-layout>
         </v-container>
+        </v-card>
     </div>
 </template>
 
@@ -98,6 +89,15 @@ export default {
 </script>
 <style scoped>
 #overview {
+    width: 65vw;
+    background-color: rgba(255,255,255,0.25) !important;
+    min-height: 71vh !important;
+    justify-content: center;
+    justify-items: center;
     display: flex;
+}
+h1, h3{
+    background-color: rgba(131, 131, 131, 0.5);
+    text-align: center;
 }
 </style>

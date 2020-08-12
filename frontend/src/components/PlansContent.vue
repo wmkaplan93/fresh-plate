@@ -1,7 +1,7 @@
 <template>
     <div data-app>
+         <h1 class="subheading black--text">My&nbsp;Plans</h1>
         <v-card class="text-center" id="overview">
-        <h1 class="subheading red--text">My&nbsp;Plans</h1>
         <v-container>
             <v-expansion-panels popout row wrap >
                 <v-expansion-panel v-for="plan in this.$store.state.userPlans" :key="plan.plan_id">
@@ -77,9 +77,11 @@ export default {
 
 #overview {
     width: 65vw;
-    min-height: 90vh !important;
+    background-color: rgba(255,255,255,0.25) !important;
+    min-height: 71vh !important;
     justify-content: center;
-    background-color: rgba(255,255,255,0.25) !important
+    justify-items: center;
+    display: flex;
 }
 
 h1 {

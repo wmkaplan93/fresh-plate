@@ -1,11 +1,11 @@
 <template>
     <div data-app>
-        <v-card id="overview">
         <h1 class="subheading black--text">Explore&nbsp;Recipes</h1>
+        <v-card id="overview">
         <v-container class="recipe-cards">
         
             <v-layout row wrap>
-                <v-flex xs12 sm6 md5 lg4 
+                <v-flex xs12 sm6 md6 lg4 
                 v-for="recipe in showRecipes" 
                 :key="recipe.recipeId">
                 <v-card class="text-xs-center ma-3">
@@ -122,8 +122,10 @@ export default {
 #overview {
     width: 65vw;
     background-color: rgba(255,255,255,0.25) !important;
-    min-height: 90vh !important;
+    min-height: 74vh !important;
     justify-content: center;
+    justify-items: center;
+    display: flex;
 }
 
 h1{ 

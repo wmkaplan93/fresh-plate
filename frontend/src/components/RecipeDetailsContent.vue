@@ -1,5 +1,5 @@
 <template>
-    <v-card max-width="600" class="mx-auto">
+    <v-card max-width="600" class="mx-auto" id="overview">
         <v-container>
             <v-row dense>
                 <v-col cols="12">
@@ -16,7 +16,7 @@
                 <v-col cols="12">
                     <v-card>
                         <v-card-title class="headline">Types</v-card-title>
-                        <v-card-subtitle v-for="type in $store.state.recipeDetails.typeList" :key="type.typeId">{{type.type}}</v-card-subtitle>
+                        <v-card-subtitle>| <span v-for="type in $store.state.recipeDetails.typeList" :key="type.typeId">{{type.type}} | </span></v-card-subtitle>
                     </v-card>
                 </v-col>
                 <v-divider></v-divider>
@@ -25,7 +25,7 @@
                         <v-card-title class="headline">Yield</v-card-title>
                         <v-card-subtitle>
                             {{this.$store.state.recipeDetails.yieldAmount}}
-                            {{this.$store.state.recipeDetails.yieldUnits}}
+                            {{this.$store.state.recipeDetails.yieldUnit}}
                         </v-card-subtitle>
                     </v-card>
                 </v-col>
@@ -39,19 +39,19 @@
                 </v-col>
                 <v-col cols="12">
                     <v-card>
-                        <v-card-title class="headline">Method</v-card-title>
-                        <v-card-subtitle>
-                            {{this.$store.state.recipeDetails.recipeMethod}}
+                        <v-card-title class="headline">Ingredients</v-card-title>
+                        <v-card-subtitle v-for="item in $store.state.recipeDetails.ingredientList" :key="item">
+                            {{item.quantity}}
+                            {{item.unitName}} - 
+                            {{item.ingredientName}}
                         </v-card-subtitle>
                     </v-card>
                 </v-col>
                 <v-col cols="12">
                     <v-card>
-                        <v-card-title class="headline">Ingredients</v-card-title>
-                        <v-card-subtitle v-for="item in $store.state.recipeDetails.ingredientList" :key="item">
-                            {{item.quantity}}
-                            {{item.unitName}} | 
-                            {{item.ingredientName}}
+                        <v-card-title class="headline">Method</v-card-title>
+                        <v-card-subtitle>
+                            {{this.$store.state.recipeDetails.recipeMethod}}
                         </v-card-subtitle>
                     </v-card>
                 </v-col>
@@ -78,3 +78,12 @@ export default {
 
 }
 </script>
+<style scoped>
+#overview {
+    width: 65vw;
+    min-width: 50vw;
+    justify-content: center;
+    justify-items: center;
+    display: flex;
+}
+</style>

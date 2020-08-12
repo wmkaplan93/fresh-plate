@@ -13,6 +13,7 @@ import MyGroceryList from '../views/MyGroceryList.vue'
 import AddRecipe from '../views/AddRecipe.vue'
 import MyPlanDetails from '../views/MyPlanDetails.vue'
 import RecipeDetails from '../views/RecipeDetails.vue'
+import AddMealPlan from '../views/AddMealPlan.vue'
 
 Vue.use(Router)
 
@@ -138,6 +139,14 @@ const router = new Router({
       path: '/myRecipes/:recipeId',
       name: "recipeDetails",
       component: RecipeDetails,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/users/:username/addMealPlan',
+      name: "addMealPlan",
+      component: AddMealPlan,
       meta: {
         requiresAuth: true
       }

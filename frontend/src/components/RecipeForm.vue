@@ -252,7 +252,7 @@ label {
     align-self: center;
 }
 
-input, input {
+input {
     margin-right: 15px;
     background-color: rgb(255, 255, 255, 0.3);
     height: 5vh;

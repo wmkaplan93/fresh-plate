@@ -13,6 +13,10 @@ export default {
     return http.post(`/users/${newRecipe.username}/addRecipe`, newRecipe)
   },
 
+  addNewPlan(newPlan) {
+    return http.post(`/users/${newPlan.username}/addMealPlan`, newPlan)
+  },
+
   getRecipes() {
     return http.get('/exploreRecipes');
   },
