@@ -1,5 +1,7 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.RegisterUserDTO;
+import com.techelevator.model.SecurityAnswerDTO;
 import com.techelevator.model.SecurityQuestion;
 import com.techelevator.model.User;
 
@@ -21,7 +23,7 @@ public interface UserDAO {
     
     List<SecurityQuestion> getAllSecurityQuestions();
     
-    boolean compareAnswer(String username, String answer);
+    boolean compareAnswer(SecurityAnswerDTO answer);
     
-    void updatePassword(String username, String newPassword);
+    void updatePassword(RegisterUserDTO user);
 }

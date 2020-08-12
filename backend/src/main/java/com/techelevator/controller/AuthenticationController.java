@@ -25,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.techelevator.dao.UserDAO;
 import com.techelevator.model.LoginDTO;
 import com.techelevator.model.RegisterUserDTO;
+import com.techelevator.model.SecurityAnswerDTO;
 import com.techelevator.model.SecurityQuestion;
 import com.techelevator.model.User;
 import com.techelevator.model.UserAlreadyExistsException;
@@ -79,8 +80,8 @@ public class AuthenticationController {
     }
     
     @RequestMapping(value= "/resetPassword/{username}", method = RequestMethod.POST)
-    public boolean compareAnswer(@RequestBody @PathVariable String username, String answer) {
-    	return userDAO.compareAnswer(username, answer);
+    public boolean compareAnswer(@RequestBody SecurityAnswerDTO answer) {
+    	return userDAO.compareAnswer(answer);
     }
     
     @RequestMapping(value= "/resetPassword/{username}", method = RequestMethod.GET)
@@ -88,11 +89,9 @@ public class AuthenticationController {
     	return userDAO.getSecurityQuestion(username);
     }
     
-    
-    
     @RequestMapping(value= "/resetPassword/{username}", method = RequestMethod.PUT)
-    public void updatePassword(@Valid @RequestBody User user, String newPassword) {
-    	userDAO.updatePassword(user.getUsername(), newPassword);
+    public void updatePassword(@Valid @RequestBody RegisterUserDTO user) {
+    	userDAO.updatePassword(user);
     }
     
 
