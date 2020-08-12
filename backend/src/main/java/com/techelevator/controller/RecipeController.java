@@ -82,9 +82,10 @@ public class RecipeController {
 		return recipeDAO.findPublicRecipesByType(type);
 	}
 	
+	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path = "users/{username}/addRecipe", method = RequestMethod.POST)
-	public void addRecipe(@Valid @RequestBody RecipeDTO newRecipe, @PathVariable String username) {
-		recipeDAO.createRecipe(newRecipe, username);
+	public void addRecipe(@RequestBody RecipeDTO newRecipe) {
+		recipeDAO.createRecipe(newRecipe);
 	}
 	
 	@RequestMapping(path = "users/{username}/addRecipe", method = RequestMethod.GET)

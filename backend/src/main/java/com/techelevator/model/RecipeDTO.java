@@ -7,41 +7,41 @@ import javax.validation.constraints.NotEmpty;
 
 public class RecipeDTO {
 	
-	@NotEmpty
+	
 	private long recipeId;
 	
-	@NotEmpty
+	
 	private String name;
 	
 	private String description;
 	
-	@NotEmpty
+	
 	private BigDecimal yieldAmount;
 	
-	@NotEmpty
+	
 	private String yieldUnit;
 	
-	@NotEmpty
+	
 	private String duration;
 	
-	@NotEmpty
+	
 	private String recipeMethod;
 	
-	@NotEmpty
+	
 	private boolean isPublic;
 	
-	@NotEmpty
+	
 	private List<Type> typeList;
 
-	@NotEmpty
+	
 	private List<RecipeIngredient> ingredientList;
 	
-	@NotEmpty
+	
 	private String username;
 	
 	private String ownername;
 	
-	@NotEmpty
+	
 	private boolean isFavorite;
 	
 	
