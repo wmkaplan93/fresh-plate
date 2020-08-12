@@ -1,24 +1,24 @@
 <template>
-    <div id="overview">
-        <user-landing-sidebar />
-        <plans-content />
-    </div>
+  <div id="overview">
+      <user-landing-sidebar />
+      <add-meal-plan-content />
+  </div>
 </template>
 
 <script>
 import UserLandingSidebar from "../components/LandingSidebar";
-import PlansContent from "../components/PlansContent";
+import AddMealPlanContent from "../components/AddMealPlanContent";
 
 export default {
     components: {
         UserLandingSidebar,
-        PlansContent
+        AddMealPlanContent
     }
 }
 </script>
-<style scoped>
+
+<style>
 #overview {
     display: flex;
 }
-
 </style>

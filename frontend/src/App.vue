@@ -3,20 +3,21 @@
     <div id="nav">
       <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet'>
       <router-link v-bind:to="{ name: 'home' }" v-if="$store.state.token == ''">
-        <button type="home-button">Home</button>
+        <button type="home-button"><v-icon small>home</v-icon> Home</button>
       </router-link>
       <router-link v-bind:to="{ name: 'UserLanding', params: {username: this.$store.state.user.username} }" v-else>
-        <button type="my-home-button">My Home</button>
+        <button type="my-home-button"><v-icon small>home</v-icon> My Home</button>
       </router-link>
       <router-link v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">
-        <button type="login-button">Login</button>
+        <button type="login-button"><v-icon small>login</v-icon> Login</button>
       </router-link>
       <router-link v-bind:to="{ name: 'logout' }" v-else>
-        <button type="logout-button">Logout</button>
+        <button type="logout-button"><v-icon small>directions_run</v-icon> Logout</button>
       </router-link>
       <router-link v-bind:to="{ name: 'register' }" v-if="$store.state.token == ''">
-        <button type="register-button">Register</button>
+        <button type="register-button"><v-icon small>how_to_reg</v-icon> Register</button>
       </router-link>
+      <a @click="$router.go(-1)" v-else><button type="back-button"><v-icon small>keyboard_return</v-icon> Return</button></a>
     </div>
     <router-view />
     <footer>
@@ -44,9 +45,7 @@ a {
 #app {
   background-image: url("../public/background options/O8RDSC0.jpg");
   background-size: cover;
-  background-repeat: repeat-y;  
-  background-attachment: fixed;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -66,12 +65,6 @@ footer {
   font-size: 3vh;
   font-family: 'Allan';
   margin: .5vh 1vw 0vw 1vw;
-}
-
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 </style>

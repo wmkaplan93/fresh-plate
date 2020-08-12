@@ -58,5 +58,11 @@ public class MealPlanController {
 	public List<RecipeIngredient> getGroceryListByPlanId(@PathVariable long planId) {
 		return mpDAO.getGroceryListByPlanId(planId);
 	}
+	
+	@ResponseStatus(HttpStatus.CREATED)
+	@RequestMapping(path = "/users/{username}/addMealPlan", method = RequestMethod.POST)
+	public void addPlan(@RequestBody MealPlan newMealPlan) {
+		mpDAO.createMealPlan(newMealPlan);
+	}
 
 }
