@@ -14,6 +14,8 @@ import AddRecipe from '../views/AddRecipe.vue'
 import MyPlanDetails from '../views/MyPlanDetails.vue'
 import RecipeDetails from '../views/RecipeDetails.vue'
 import AddMealPlan from '../views/AddMealPlan.vue'
+import ForgotPassword from '../views/ForgotPassword.vue'
+import UserForgotPassword from "../views/UserForgotPassword.vue"
 
 Vue.use(Router)
 
@@ -150,6 +152,20 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: "/resetPassword/:username",
+      name: "forgotPassword",
+      component: ForgotPassword,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/resetPassword",
+      name: "enterUsername",
+      component: UserForgotPassword,
+      requiresAuth: false
     }
     // {
     //   path: "/exploreRecipes/:recipeId",
