@@ -11,6 +11,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.techelevator.model.RegisterUserDTO;
+import com.techelevator.model.SecurityAnswerDTO;
+import com.techelevator.model.SecurityQuestion;
 import com.techelevator.model.User;
 
 @Service
@@ -63,11 +66,11 @@ public class UserSqlDAO implements UserDAO {
     }
 
     @Override
-    public boolean create(String username, String password, String role) {
+    public boolean create(String username, String password, String role, long securityQuestionID, String answer) {
         boolean userCreated = false;
 
         // create user
-        String insertUser = "insert into users (username,password_hash,role) values(?,?,?)";
+        String insertUser = "insert into users (username,password_hash,role,security_question_id, answer) values(?,?,?,?,?)";
         String password_hash = new BCryptPasswordEncoder().encode(password);
         String ssRole = "ROLE_" + role.toUpperCase();
 
@@ -78,6 +81,8 @@ public class UserSqlDAO implements UserDAO {
                     ps.setString(1, username);
                     ps.setString(2, password_hash);
                     ps.setString(3, ssRole);
+                    ps.setLong(4, securityQuestionID);
+                    ps.setString(5, answer);
                     return ps;
                 }
                 , keyHolder) == 1;
@@ -85,6 +90,53 @@ public class UserSqlDAO implements UserDAO {
 
         return userCreated;
     }
+    
+    @Override
+	public SecurityQuestion getSecurityQuestion(String username) {
+    	SecurityQuestion securityQuestion = null;
+		String sql = "SELECT security_questions.security_question_id, security_questions.security_questions FROM security_questions " + 
+						"JOIN users ON security_questions.security_question_id = users.security_question_id " + 
+						"WHERE users.username = ?";
+		
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
+		while(results.next()) {
+			securityQuestion = mapRowToSecurityQuestion(results);
+		}
+		return securityQuestion;
+	}
+    
+    @Override
+	public List<SecurityQuestion> getAllSecurityQuestions() {
+		List<SecurityQuestion> securityQuestions = new ArrayList<>();
+		String sql = "SELECT security_question_id, security_questions FROM security_questions";
+		
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+		while(results.next()) {
+			SecurityQuestion securityQuestion = mapRowToSecurityQuestion(results);
+			securityQuestions.add(securityQuestion);
+		}
+		return securityQuestions;
+	}
+
+	@Override
+	public boolean compareAnswer(SecurityAnswerDTO answer) {
+		boolean response = true;
+		
+		String sql = "SELECT (answer = ?) FROM users WHERE username = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, answer.getAnswer(), answer.getUsername());
+		while(results.next()) {
+			response = results.getBoolean(1);
+		}
+		return response;
+	}
+
+	@Override
+	public void updatePassword(RegisterUserDTO user) {
+		String password_hash = new BCryptPasswordEncoder().encode(user.getPassword());
+		String sql = "UPDATE users SET password_hash = ? WHERE username = ?";
+		jdbcTemplate.update(sql, password_hash, user.getUsername());
+                
+	}
 
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();
@@ -95,4 +147,12 @@ public class UserSqlDAO implements UserDAO {
         user.setActivated(true);
         return user;
     }
+    
+    private SecurityQuestion mapRowToSecurityQuestion(SqlRowSet rs) {
+    	SecurityQuestion securityQuestion = new SecurityQuestion();
+    	securityQuestion.setSecurityQuestionID(rs.getLong("security_question_id"));
+    	securityQuestion.setSecurityQuestion(rs.getString("security_questions"));
+    	return securityQuestion;
+    }
+	
 }
