@@ -158,6 +158,9 @@ export default new Vuex.Store({
     GET_PUBLIC_RECIPES(state, data) {
       state.allRecipes = data;
     },
+    SET_USERNAME (state, data) {
+      state.usernameFP = data
+    },
     GET_USER_RECIPES(state, data) {
       state.userRecipes = data;
     },
@@ -172,9 +175,6 @@ export default new Vuex.Store({
     },
     GET_RECIPE_DETAILS(state, data) {
       state.recipeDetails = data;
-    },  
-    SET_USERNAME (state, data) {
-      state.usernameFP = data
     }
   }
 })
