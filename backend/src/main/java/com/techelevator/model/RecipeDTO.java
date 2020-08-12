@@ -44,7 +44,7 @@ public class RecipeDTO {
 	
 	private boolean isFavorite;
 	
-	
+
 
 	public long getRecipeId() {
 		return recipeId;

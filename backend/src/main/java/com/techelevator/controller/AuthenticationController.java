@@ -89,6 +89,7 @@ public class AuthenticationController {
     	return userDAO.getSecurityQuestion(username);
     }
     
+    @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value= "/resetPassword/{username}", method = RequestMethod.PUT)
     public void updatePassword(@Valid @RequestBody RegisterUserDTO user) {
     	userDAO.updatePassword(user);
