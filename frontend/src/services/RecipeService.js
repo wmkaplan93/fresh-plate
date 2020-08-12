@@ -10,7 +10,7 @@ export default {
   },
 
   addRecipe(username, recipe) {
-    return http.post(`/users/${username}/myRecipes`, recipe)
+    return http.post(`/users/${username}/addRecipe`, recipe)
   },
 
   getRecipes() {
