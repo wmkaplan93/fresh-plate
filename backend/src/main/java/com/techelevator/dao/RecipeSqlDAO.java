@@ -252,10 +252,10 @@ public class RecipeSqlDAO implements RecipeDAO {
 	// Create Update Delete Methods
 
 	@Override
-	public void createRecipe(RecipeDTO newRecipe, String username) {
+	public void createRecipe(RecipeDTO newRecipe) {
 		
-		Recipe recipe = parseRecipeFromDTO(newRecipe);
-		recipe.setRecipeId(getNextRecipeID());
+		
+		newRecipe.setRecipeId(getNextRecipeID());
 		
 		List<RecipeIngredient> recipeIngredients = newRecipe.getIngredientList();
 		List<Type> recipeTypes = newRecipe.getTypeList();
@@ -264,21 +264,21 @@ public class RecipeSqlDAO implements RecipeDAO {
 		String sqlRecipe = "INSERT INTO recipes (recipe_id, recipe_name, description, yield_amount, yield_unit_id, duration, recipe_method, is_public, ownername) " +
 					"VALUES (?, ?, ?, ?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?), ?, ?, ?, ?)";
 		
-		jdbcTemplate.update(sqlRecipe, recipe.getRecipeId(), recipe.getName(), recipe.getDescription(), recipe.getYieldAmount(), recipe.getYieldUnit(),recipe.getDuration(), recipe.getRecipeMethod(), recipe.isPublic(), recipe.getOwnername());
+		jdbcTemplate.update(sqlRecipe, newRecipe.getRecipeId(), newRecipe.getName(), newRecipe.getDescription(), newRecipe.getYieldAmount(), newRecipe.getYieldUnit(), newRecipe.getDuration(), newRecipe.getRecipeMethod(), newRecipe.isPublic(), newRecipe.getOwnername());
 		
 		String sqlUser = "INSERT INTO user_recipes (username, recipe_id, is_favorite) " +
 					"VALUES (?, ?, ?)";
-		jdbcTemplate.update(sqlUser, username, newRecipe.isFavorite());
+		jdbcTemplate.update(sqlUser, newRecipe.getUsername(), newRecipe.getRecipeId(), newRecipe.isFavorite());
 		
 		for(Type recipeType : recipeTypes) {
 			String sqlTypes = "INSERT INTO recipe_types (recipe_id, type_id) " +
 					"Values(?, (SELECT type_id FROM types WHERE type_name = ?))";
-			jdbcTemplate.update(sqlTypes, recipe.getRecipeId(), recipeType.getType());
+			jdbcTemplate.update(sqlTypes, newRecipe.getRecipeId(), recipeType.getType());
 		}
 		for (RecipeIngredient ingredient : recipeIngredients) {
 			String sqlIngredients = "INSERT INTO recipe_ingredients (recipe_id, quantity, unit_id, ingredient_id) " +
 									"VALUES (?, ?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?), (SELECT ingredient_id FROM ingredients WHERE ingredient_name = ?))";
-			jdbcTemplate.update(sqlIngredients, recipe.getRecipeId(), ingredient.getQuantity(), ingredient.getUnitName(), ingredient.getIngredientName());	
+			jdbcTemplate.update(sqlIngredients, newRecipe.getRecipeId(), ingredient.getQuantity(), ingredient.getUnitName(), ingredient.getIngredientName());	
 		}
 	}
 
