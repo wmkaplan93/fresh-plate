@@ -124,3 +124,6 @@ INSERT INTO plan_recipes (plan_id, recipe_id)
         (3, 2),
         (3, 3)
 ;
+
+INSERT INTO units_of_measure (unit_id, unit_name)
+        VALUES (17, 'clove');

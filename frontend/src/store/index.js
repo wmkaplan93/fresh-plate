@@ -21,6 +21,7 @@ export default new Vuex.Store({
   state: {
     token: currentToken || '',
     user: currentUser || {},
+    usernameFP: '',
    
     formProperties: {
       ingredientList: [],
@@ -145,10 +146,12 @@ export default new Vuex.Store({
       state.user = {};
       axios.defaults.headers.common = {};
     },
+    // GET_USER_SQ(state, data) {
+    //   state.
+    // },
     GET_FORM_PROPERTIES(state, data) {
       state.formProperties = data;
     },
-
     SET_RECIPE(state, data) {
       state.recipe = data;
     },  
@@ -169,6 +172,9 @@ export default new Vuex.Store({
     },
     GET_RECIPE_DETAILS(state, data) {
       state.recipeDetails = data;
+    },  
+    SET_USERNAME (state, data) {
+      state.usernameFP = data
     }
   }
 })
