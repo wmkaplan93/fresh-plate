@@ -3,25 +3,25 @@
     <div id="nav">
       <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet'>
       <router-link v-bind:to="{ name: 'home' }" v-if="$store.state.token == ''">
-        <button type="home-button"><v-icon small>home</v-icon> Home</button>
+        <button type="home-button"><v-icon small>home</v-icon> home</button>
       </router-link>
       <router-link v-bind:to="{ name: 'myPlans', params: {username: this.$store.state.user.username} }" v-else>
-        <button type="my-home-button"><v-icon small>home</v-icon> My Home</button>
+        <button type="my-home-button"><v-icon small>home</v-icon> my home</button>
       </router-link>
       <router-link v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">
-        <button type="login-button"><v-icon small>login</v-icon> Login</button>
+        <button type="login-button"><v-icon small>login</v-icon> login</button>
       </router-link>
       <router-link v-bind:to="{ name: 'logout' }" v-else>
-        <button type="logout-button"><v-icon small>directions_run</v-icon> Logout</button>
+        <button type="logout-button"><v-icon small>directions_run</v-icon> logout</button>
       </router-link>
       <router-link v-bind:to="{ name: 'register' }" v-if="$store.state.token == ''">
-        <button type="register-button"><v-icon small>how_to_reg</v-icon> Register</button>
+        <button type="register-button"><v-icon small>how_to_reg</v-icon> register</button>
       </router-link>
-      <a @click="$router.go(-1)" v-else><button type="back-button"><v-icon small>keyboard_return</v-icon> Return</button></a>
+      <a @click="$router.go(-1)" v-else><button type="back-button"><v-icon small>keyboard_return</v-icon> return</button></a>
       <form id="searchbar" @submit.prevent="searchForRecipe">
         <div id="searchbar-input">
           <input type="text" placeholder="  Search for a recipe" v-model="searchTerm">
-          <v-btn id="search-button" type="submit" icon><v-icon>search</v-icon>Search</v-btn>
+          <v-btn id="search-button" type="submit" icon><v-icon>search</v-icon>search</v-btn>
         </div>
       </form>
     </div>

@@ -36,7 +36,7 @@
                                 icon
                                 v-on="on"
                                 v-bind="attrs"
-                                @click="deleteThisRecipe(recipe)"
+                                @click="deleteRecipeSetup(recipe)"
                                 ><v-icon medium center>delete_outline</v-icon>
                                 </v-btn>
                             </template>
@@ -80,11 +80,20 @@ export default {
     created() {
         this.retrievePlanDetails();
     },
+    mounted() {
+        this.retrieveUserPlans()
+    },
+
     methods: {
         retrievePlanDetails() {
             recipeService.getPlanDetails(this.$route.params.planId).then(response => {
                 this.$store.commit("GET_PLAN_DETAILS", response.data);
                 this.addShow();
+            })
+        },
+        retrieveUserPlans() {
+            recipeService.getUserPlans(this.$store.state.user.username).then(response => {
+                this.$store.commit("GET_USER_PLANS", response.data);
             })
         },
         addShow() {
@@ -93,21 +102,22 @@ export default {
                 show: false,
             }))
         },
-        addRecipeSetup(plan, recipe){
-            this.selectPlan(plan);
-            this.selectRecipe(recipe);
-            this.addRecipeToPlan(this.mealPlanDTO);
-        },
         selectRecipe(recipe) {
             this.mealPlanDTO.recipeList.push(recipe);
         },
-        selectPlan(plan) {
-            this.mealPlanDTO.mealPlan = plan;
+        selectPlan() {
+            this.mealPlanDTO.mealPlan = this.$store.state.details.mealPlan;
+        },
+        deleteRecipeSetup(recipe) {
+            this.selectPlan();
+            this.selectRecipe(recipe);
+            this.deleteRecipeFromPlan(this.mealPlanDTO);
         },
         deleteRecipeFromPlan(mealPlanDTO) {
             recipeService.deleteRecipeFromPlan(mealPlanDTO).then(response => {
-                if(response.status === 200) {
+                if(response.status === 204) {
                     alert("Success!")
+                    this.$router.go();
                 }
             })
         },

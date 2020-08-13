@@ -17,6 +17,10 @@ export default {
     return http.post(`/users/${newPlan.username}/addMealPlan`, newPlan)
   },
 
+  addToLibrary(recipe) {
+    return http.post(`/exploreRecipes/${recipe.recipeId}`, recipe)
+  },
+
   addRecipeToPlan(mealPlanDTO) {
     return http.put(`/users/${mealPlanDTO.mealPlan.username}/myPlans`, mealPlanDTO)
   },
@@ -26,24 +30,21 @@ export default {
   },
 
   deleteThisPlan(plan) {
-    return http.delete(`/users/${plan.username}/myPlans`, plan)
+    return http.post(`/users/${plan.username}/myPlans`, plan)
   },
 
   deleteThisRecipe(recipe) {
-    return http.delete(`/users/${recipe.username}/myRecipes`, recipe)
+    return http.post(`/users/${recipe.username}/myRecipes`, recipe)
   },
 
-  deleteThisRecipeFromPlan(mealPlanDTO) {
-    return http.delete(`/myPlans/${mealPlanDTO.mealPlan.plan_id}`, mealPlanDTO)
+  deleteRecipeFromPlan(mealPlanDTO) {
+    return http.post(`/myPlans/${mealPlanDTO.mealPlan.plan_id}`, mealPlanDTO)
   },
 
   getRecipes() {
     return http.get('/exploreRecipes');
   },
 
-  addToLibrary(recipe) {
-    return http.post(`/exploreRecipes/${recipe.recipeId}`, recipe)
-  },
 
   getUserRecipes(username) {
     return http.get(`/users/${username}/myRecipes`)

@@ -72,7 +72,7 @@ public class MealPlanSqlDAO implements MealPlanDAO {
 	@Override
 	public void deleteMealPlan(MealPlan mealPlan) {
 		String sql1 = "DELETE from plan_recipes WHERE plan_id = ?";
-		String sql2 = "DELETE from plan_recipes WHERE plan_id = ?";
+		String sql2 = "DELETE from meal_plans WHERE plan_id = ?";
 		jdbcTemplate.update(sql1, mealPlan.getPlan_id());
 		jdbcTemplate.update(sql2, mealPlan.getPlan_id());
 				

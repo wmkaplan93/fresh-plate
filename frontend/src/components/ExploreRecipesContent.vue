@@ -110,7 +110,7 @@ export default {
                 yieldUnit: '',
                 duration: '',
                 recipeMethod: '',
-                ownername: '',
+                ownername: this.$store.state.user.username,
                 public: false,
             },
             selectedPlan: {},
@@ -170,7 +170,7 @@ export default {
 #overview {
     width: 65vw;
     background-color: rgba(255,255,255,0.25) !important;
-    min-height: 74vh !important;
+    min-height: 76vh !important;
     justify-content: center;
     justify-items: center;
     display: flex;

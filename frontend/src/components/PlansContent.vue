@@ -49,7 +49,7 @@
                                 icon
                                 v-on="on"
                                 v-bind="attrs"
-                                @click="deleteThisPlan(plan)"
+                                @click="selectForDelete(plan)"
                                 ><v-icon medium center>delete_outline</v-icon>
                                 </v-btn>
                             </template>
@@ -72,6 +72,9 @@ export default {
     data() {
         return {
             show: false,
+            selectedPlan: {
+
+            }
         }
         
     },
@@ -84,10 +87,17 @@ export default {
                 this.$store.commit("GET_USER_PLANS", response.data);
             })
         },
+
+        selectForDelete(plan) {
+            this.selectedPlan = plan;
+            this.deleteThisPlan(this.selectedPlan)
+        },
+
         deleteThisPlan(plan) {
             recipeService.deleteThisPlan(plan).then(response => {
-                if(response.status === 200) {
+                if(response.status === 204) {
                     alert("Deleted!")
+                    this.$router.go();
                 }
             })
         }
