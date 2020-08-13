@@ -1,6 +1,6 @@
 <template>
     <div data-app>
-        <h1 class="subheading black--text">Explore&nbsp;Recipes</h1>
+        <h1 class="subheading black--text">Search Results</h1>
         <v-card id="overview">
         <v-container class="recipe-cards">
         
@@ -15,7 +15,7 @@
                     </v-card-text>
                     <v-card-actions class="text-center d-flex align-center">
                         <v-menu light transition="scale-transition" origin="center center">
-                            <template v-slot:activator="{ on: menu, attrs }" >
+                            <template v-slot:activator="{ on: menu, attrs }">
                                 <v-tooltip bottom>
                                     <template v-slot:activator="{ on: tooltip }">
                                         <v-btn
@@ -29,7 +29,7 @@
                                 </v-tooltip>
                             </template>
                             <v-list>
-                                <v-list-item v-for="plan in $store.state.userPlans" :key="plan.plan_id" @click="addRecipeSetup(plan, recipe)">
+                                <v-list-item v-for="plan in $store.state.userPlans" :key="plan.plan_id" @click="addToList()">
                                     <v-list-item-title>{{ plan.plan_name }}</v-list-item-title>
                                 </v-list-item>
                             </v-list>
@@ -83,68 +83,40 @@
 import recipeService from "../services/RecipeService";
 
 export default {
-    name: "explore-recipes-content",
+    name: "search-results-content",
     components: {
     },
     data() {
         return {
-            showRecipes: [],
-            selectedRecipe: {
-                recipeId: 0,
-                name: '',
-                description: '',
-                yieldAmount: 0,
-                yieldUnit: '',
-                duration: '',
-                recipeMethod: '',
-                ownername: '',
-                public: false,
-            },
-            selectedPlan: {},
-            mealPlanDTO: {
-                mealPlan: {},
-                recipeList: []
-            }
+            filteredRecipes: [],
+            showRecipes: []
         }
     },
-    created() {
+    updated() {
         this.retrieveRecipes();
+    },
+    mounted() {
+        this.filteredRecipes = [];
+        this.showRecipes = [];
     },
     methods: {
         retrieveRecipes() {
-            recipeService.getRecipes().then(response => {
-                this.$store.commit("GET_PUBLIC_RECIPES", response.data);
+            recipeService.searchRecipes(this.$route.params.searchTerm).then(response => {
+                this.filteredRecipes = response.data;
                 this.addShow();
             })
         },
-        selectRecipe(recipe) {
-            this.mealPlanDTO.recipeList.push(recipe);
-        },
-        selectPlan(plan) {
-            this.mealPlanDTO.mealPlan = plan;
+        addToList() {
+            alert("Success")
+            return '';
         },
         addShow() {
-            this.showRecipes = this.$store.state.allRecipes.map(recipe => ({
+            this.showRecipes = this.filteredRecipes.map(recipe => ({
                 ...recipe,
                 show: false,
                 username: this.$store.state.user.username
             }))
         },
-        addRecipeToPlan(mealPlanDTO) {
-            recipeService.addRecipeToPlan(mealPlanDTO).then(response => {
-                if(response.status === 200) {
-                    alert("Success!")
-                }
-            })
-        },
-        addRecipeSetup(plan, recipe){
-            this.selectPlan(plan);
-            this.selectRecipe(recipe);
-            this.addRecipeToPlan(this.mealPlanDTO);
-        }
-        // addTolibrary(recipe) {
-        //     recipeService.addToLibrary(recipe)
-        // }
     }
 }
 </script>

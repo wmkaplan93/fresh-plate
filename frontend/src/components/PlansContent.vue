@@ -78,7 +78,7 @@ export default {
 #overview {
     width: 65vw;
     background-color: rgba(255,255,255,0.25) !important;
-    min-height: 71vh !important;
+    min-height: 74vh !important;
     justify-content: center;
     justify-items: center;
     display: flex;

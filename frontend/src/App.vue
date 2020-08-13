@@ -5,7 +5,7 @@
       <router-link v-bind:to="{ name: 'home' }" v-if="$store.state.token == ''">
         <button type="home-button"><v-icon small>home</v-icon> Home</button>
       </router-link>
-      <router-link v-bind:to="{ name: 'UserLanding', params: {username: this.$store.state.user.username} }" v-else>
+      <router-link v-bind:to="{ name: 'myPlans', params: {username: this.$store.state.user.username} }" v-else>
         <button type="my-home-button"><v-icon small>home</v-icon> My Home</button>
       </router-link>
       <router-link v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">
@@ -18,6 +18,12 @@
         <button type="register-button"><v-icon small>how_to_reg</v-icon> Register</button>
       </router-link>
       <a @click="$router.go(-1)" v-else><button type="back-button"><v-icon small>keyboard_return</v-icon> Return</button></a>
+      <form id="searchbar" @submit.prevent="searchForRecipe">
+        <div id="searchbar-input">
+          <input type="text" placeholder="  Search for a recipe" v-model="searchTerm">
+          <v-btn id="search-button" type="submit" icon><v-icon>search</v-icon>Search</v-btn>
+        </div>
+      </form>
     </div>
     <router-view />
     <footer>
@@ -25,6 +31,21 @@
     </footer>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      searchTerm: '',
+      submit: ''
+    }
+  },
+  methods: {
+    searchForRecipe() {
+        this.$router.push({name: 'searchResults', params:{searchTerm:this.searchTerm}})
+      }
+    }
+}
+</script>
 <style scoped>
 #nav {
   background: linear-gradient(90deg, rgba(156, 13, 8, 0.7) 0%, rgba(255,255,255,.5) 60%);
@@ -60,11 +81,20 @@ footer {
 #nav button {
   border-radius: 0px;
   background-color: rgba(255, 255, 255, .2);
-  width: 20vw;
+  width: 17vw;
   height: 4vh;
   font-size: 3vh;
-  font-family: 'Allan';
+  font-family: 'Lora';
   margin: .5vh 1vw 0vw 1vw;
+}
+
+input, #search-button{
+  font-size: 2vh;
+  border-radius: 0px;
+  background-color: rgba(255, 255, 255, .2);
+  width: 17vw;
+  height: 4vh;
+  margin: .5vh 1vw 0vh 1vw;
 }
 
 </style>

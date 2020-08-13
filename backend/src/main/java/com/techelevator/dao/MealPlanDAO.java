@@ -3,6 +3,7 @@ package com.techelevator.dao;
 import java.util.List;
 
 import com.techelevator.model.MealPlan;
+import com.techelevator.model.MealPlanDTO;
 import com.techelevator.model.Recipe;
 import com.techelevator.model.RecipeIngredient;
 
@@ -12,7 +13,7 @@ public interface MealPlanDAO {
 		
 		void updateMealPlan(MealPlan mealPlan, long plan_id);
 		
-		void addRecipeToPlan(long plan_id, long recipe_id);
+		void addRecipeToPlan(MealPlanDTO mealPlanDTO);
 		
 		void deleteRecipeFromMealPlan(long plan_id, long recipe_id);
 		
