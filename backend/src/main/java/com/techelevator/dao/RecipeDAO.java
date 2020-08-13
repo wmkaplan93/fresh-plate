@@ -32,7 +32,9 @@ public interface RecipeDAO {
 	
 	 void createRecipe (RecipeDTO newRecipe);
 	 
-//	 void deleteRecipe (long recipeId, String username);
+	 void addRecipeToMyRecipes (Recipe recipe);
+	 
+	 void deleteRecipeFromUserRecipes(Recipe recipe);
 //	 
 //	 void createIngredient (Ingredient ingredient);
 //

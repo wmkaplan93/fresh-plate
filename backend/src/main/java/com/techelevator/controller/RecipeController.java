@@ -83,12 +83,6 @@ public class RecipeController {
 		return recipeDAO.findPublicRecipesByType(type);
 	}
 	
-	@ResponseStatus(HttpStatus.CREATED)
-	@RequestMapping(path = "users/{username}/addRecipe", method = RequestMethod.POST)
-	public void addRecipe(@RequestBody RecipeDTO newRecipe) {
-		recipeDAO.createRecipe(newRecipe);
-	}
-	
 	@RequestMapping(path = "users/{username}/addRecipe", method = RequestMethod.GET)
 	public FormPropertiesDTO getFormProperties() {
 		
@@ -111,6 +105,24 @@ public class RecipeController {
 	
 	
 	// Create Update Delete Methods
+	
+	@ResponseStatus(HttpStatus.CREATED)
+	@RequestMapping(path = "users/{username}/addRecipe", method = RequestMethod.POST)
+	public void addRecipe(@RequestBody RecipeDTO newRecipe) {
+		recipeDAO.createRecipe(newRecipe);
+	}
+	
+	@ResponseStatus(HttpStatus.OK)
+	@RequestMapping(path = "/exploreRecipes", method = RequestMethod.PUT)
+	public void addRecipeToMyRecipes(@RequestBody Recipe recipe) {
+		recipeDAO.addRecipeToMyRecipes(recipe);
+	}
+	
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@RequestMapping(path = "/users/{username}/myRecipes", method = RequestMethod.DELETE)
+	public void deleteRecipeFromUsersRecipes(@RequestBody Recipe recipe) {
+		recipeDAO.deleteRecipeFromUserRecipes(recipe);
+	}
 	
 	
 	
