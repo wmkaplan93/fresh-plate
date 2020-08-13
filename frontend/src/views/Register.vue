@@ -41,22 +41,24 @@
         />
 
         <br><br>
-      <label id="listOfSecurityQuestions">Security Question</label>
-        <select
-          name="basic-dropdown"
-          id="securityQuestions"
-          class="form-control"
-          placeholder="Please Select A Security Question"
-          v-model="user.securityQuestionID"
-          required>
-        <option v-for="question in securityQuestions" v-bind:key="question.securityQuestionID" :value="question.securityQuestionID">{{ question.securityQuestion }}</option>
-       </select>
-
+        <label id="sq-label">Security Question</label>
+        <div id="sq-div">
+          <select
+            name="basic-dropdown"
+            id="sq"
+            class="form-control"
+            placeholder="Please Select A Security Question"
+            v-model="user.securityQuestionID"
+            required>
+          <option v-for="question in securityQuestions" v-bind:key="question.securityQuestionID" :value="question.securityQuestionID">{{ question.securityQuestion }}</option>
+          </select>
+          <v-icon small>unfold_more</v-icon>
+        </div>
         <br><br>
-        <label id="securityQuestionAnswer">Answer</label>
+        <label id="sqa-label">Answer</label>
         <input
           type="text"
-          id="SQAnswer"
+          id="sqa"
           class="form-control"
           placeholder="Answer"
           v-model="user.answer"
@@ -147,7 +149,7 @@ option {
   font-family:"Lora";
   display: grid;
   grid-template-columns: 44% 19% 2% 35%;
-  grid-template-rows: 30% 15% 8% 8% 8% 8% 21%;
+  grid-template-rows: 30% 15% 8% 8% 8% 8% 8% 8%;
   height: 90vh;
 }
 
@@ -221,21 +223,52 @@ button, input{
   background-color: rgba(255, 255, 255, .6);
 }
 
-.btn {
+#sq-label {
+  grid-column-start: 2;
+  grid-row-start: 6;
+  justify-self: end;
+}
+
+#sq-div {
   grid-column-start: 4;
   grid-row-start: 6;
+  justify-self: self;
+  background-color: rgba(255,255,255,.4);
+  height: 4vh;
+  width: 17vw;
+}
+
+#sqa {
+  grid-column-start: 4;
+  grid-row-start: 7;
+  justify-self: start;
+  width: 17vw;
+  height: 3vh;
+  font-size: 2vh;
+  background-color: rgba(255, 255, 255, .6);
+}
+
+#sqa-label {
+  grid-column-start: 2;
+  grid-row-start: 7;
+  justify-self: end;
+}
+
+.btn {
+  grid-column-start: 4;
+  grid-row-start: 8;
   justify-self: start;
   background-color: rgba(255, 255, 255, .6);
 }
 
 #have-account, #have-account button {
   grid-column-start: 4;
-  grid-row-start: 7;
+  grid-row-start: 9;
   justify-self: start;
   font-size: 2vh;
   height: 3vh;
   width: 12vw;
-  background-color: rgba(255, 255, 255, .6);
+  background-color: rgba(255, 255, 255, .4);
   color: black;
 }
 </style>

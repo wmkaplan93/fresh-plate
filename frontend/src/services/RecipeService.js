@@ -17,6 +17,10 @@ export default {
     return http.post(`/users/${newPlan.username}/addMealPlan`, newPlan)
   },
 
+  addRecipeToPlan(mealPlanDTO) {
+    return http.put(`/users/${mealPlanDTO.mealPlan.username}/myPlans`, mealPlanDTO)
+  },
+
   getRecipes() {
     return http.get('/exploreRecipes');
   },
@@ -43,5 +47,11 @@ export default {
 
   getRecipeDetails(recipeId) {
     return http.get(`/myRecipes/${recipeId}`)
-  }
+  },
+
+  searchRecipes(searchTerm) {
+    return http.get(`/searchRecipes/filter?name=${searchTerm}`)
+  },
+
+  
 }
