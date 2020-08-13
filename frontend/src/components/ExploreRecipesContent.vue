@@ -123,12 +123,6 @@ export default {
         selectPlan(plan) {
             this.mealPlanDTO.mealPlan = plan;
         },
-        testAlert() {
-            alert(this.selectedRecipe.recipeId)
-        },
-        testAlert2() {
-            alert(this.selectedPlan.plan_id)
-        },
         addShow() {
             this.showRecipes = this.$store.state.allRecipes.map(recipe => ({
                 ...recipe,
@@ -136,11 +130,9 @@ export default {
                 username: this.$store.state.user.username
             }))
         },
-        addRecipeToPlan(selectedPlan, selectedRecipe) {
-            this.mealPlanDTO.mealPlan = selectedPlan;
-            this.mealPlanDTO.recipeList = selectedRecipe;
-            recipeService.addRecipeToPlan(this.mealPlanDTO).then(response => {
-                if(response.status === 201) {
+        addRecipeToPlan(mealPlanDTO) {
+            recipeService.addRecipeToPlan(mealPlanDTO).then(response => {
+                if(response.status === 200) {
                     alert("Success!")
                 }
             })
@@ -148,7 +140,7 @@ export default {
         addRecipeSetup(plan, recipe){
             this.selectPlan(plan);
             this.selectRecipe(recipe);
-            this.addRecipeToPlan(this.selectedPlan, this.selectedRecipe);
+            this.addRecipeToPlan(this.mealPlanDTO);
         }
         // addTolibrary(recipe) {
         //     recipeService.addToLibrary(recipe)

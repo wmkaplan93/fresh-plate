@@ -167,7 +167,7 @@ h2 {
   justify-self: start;
   align-self: center;
   height: 3vh;
-  width: 11vw;
+  width: 14vw;
   color: black;
   background-color: rgba(255, 255, 255, .4);
 }
