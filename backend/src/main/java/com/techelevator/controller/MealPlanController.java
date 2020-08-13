@@ -69,5 +69,16 @@ public class MealPlanController {
 	public void addRecipeToPlan(@RequestBody MealPlanDTO mealPlanDTO) {
 		mpDAO.addRecipeToPlan(mealPlanDTO);
 	}
-
+	
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@RequestMapping(path = "/users/{username}/myPlans", method = RequestMethod.DELETE)
+	public void deleteMealPlan(@RequestBody MealPlan mealPlan) {
+		mpDAO.deleteMealPlan(mealPlan);
+	}
+	
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@RequestMapping(path = "/myPlans/{planId}", method = RequestMethod.DELETE)
+	public void deleteRecipeFromMealPlan(@RequestBody MealPlanDTO dto) {
+		mpDAO.deleteRecipeFromMealPlan(dto);
+	}
 }
