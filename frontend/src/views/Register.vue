@@ -198,7 +198,7 @@ button, input{
   grid-row-start: 3;
   justify-self: start;
   width: 17vw;
-  height: 3vh;
+  height: 4vh;
   font-size: 2vh;
   background-color: rgba(255, 255, 255, .6);
 }
@@ -208,7 +208,7 @@ button, input{
   grid-row-start: 4;
   justify-self: start;
   width: 17vw;
-  height: 3vh;
+  height: 4vh;
   font-size: 2vh;
   background-color: rgba(255, 255, 255, .6);
 }
@@ -218,7 +218,7 @@ button, input{
   grid-row-start: 5;
   justify-self: start;
   width: 17vw;
-  height: 3vh;
+  height: 4vh;
   font-size: 2vh;
   background-color: rgba(255, 255, 255, .6);
 }
@@ -235,7 +235,7 @@ button, input{
   justify-self: self;
   background-color: rgba(255,255,255,.4);
   height: 4vh;
-  width: 17vw;
+  width: 33vw;
 }
 
 #sqa {
@@ -243,7 +243,7 @@ button, input{
   grid-row-start: 7;
   justify-self: start;
   width: 17vw;
-  height: 3vh;
+  height: 4vh;
   font-size: 2vh;
   background-color: rgba(255, 255, 255, .6);
 }
