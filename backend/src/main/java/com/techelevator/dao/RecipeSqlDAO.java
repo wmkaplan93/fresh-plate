@@ -215,7 +215,7 @@ public class RecipeSqlDAO implements RecipeDAO {
 	public List<Ingredient> findAllIngredients() {
 		List<Ingredient> ingredients = new ArrayList<Ingredient>();
 		
-		String sql = "SELECT * FROM ingredients";
+		String sql = "SELECT * FROM ingredients ORDER BY ingredient_name";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
 		while (results.next()) {
