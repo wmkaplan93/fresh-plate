@@ -8,6 +8,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
 
 import com.techelevator.model.MealPlan;
+import com.techelevator.model.MealPlanDTO;
 import com.techelevator.model.Recipe;
 import com.techelevator.model.RecipeIngredient;
 
@@ -46,10 +47,12 @@ public class MealPlanSqlDAO implements MealPlanDAO {
 	}
 
 	@Override
-	public void addRecipeToPlan(long plan_id, long recipe_id) {
+	public void addRecipeToPlan(MealPlanDTO mealPlanDTO) {
 		String sql = "INSERT INTO plan_recipes (plan_id, recipe_id) " +
 						"VALUES (?, ?)";
-		jdbcTemplate.update(sql, plan_id, recipe_id);
+		long planId = mealPlanDTO.getMealPlan().getPlan_id();
+		long recipeId = mealPlanDTO.getRecipeList().get(0).getRecipeId();
+		jdbcTemplate.update(sql, planId, recipeId);
 	}
 
 	@Override

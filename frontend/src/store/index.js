@@ -22,6 +22,7 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     usernameFP: '',
+    searchTerm: '',
    
     formProperties: {
       ingredientList: [],
@@ -86,6 +87,7 @@ export default new Vuex.Store({
     recipeList: [],
     userRecipes: [],
     allRecipes: [],
+    searchRecipes:[],
     recipe: {
       
       username: '',
@@ -175,6 +177,12 @@ export default new Vuex.Store({
     },
     GET_RECIPE_DETAILS(state, data) {
       state.recipeDetails = data;
+    },
+    SEARCH_RECIPES(state, data) {
+      state.searchRecipes = data;
+    },
+    SET_SEARCH_TERM(state, data) {
+      state.searchTerm = data;
     }
   }
 })

@@ -38,7 +38,7 @@
         required
       />
       &nbsp;<br>
-      <router-link :to="{ name: 'enterUsername'}" id="enter-username"><button id="forgot-password-btn">Forgot My Password</button></router-link>
+      <router-link :to="{ name: 'enterUsername'}" id="forgot-password"><button id="forgot-password-btn">Forgot My Password</button></router-link>
       &nbsp;<br>
       <button class='btn' type="submit">Sign in</button>
       <br><br>
@@ -126,8 +126,9 @@ h2 {
 
 #password-label {
   grid-column-start: 4;
-  grid-row-start: 5;
+  grid-row-start: 4;
   justify-self: end;
+  align-self: end;
 }
 
 #username {
@@ -140,8 +141,9 @@ h2 {
 
 #password {
   grid-column-start: 6;
-  grid-row-start: 5;
+  grid-row-start: 4;
   justify-self: start;
+  align-self: end;
   width: 12vw;
   background-color: rgba(255, 255, 255, .6);
 }
@@ -167,7 +169,25 @@ h2 {
   height: 3vh;
   width: 11vw;
   color: black;
-  background-color: rgba(255, 255, 255, .6);
+  background-color: rgba(255, 255, 255, .4);
+}
+
+#forgot-password-btn {
+  font-size: 1.5vh;
+  grid-column-start: 6;
+  grid-row-start: 5;
+  justify-self: start;
+  height: 2.5vh;
+  width: 12vw;
+  color: black;
+  background-color: rgba(255, 255, 255, .4);
+}
+
+#forgot-password {
+  padding-top: 1vh;
+  grid-column-start: 6;
+  grid-row-start: 5;
+  justify-self: start;
 }
 
 #thanks-message {

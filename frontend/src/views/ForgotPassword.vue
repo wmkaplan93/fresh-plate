@@ -1,55 +1,49 @@
 /<template>
-  <div class="forgot-password">
-    <form class="form-forgot-password" @submit.prevent="checkAnswer" v-if= "!showResetForm">
-        <h1 id="fresh-plate">Fresh&nbsp;Plate</h1>
-        <h2 id="new-password">Reset&nbsp;Password</h2>
+  <div id="forgot-password">
+    <h1 id="fresh-plate">Fresh&nbsp;Plate</h1>
+    <h2 id="new-password">Reset&nbsp;Password</h2>
+      <form class="form-forgot-password" @submit.prevent="checkAnswer" v-if= "!showResetForm">
 
-        <br><br>
-        <h3>{{ securityQuestion.securityQuestion }}</h3>
-        <label id="security-question-answer">Answer</label>
-        <input type="text" id="answer" v-model="securityAnswer.answer"/>
-        <br><br>
-        <input class="btn" type="submit" value= "Check Answer" />
-        
-    </form>
 
-    <form @submit.prevent="updatePassword" v-if= "showResetForm">
+          <br><br>
+          <h3 id="sec-question">{{ securityQuestion.securityQuestion }}</h3>
+            <input type="text" id="answer" v-model="securityAnswer.answer"/>
+            <br><br>
+            <input class="btn" id="answer-btn" type="submit" value= "Check Answer" />
+      </form>
+
+      <form @submit.prevent="updatePassword" v-if= "showResetForm">
+          &nbsp;<br>
+          <label id="password-label" for="password" class="sr-only">Password</label>
+          &nbsp;<br><br>
+          <input
+            type="password"
+            id="resetPassword"
+            class="form-control"
+            placeholder="Password"
+            v-model="user.password"
+            required
+          />
+          <br><br>
+          <input
+            type="password"
+            id="confirmResetPassword"
+            class="form-control"
+            placeholder="Confirm Password"
+            v-model="user.confirmPassword"
+            required
+          />
+          &nbsp;<br>
+          <button class="btn" type="submit">
+            Reset Password
+          </button>
+          &nbsp;<br>
+          <br> <br>
+          <router-link id="have-account" :to="{ name: 'login' }"><button id="have-account-btn">Return to Login</button></router-link>
         &nbsp;<br>
-        <label id="password-label" for="password" class="sr-only">Password</label>
-        &nbsp;<br><br>
-        <input
-          type="password"
-          id="resetPassword"
-          class="form-control"
-          placeholder="Password"
-          v-model="user.password"
-          required
-        />
-        <br><br>
-        <input
-          type="password"
-          id="confirmResetPassword"
-          class="form-control"
-          placeholder="Confirm Password"
-          v-model="user.confirmPassword"
-          required
-        />
-        &nbsp;<br>
-        <button class="btn" type="submit">
-          Reset Password
-        </button>
-        &nbsp;<br>
-        <br> <br>
-        <router-link id="have-account" :to="{ name: 'login' }"><button id="have-account-btn">Return to Login</button></router-link>
-      &nbsp;<br>
-    </form>
+      </form>
   </div>
 </template>
-
-
-
-
-
 <script>
 import AuthService from '../services/AuthService'
 
@@ -116,12 +110,8 @@ export default {
     }
 }
 </script>
-
-
-
-
 <style scoped>
-.form-signin {
+#forgot-password {
   display: grid;
   grid-template-columns: 15% 30% 10% 14% 2% 29%;
   grid-template-rows: 15% 15% 15% 10% 15% 5% 10% 15%;
@@ -131,76 +121,43 @@ export default {
 
 #fresh-plate {
   font-size: 11vh;
-  grid-column-start: 3;
+  grid-column-start: 4;
   grid-column-end: 7;
   grid-row-start: 2;
-  grid-row-end: 3;
-  line-height: .1;
-  justify-self: center;
+  grid-row-end: 4;
+  justify-self: start;
   align-self: center;
 }
 
-h2 {
-  font-size: 4vw;
-  grid-column-start: 3;
+#new-password {
+  font-size: 6vh;
+  grid-column-start: 4;
   grid-column-end: 7;
   grid-row-start: 3;
-  grid-row-end: 4;
-  line-height: .2;
-  margin-top: 3vh;
-  align-self: start;
-}
-
-#username-label {
-  grid-column-start: 4;
-  grid-row-start: 4;
-  justify-self: end;
-}
-
-#password-label {
-  grid-column-start: 4;
-  grid-row-start: 5;
-  justify-self: end;
-}
-
-#username {
-  grid-column-start: 6;
-  grid-row-start: 4;
+  align-self: end;
   justify-self: start;
-  width: 12vw;
+}
+#sec-question {
+  font-size: 4vh;
+  grid-column-start: 4;
+  grid-column-end: 7;
+  grid-row-start: 4;
+  align-self: center;
 }
 
-#password {
-  grid-column-start: 6;
-  grid-row-start: 5;
-  justify-self: start;
-  width: 12vw;
-}
-
-.btn {
-  width: 12vw;
+#answer {
   grid-column-start: 6;
   grid-row-start: 5;
   grid-row-end: 8;
   justify-self: start;
-  align-self: center;
-}
-
-#need-account, #need-account button {
-  font-size: 2vh;
-  grid-column-start: 6;
-  grid-row-start: 6;
-  grid-row-end: 8;
-  justify-self: start;
-  align-self: center;
+  width: 12vw;
   height: 3vh;
-  width: 11vw;
+  background-color: rgba(255,255,255,.6);
 }
 
-#thanks-message {
-  grid-column-start: 4;
-  grid-row-start: 1;
-  align-self: center;
+#answer-btn {
+  height: 3vh;
+  width: 17vw;
 }
 
 </style>

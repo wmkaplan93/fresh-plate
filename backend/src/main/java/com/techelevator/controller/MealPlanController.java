@@ -64,5 +64,10 @@ public class MealPlanController {
 	public void addPlan(@RequestBody MealPlan newMealPlan) {
 		mpDAO.createMealPlan(newMealPlan);
 	}
+	
+	@RequestMapping(path= "/users/{username}/myPlans", method = RequestMethod.PUT)
+	public void addRecipeToPlan(@RequestBody MealPlanDTO mealPlanDTO) {
+		mpDAO.addRecipeToPlan(mealPlanDTO);
+	}
 
 }
