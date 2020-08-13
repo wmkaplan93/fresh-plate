@@ -1,5 +1,6 @@
 package com.techelevator.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -98,6 +99,13 @@ public class RecipeController {
 		
 		return formProperties;
 		
+	}
+	
+	@RequestMapping(path = "/searchRecipes/filter", method = RequestMethod.GET)
+	public List<Recipe> filterByName(@RequestParam(required = true) String name) {
+		List<Recipe> filteredRecipes = new ArrayList<>();
+		filteredRecipes = recipeDAO.findRecipeByKeyword(name);
+		return filteredRecipes;
 	}
 	
 	
