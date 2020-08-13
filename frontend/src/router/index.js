@@ -16,6 +16,7 @@ import RecipeDetails from '../views/RecipeDetails.vue'
 import AddMealPlan from '../views/AddMealPlan.vue'
 import ForgotPassword from '../views/ForgotPassword.vue'
 import UserForgotPassword from "../views/UserForgotPassword.vue"
+import SearchResults from "../views/SearchResults.vue"
 
 Vue.use(Router)
 
@@ -165,7 +166,17 @@ const router = new Router({
       path: "/resetPassword",
       name: "enterUsername",
       component: UserForgotPassword,
-      requiresAuth: false
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/searchRecipes/filter?name=:searchTerm",
+      name: "searchResults",
+      component: SearchResults,
+      meta: {
+        requiresAuth: true
+      }
     }
     // {
     //   path: "/exploreRecipes/:recipeId",
