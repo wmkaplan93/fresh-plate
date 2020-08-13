@@ -119,7 +119,7 @@ public class RecipeController {
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@RequestMapping(path = "/users/{username}/myRecipes", method = RequestMethod.DELETE)
+	@RequestMapping(path = "/users/{username}/myRecipes", method = RequestMethod.POST)
 	public void deleteRecipeFromUsersRecipes(@RequestBody Recipe recipe) {
 		recipeDAO.deleteRecipeFromUserRecipes(recipe);
 	}

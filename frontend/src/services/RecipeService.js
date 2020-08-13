@@ -26,7 +26,7 @@ export default {
   },
 
   addToMyRecipes(recipe) {
-    return http.put(`/users/${recipe.username}/myRecipes`, recipe)
+    return http.put('/exploreRecipes', recipe)
   },
 
   deleteThisPlan(plan) {

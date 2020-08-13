@@ -41,7 +41,7 @@
                                 icon
                                 v-on="on"
                                 v-bind="attrs"
-                                @click="deleteThisRecipe(recipe)"
+                                @click="deleteRecipeSetup(recipe)"
                                 ><v-icon medium center>delete_outline</v-icon>
                                 </v-btn>
                             </template>
@@ -135,10 +135,15 @@ export default {
                 username: this.$store.state.user.username,
             }))
         },
-        deleteThisRecipe(recipe) {
-            recipeService.deleteThisRecipe(recipe).then(response => {
+        deleteRecipeSetup(recipe) {
+            this.selectedRecipe = recipe;
+            this.deleteThisRecipe(this.selectedRecipe);
+        },
+        deleteThisRecipe(selectedRecipe) {
+            recipeService.deleteThisRecipe(selectedRecipe).then(response => {
                 if(response.status === 204) {
                     alert("Deleted!")
+                    this.$router.go();
                 }
             })
         },

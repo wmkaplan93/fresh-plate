@@ -283,7 +283,7 @@ public class RecipeSqlDAO implements RecipeDAO {
 	}
 	
 	public void addRecipeToMyRecipes (Recipe recipe) {
-		String sql = "INSERT INTO user_recipes (username, recipe_id) VALUES (?, ?)";
+		String sql = "INSERT INTO user_recipes (username, recipe_id, is_favorite) VALUES (?, ?, true)";
 		
 		jdbcTemplate.update(sql, recipe.getOwnername(), recipe.getRecipeId());
 	}

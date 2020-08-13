@@ -41,7 +41,7 @@
                                 icon
                                 v-on="on"
                                 v-bind="attrs"
-                                @click="addToMyRecipes(recipe)"
+                                @click="favoriteRecipeSetup(recipe)"
                                 ><v-icon medium center>favorite_border</v-icon>
                                 </v-btn>
                             </template>
@@ -123,11 +123,19 @@ export default {
     created() {
         this.retrieveRecipes();
     },
+    mounted() {
+        this.retrieveUserPlans()
+    },
     methods: {
         retrieveRecipes() {
             recipeService.getRecipes().then(response => {
                 this.$store.commit("GET_PUBLIC_RECIPES", response.data);
                 this.addShow();
+            })
+        },
+        retrieveUserPlans() {
+            recipeService.getUserPlans(this.$store.state.user.username).then(response => {
+                this.$store.commit("GET_USER_PLANS", response.data);
             })
         },
         addShow() {
@@ -154,6 +162,10 @@ export default {
                     alert("Success!")
                 }
             })
+        },
+        favoriteRecipeSetup(recipe) {
+            this.selectedRecipe = recipe;
+            this.addToMyRecipes(this.selectedRecipe);
         },
 
         addToMyRecipes(recipe) {
