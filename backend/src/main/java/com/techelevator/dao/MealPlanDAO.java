@@ -15,9 +15,9 @@ public interface MealPlanDAO {
 		
 		void addRecipeToPlan(MealPlanDTO mealPlanDTO);
 		
-		void deleteRecipeFromMealPlan(long plan_id, long recipe_id);
+		void deleteRecipeFromMealPlan(MealPlanDTO dto);
 		
-		void deleteMealPlan(long plan_id);
+		void deleteMealPlan(MealPlan mealPlan);
 		
 		List<MealPlan> viewAllPlans(String username);
 		
