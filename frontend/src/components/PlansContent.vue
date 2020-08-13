@@ -42,6 +42,20 @@
                             <span>View This Grocery List</span>
                         </v-tooltip>
                         <span class="caption">Grocery List</span>
+                        <v-divider></v-divider>
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn
+                                icon
+                                v-on="on"
+                                v-bind="attrs"
+                                @click="deleteThisPlan(plan)"
+                                ><v-icon medium center>delete_outline</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>Delete this Plan</span>
+                        </v-tooltip>
+                        <span class="caption">Delete this Plan</span>
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
@@ -57,7 +71,7 @@ export default {
     name: "plans-content",
     data() {
         return {
-            show: false
+            show: false,
         }
         
     },
@@ -68,6 +82,13 @@ export default {
         retrieveUserPlans() {
             recipeService.getUserPlans(this.$store.state.user.username).then(response => {
                 this.$store.commit("GET_USER_PLANS", response.data);
+            })
+        },
+        deleteThisPlan(plan) {
+            recipeService.deleteThisPlan(plan).then(response => {
+                if(response.status === 200) {
+                    alert("Deleted!")
+                }
             })
         }
     }

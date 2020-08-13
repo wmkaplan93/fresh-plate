@@ -40,17 +40,17 @@ public class RecipeController {
 	
 	// Get Methods
 	
-	@RequestMapping(path = "/myRecipes/{recipeId}", method = RequestMethod.GET)
-	public RecipeDTO getRecipeDTOByRecipeId(@PathVariable long recipeId) {
-		
-		Recipe recipe = recipeDAO.findRecipeById(recipeId);
-		List<RecipeIngredient> ingredientList = recipeDAO.findIngredientsByRecipeId(recipeId);
-		List<Type> typeList = recipeDAO.findTypesByRecipeId(recipeId);
-		RecipeDTO dto = buildRecipeDTO(recipe, ingredientList, typeList);
-//		dto.setFavorite(recipeDAO.findIsFavorite(username, recipeId));
-		
-		return dto;
-	}
+//	@RequestMapping(path = "/exploreRecipes/{recipeId}", method = RequestMethod.GET)
+//	public RecipeDTO getRecipeDTOByRecipeId(@PathVariable long recipeId) {
+//		
+//		Recipe recipe = recipeDAO.findRecipeById(recipeId);
+//		List<RecipeIngredient> ingredientList = recipeDAO.findIngredientsByRecipeId(recipeId);
+//		List<Type> typeList = recipeDAO.findTypesByRecipeId(recipeId);
+//		RecipeDTO dto = buildRecipeDTO(recipe, ingredientList, typeList);
+////		dto.setFavorite(recipeDAO.findIsFavorite(username, recipeId));
+//		
+//		return dto;
+//	}
 	
 	@RequestMapping(path = "users/{username}/myRecipes", method = RequestMethod.GET)
 	public List<Recipe> getRecipeByUsername(@PathVariable String username) {

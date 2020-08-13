@@ -37,6 +37,19 @@
                         <v-divider></v-divider>
                         <v-tooltip bottom>
                             <template v-slot:activator="{ on, attrs }">
+                                <v-btn
+                                icon
+                                v-on="on"
+                                v-bind="attrs"
+                                @click="addToMyRecipes(recipe)"
+                                ><v-icon medium center>favorite_border</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>Add to My Recipes</span>
+                        </v-tooltip>
+                        <v-divider></v-divider>
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
                                 <v-btn 
                                 icon 
                                 v-on="on" 
@@ -117,18 +130,23 @@ export default {
                 this.addShow();
             })
         },
-        selectRecipe(recipe) {
-            this.mealPlanDTO.recipeList.push(recipe);
-        },
-        selectPlan(plan) {
-            this.mealPlanDTO.mealPlan = plan;
-        },
         addShow() {
             this.showRecipes = this.$store.state.allRecipes.map(recipe => ({
                 ...recipe,
                 show: false,
                 username: this.$store.state.user.username
             }))
+        },
+        addRecipeSetup(plan, recipe){
+            this.selectPlan(plan);
+            this.selectRecipe(recipe);
+            this.addRecipeToPlan(this.mealPlanDTO);
+        },
+        selectRecipe(recipe) {
+            this.mealPlanDTO.recipeList.push(recipe);
+        },
+        selectPlan(plan) {
+            this.mealPlanDTO.mealPlan = plan;
         },
         addRecipeToPlan(mealPlanDTO) {
             recipeService.addRecipeToPlan(mealPlanDTO).then(response => {
@@ -137,14 +155,14 @@ export default {
                 }
             })
         },
-        addRecipeSetup(plan, recipe){
-            this.selectPlan(plan);
-            this.selectRecipe(recipe);
-            this.addRecipeToPlan(this.mealPlanDTO);
+
+        addToMyRecipes(recipe) {
+            recipeService.addToMyRecipes(recipe).then(response => {
+                if(response.status === 200) {
+                    alert("Success!")
+                }
+            })
         }
-        // addTolibrary(recipe) {
-        //     recipeService.addToLibrary(recipe)
-        // }
     }
 }
 </script>

@@ -21,6 +21,22 @@ export default {
     return http.put(`/users/${mealPlanDTO.mealPlan.username}/myPlans`, mealPlanDTO)
   },
 
+  addToMyRecipes(recipe) {
+    return http.put(`/users/${recipe.username}/myRecipes`, recipe)
+  },
+
+  deleteThisPlan(plan) {
+    return http.delete(`/users/${plan.username}/myPlans`, plan)
+  },
+
+  deleteThisRecipe(recipe) {
+    return http.delete(`/users/${recipe.username}/myRecipes`, recipe)
+  },
+
+  deleteThisRecipeFromPlan(mealPlanDTO) {
+    return http.delete(`/myPlans/${mealPlanDTO.mealPlan.plan_id}`, mealPlanDTO)
+  },
+
   getRecipes() {
     return http.get('/exploreRecipes');
   },
@@ -46,12 +62,14 @@ export default {
   },
 
   getRecipeDetails(recipeId) {
-    return http.get(`/myRecipes/${recipeId}`)
+    return http.get(`/exploreRecipes/${recipeId}`)
   },
 
   searchRecipes(searchTerm) {
     return http.get(`/searchRecipes/filter?name=${searchTerm}`)
   },
+
+
 
   
 }

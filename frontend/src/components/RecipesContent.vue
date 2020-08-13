@@ -37,6 +37,19 @@
                         <v-divider></v-divider>
                         <v-tooltip bottom>
                             <template v-slot:activator="{ on, attrs }">
+                                <v-btn
+                                icon
+                                v-on="on"
+                                v-bind="attrs"
+                                @click="deleteThisRecipe(recipe)"
+                                ><v-icon medium center>delete_outline</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>Delete this Recipe</span>
+                        </v-tooltip>
+                        <v-divider></v-divider>
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
                                 <v-btn 
                                 icon 
                                 v-on="on" 
@@ -105,11 +118,32 @@ export default {
                 show: false,
                 username: this.$store.state.user.username
             }))
-        },    
-        addToList() {
-            alert("Success")
-            return '';
-        },    
+        },
+        deleteThisRecipe(recipe) {
+            recipeService.deleteThisRecipe(recipe).then(response => {
+                if(response.status === 200) {
+                    alert("Deleted!")
+                }
+            })
+        },
+        addRecipeSetup(plan, recipe) {
+            this.selectPlan(plan);
+            this.selectRecipe(recipe);
+            this.addRecipeToPlan(this.mealPlanDTO);
+        },
+        selectRecipe(recipe) {
+            this.mealPlanDTO.recipeList.push(recipe);
+        },
+        selectPlan(plan) {
+            this.mealPlanDTO.mealPlan = plan;
+        },
+        addRecipeToPlan(mealPlanDTO) {
+            recipeService.addRecipeToPlan(mealPlanDTO).then(response => {
+                if(response.status === 200) {
+                    alert("Success!")
+                }
+            })
+        },
     }
 }
 </script>
