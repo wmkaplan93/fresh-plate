@@ -67,7 +67,7 @@
                             <h3 class="card-title">Ingredient Details (Ingredient# {{ index + 1 }}) </h3>
                             <div class="recipe-ingredient-form">
                                 <label for="ingredient-quantity">Quantity: </label>
-                                <input type="number" 
+                                <input type="number" min="0" step="0.25" pattern="^\d*(\.\d{0,4})?$" 
                                 id="ingredient-quantity" 
                                 class="form-control" 
                                 v-model="ingredient.quantity" />
