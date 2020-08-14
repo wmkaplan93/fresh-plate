@@ -1,3 +1,4 @@
+
 package com.techelevator.controller;
 
 import java.util.ArrayList;
@@ -95,10 +96,10 @@ public class RecipeController {
 		
 	}
 	
-	@RequestMapping(path = "users/{username}/searchRecipes/filter", method = RequestMethod.GET)
-	public List<Recipe> filterByName(@RequestParam(required = true) String keyword, @PathVariable String username ) {
+	@RequestMapping(path = "/searchRecipes/filter", method = RequestMethod.GET)
+	public List<Recipe> filterByName(@RequestParam(required = true) String name) {
 		List<Recipe> filteredRecipes = new ArrayList<>();
-		filteredRecipes = recipeDAO.findRecipeByKeyword(keyword, username);
+		filteredRecipes = recipeDAO.findRecipeByKeyword(name);
 		return filteredRecipes;
 	}
 	

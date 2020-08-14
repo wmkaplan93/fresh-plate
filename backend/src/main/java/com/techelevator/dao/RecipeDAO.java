@@ -22,7 +22,7 @@ public interface RecipeDAO {
 	 
 	 Recipe findRecipeById (long recipeId);
 	 
-	 List<Recipe> findRecipeByKeyword (String keyword, String username);
+	 List<Recipe> findRecipeByKeyword (String keyword);
 	 
 	 List<Type> findAllRecipeTypes();
 	 

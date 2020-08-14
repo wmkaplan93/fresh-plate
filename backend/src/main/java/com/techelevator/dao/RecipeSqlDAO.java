@@ -1,3 +1,4 @@
+
 package com.techelevator.dao;
 
 import java.util.ArrayList;
@@ -153,16 +154,14 @@ public class RecipeSqlDAO implements RecipeDAO {
 	}
 	
 	@Override
-	public List<Recipe> findRecipeByKeyword(String keyword, String username) {
+	public List<Recipe> findRecipeByKeyword(String keyword) {
 		List<Recipe> recipes = new ArrayList<>();
-		String sql = "SELECT recipes.recipe_id, recipe_name, description, yield_amount, unit_name, duration, recipe_method, is_public, ownername " +
-				"FROM recipes " +
-				"JOIN units_of_measure ON recipes.yield_unit_id = units_of_measure.unit_id " +
-				"JOIN user_recipes ON recipes.recipe_id = user_recipes.recipe_id " +
-				"WHERE recipe_name LIKE CONCAT('%',?,'%') " +
-				"AND (username = ? OR is_public = true)";
+		String sql = "SELECT recipe_id, recipe_name, description, yield_amount, unit_name, duration, recipe_method, is_public, ownername " + 
+						"FROM recipes " +
+						"JOIN units_of_measure ON recipes.yield_unit_id = units_of_measure.unit_id " + 
+						"WHERE recipe_name LIKE CONCAT('%',?,'%')";
 		
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, keyword.toLowerCase(), username);
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, keyword);
 		while (results.next()) {
 			Recipe recipe = mapRowToRecipe(results);
 			recipes.add(recipe);
@@ -280,7 +279,7 @@ public class RecipeSqlDAO implements RecipeDAO {
 		for (RecipeIngredient ingredient : recipeIngredients) {
 			String sqlIngredients = "INSERT INTO recipe_ingredients (recipe_id, quantity, unit_id, ingredient_id) " +
 									"VALUES (?, ?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?), (SELECT ingredient_id FROM ingredients WHERE ingredient_name = ?))";
-			jdbcTemplate.update(sqlIngredients, newRecipe.getRecipeId(), ingredient.getQuantity(), ingredient.getUnitName().toLowerCase(), ingredient.getIngredientName());	
+			jdbcTemplate.update(sqlIngredients, newRecipe.getRecipeId(), ingredient.getQuantity(), ingredient.getUnitName().toLowerCase(), ingredient.getIngredientName().toLowerCase());	
 		}
 	}
 	
