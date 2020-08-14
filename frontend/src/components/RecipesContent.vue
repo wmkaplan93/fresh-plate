@@ -25,7 +25,7 @@
                                         ><v-icon medium center>playlist_add</v-icon></v-btn>
                                     </template>
 
-                                    <span>Add to My Plans</span>
+                                    <span>add to my plans</span>
                                 </v-tooltip>
                             </template>
                             <v-list>
@@ -45,7 +45,7 @@
                                 ><v-icon medium center>delete_outline</v-icon>
                                 </v-btn>
                             </template>
-                            <span>Delete this Recipe</span>
+                            <span>delete this recipe</span>
                         </v-tooltip>
                         <v-divider></v-divider>
                         <v-tooltip bottom>
@@ -71,7 +71,7 @@
                                 ><v-icon medium center>{{ recipe.show ? 'expand_less' : 'expand_more'}}</v-icon>
                                 </v-btn>
                             </template>
-                            <span>{{recipe.show ? "Less Information" : "More Information"}}</span>
+                            <span>{{recipe.show ? "less information" : "more information"}}</span>
                         </v-tooltip>
                     </v-card-actions>
                     <v-expand-transition>

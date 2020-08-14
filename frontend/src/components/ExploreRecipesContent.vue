@@ -45,7 +45,7 @@
                                 ><v-icon medium center>favorite_border</v-icon>
                                 </v-btn>
                             </template>
-                            <span>Add to My Recipes</span>
+                            <span>add to my recipes</span>
                         </v-tooltip>
                         <v-divider></v-divider>
                         <v-tooltip bottom>

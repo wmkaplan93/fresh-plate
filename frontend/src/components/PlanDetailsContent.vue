@@ -40,7 +40,7 @@
                                 ><v-icon medium center>delete_outline</v-icon>
                                 </v-btn>
                             </template>
-                            <span>Delete Recipe from Plan</span>
+                            <span>delete recipe from plan</span>
                         </v-tooltip>
                     </v-card-actions>
                     </v-card>
