@@ -4,22 +4,22 @@
         <h1 id="user-landing-name">{{username}}</h1>
         <div id="button-list">
             <router-link v-bind:to="{ name: 'myPlans', params: {username:username} }">
-                <button type="my-plans">My Plans</button>
+                <button type="my-plans">my plans</button>
             </router-link>
             <router-link v-bind:to="{ name: 'myRecipes', params: {username:username} }">
-                <button type="my-recipes">My Recipes</button>
+                <button type="my-recipes">my recipes</button>
             </router-link>
             <!-- <router-link v-bind:to="{ name: 'myGroceryList', params: {username:username} }">
                 <button type="my-grocery-list">My Grocery List</button>
             </router-link> -->
             <router-link v-bind:to="{ name : 'exploreRecipes' }">
-                <button type="exploreRecipes">Explore Recipes</button>
+                <button type="exploreRecipes">explore recipes</button>
             </router-link>
             <router-link v-bind:to="{ name: 'addRecipe', params: {username:username} }">
-                <button type="add-recipe">Add New Recipe</button>
+                <button type="add-recipe">add new recipe</button>
             </router-link> 
             <router-link v-bind:to="{ name: 'addMealPlan', params: {username:username} }">
-                <button type="add-recipe">New Meal Plan</button>
+                <button type="add-recipe">new meal plan</button>
             </router-link> 
         </div>
     </div>

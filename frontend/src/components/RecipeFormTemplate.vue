@@ -2,11 +2,11 @@
     <form class="container">
         <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet'>
         <div class="form-group">
-            <label id="name-label" for="recipe-name">Recipe Name: </label>
+            <label id="name-label" for="recipe-name">recipe name: </label>
             <input type="text" id="recipe-name" class="form-control" v-model="name" />
         </div>
         <div class="form-group">
-            <label id="description-label" for="description">Recipe Description: </label>
+            <label id="description-label" for="description">recipe description: </label>
             <input type="text" id="description" class="form-control" v-model="description" /> 
         </div>    
         <div class="type-dropdown">
@@ -33,7 +33,7 @@
              <input type="checkbox" id="option7" value="dessert" v-model="recipeType"><span>dessert</span>
              </label> -->
 
-            <label id="type-label" for="recipe-type">Recipe Type: </label>
+            <label id="type-label" for="recipe-type">recipe type: </label>
             <select name="basic-dropdown" id="recipe-type" multiple v-model="typeList">
                     <option>breakfast</option>
                     <option>lunch</option>
@@ -46,7 +46,7 @@
         </div>
         <div class="form-group">
             <div class="servings">
-                <label id="yield-amount-label" for="yield-amount">Servings: </label>
+                <label id="yield-amount-label" for="yield-amount">servings: </label>
                 <input type="text" id="yield-amount" class="form-control" v-model="yieldAmount" />
                 <label id="yield-amount-unit" for="yield-unit">Unit: </label>
                  <select name="basic-dropdown" id="yield-unit" v-model="yieldUnit">
@@ -71,7 +71,7 @@
         </div>
 
         <div class="form-group">
-            <label id="time-label" for="duration">Total Time: </label>
+            <label id="time-label" for="duration">total time: </label>
             <input type="text" id="duration" class="form-control" v-model="duration" />
         </div>  
         <div class="ingredient-section">  
@@ -82,23 +82,23 @@
              
         </div>    
         <div class="form-group">
-            <label id="instructions-label" for="instructions">Instructions:  </label><br>
+            <label id="instructions-label" for="instructions">instructions:  </label><br>
             <button class="btn" type="button" id="ingredient-btn" v-on:click.prevent="addNewInstructionForm">Add Instruction Step</button>
             <textarea id="instructions" class="form-control" v-model="recipeMethod" />
            
         </div>
 
         <div class="form-group">
-            <label id="public-checkbox" for="public-recipe">Make this recipe public </label>
+            <label id="public-checkbox" for="public-recipe">make this recipe public </label>
             <input type="checkbox" id="public-recipe" v-model="isPublic" />
         </div>
 
         <div class="form-group">
-            <label id="favorite-checkbox" for="favorite-recipe">Add to favorites</label>
+            <label id="favorite-checkbox" for="favorite-recipe">add to favorites</label>
             <input type="checkbox" id="favorite-recipe" v-model="isFavorite" />
         </div>
 
-        <button class="btn btn-submit" v-on:click="addNewRecipe">Submit</button>
+        <button class="btn btn-submit" v-on:click="addNewRecipe">submit</button>
         <!--where should user be directed after hitting submit -->
        
         

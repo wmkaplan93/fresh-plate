@@ -1,32 +1,32 @@
 <template>
   <div>
     <v-card max-width="600" class="mx-auto" id="overview">
-    <h1 class="subheading black--text">New&nbsp;Plan</h1>
+    <h1 class="subheading black--text">new&nbsp;plan</h1>
         <form v-on:submit.prevent="addNewPlan">
         <v-row>
             <v-col cols="12">
                 <v-card id="input-form">
                     <v-card-title class="mp-name">
-                        <label for="plan-name">&nbsp;&nbsp;Plan Name: </label>
+                        <label for="plan-name">&nbsp;&nbsp;plan name: </label>
                         <input
                         type="text"
                         id="plan-name"
                         class="form-control"
                         v-model="plan.plan_name"
-                        placeholder="Enter Meal Plan Name" />
+                        placeholder="enter meal plan name" />
                     </v-card-title>
                     <v-card-subtitle class="mp-desc">
-                        <label for="plan-description"><strong>Plan Description: </strong></label>
+                        <label for="plan-description"><strong>plan description: </strong></label>
                         <textarea
                         id="plan-description"
                         class="form-control"
                         v-model="plan.plan_description"
-                        placeholder="Enter a description for your new meal plan" />
+                        placeholder="enter a description for your new meal plan" />
                     </v-card-subtitle> 
                 </v-card>
             </v-col>
         </v-row>
-        <input type="submit" id="submit-button" class="btn btn-submit" value="Submit"/>
+        <input type="submit" id="submit-button" class="btn btn-submit" value="submit"/>
         </form>
     </v-card>
   </div>

@@ -3,30 +3,30 @@
     <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet'>
     <form class="form-register" @submit.prevent="register">
       <div id="register-form-styling">
-        <h1>Fresh&nbsp;Plate</h1>
-        <h2 class="h3 mb-3 font-weight-normal">Create&nbsp;Account</h2>
+        <h1>fresh&nbsp;plate.</h1>
+        <h2 class="h3 mb-3 font-weight-normal">create&nbsp;account.</h2>
         <div class="alert alert-danger" role="alert" v-if="registrationErrors">
           {{ registrationErrorMsg }}
         </div>
-        <label id="username-label" for="username" class="sr-only">Username</label>
+        <label id="username-label" for="username" class="sr-only">username</label>
         &nbsp;<br>
         <input
           type="text"
           id="username"
           class="form-control"
-          placeholder="Username"
+          placeholder="username"
           v-model="user.username"
           required
           autofocus
         />
         &nbsp;<br>
-        <label id="password-label" for="password" class="sr-only">Password</label>
+        <label id="password-label" for="password" class="sr-only">password</label>
         &nbsp;<br><br>
         <input
           type="password"
           id="password"
           class="form-control"
-          placeholder="Password"
+          placeholder="password"
           v-model="user.password"
           required
         />
@@ -35,19 +35,18 @@
           type="password"
           id="confirmPassword"
           class="form-control"
-          placeholder="Confirm Password"
+          placeholder="confirm password"
           v-model="user.confirmPassword"
           required
         />
 
         <br><br>
-        <label id="sq-label">Security Question</label>
+        <label id="sq-label">security question</label>
         <div id="sq-div">
           <select
             name="basic-dropdown"
             id="sq"
             class="form-control"
-            placeholder="Please Select A Security Question"
             v-model="user.securityQuestionID"
             required>
           <option v-for="question in securityQuestions" v-bind:key="question.securityQuestionID" :value="question.securityQuestionID">{{ question.securityQuestion }}</option>
@@ -55,21 +54,21 @@
           <v-icon small>unfold_more</v-icon>
         </div>
         <br><br>
-        <label id="sqa-label">Answer</label>
+        <label id="sqa-label">answer</label>
         <input
           type="text"
           id="sqa"
           class="form-control"
-          placeholder="Answer"
+          placeholder="answer"
           v-model="user.answer"
           required
         />
         &nbsp;<br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">
-          Create Account
+          create account
         </button>
         <br> <br>
-        <router-link id="have-account" :to="{ name: 'login' }"><button id="have-account-btn">Have an account?</button></router-link>
+        <router-link id="have-account" :to="{ name: 'login' }"><button id="have-account-btn">have an account?</button></router-link>
       </div>
     </form>
   </div>
@@ -198,7 +197,7 @@ button, input{
   grid-row-start: 3;
   justify-self: start;
   width: 17vw;
-  height: 3vh;
+  height: 4vh;
   font-size: 2vh;
   background-color: rgba(255, 255, 255, .6);
 }
@@ -208,7 +207,7 @@ button, input{
   grid-row-start: 4;
   justify-self: start;
   width: 17vw;
-  height: 3vh;
+  height: 4vh;
   font-size: 2vh;
   background-color: rgba(255, 255, 255, .6);
 }
@@ -218,7 +217,7 @@ button, input{
   grid-row-start: 5;
   justify-self: start;
   width: 17vw;
-  height: 3vh;
+  height: 4vh;
   font-size: 2vh;
   background-color: rgba(255, 255, 255, .6);
 }
@@ -235,7 +234,7 @@ button, input{
   justify-self: self;
   background-color: rgba(255,255,255,.4);
   height: 4vh;
-  width: 17vw;
+  width: 33vw;
 }
 
 #sqa {
@@ -243,7 +242,7 @@ button, input{
   grid-row-start: 7;
   justify-self: start;
   width: 17vw;
-  height: 3vh;
+  height: 4vh;
   font-size: 2vh;
   background-color: rgba(255, 255, 255, .6);
 }
