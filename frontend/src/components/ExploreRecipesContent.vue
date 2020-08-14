@@ -1,6 +1,6 @@
 <template>
     <div data-app>
-        <h1 class="subheading black--text">Explore&nbsp;Recipes</h1>
+        <h1 class="subheading black--text">explore&nbsp;recipes</h1>
         <v-card id="overview">
         <v-container class="recipe-cards">
         
@@ -25,7 +25,7 @@
                                         ><v-icon medium center>playlist_add</v-icon></v-btn>
                                     </template>
 
-                                    <span>Add to My Plans</span>
+                                    <span>add to my plans</span>
                                 </v-tooltip>
                             </template>
                             <v-list>
@@ -45,7 +45,7 @@
                                 ><v-icon medium center>favorite_border</v-icon>
                                 </v-btn>
                             </template>
-                            <span>Add to My Recipes</span>
+                            <span>add to my recipes</span>
                         </v-tooltip>
                         <v-divider></v-divider>
                         <v-tooltip bottom>
@@ -58,7 +58,7 @@
                                     <v-icon medium center>info_outline</v-icon>
                                 </v-btn>
                             </template>
-                            <span>Recipe Details</span>
+                            <span>recipe details</span>
                         </v-tooltip>
                         <v-divider></v-divider>
                         <v-tooltip bottom>
@@ -71,16 +71,16 @@
                                 ><v-icon medium center>{{ recipe.show ? 'expand_less' : 'expand_more'}}</v-icon>
                                 </v-btn>
                             </template>
-                            <span>{{recipe.show ? "Less Information" : "More Information"}}</span>
+                            <span>{{recipe.show ? "less information" : "more information"}}</span>
                         </v-tooltip>
                     </v-card-actions>
                     <v-expand-transition>
                         <div v-show="recipe.show">
                             <v-divider></v-divider>
                             <v-card-text>
-                                <div>Total Time: {{ recipe.duration }}</div>
+                                <div>total time: {{ recipe.duration }}</div>
                                 <v-divider></v-divider>
-                                <div>Yield: {{ recipe.yieldAmount }} {{recipe.yieldUnit }}</div>
+                                <div>yield: {{ recipe.yieldAmount }} {{recipe.yieldUnit }}</div>
                             </v-card-text>
                         </div>
                     </v-expand-transition>

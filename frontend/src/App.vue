@@ -20,14 +20,14 @@
       <a @click="$router.go(-1)" v-else><button type="back-button"><v-icon small>keyboard_return</v-icon> return</button></a>
       <form id="searchbar" @submit.prevent="searchForRecipe">
         <div id="searchbar-input">
-          <input type="text" placeholder="  Search for a recipe" v-model="searchTerm">
+          <input type="text" placeholder="  search for a recipe" v-model="searchTerm">
           <v-btn id="search-button" type="submit" icon><v-icon>search</v-icon>search</v-btn>
         </div>
       </form>
     </div>
     <router-view />
     <footer>
-      <a id="attribution" href='https://www.freepik.com/photos/background'>Background by freepik.com</a>
+      <a id="attribution" href='https://www.freepik.com/photos/background'>background by freepik.com</a>
     </footer>
   </div>
 </template>

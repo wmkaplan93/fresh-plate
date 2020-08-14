@@ -1,26 +1,23 @@
-/<template>
+<template>
   <div id="forgot-password">
-    <h1 id="fresh-plate">Fresh&nbsp;Plate</h1>
-    <h2 id="new-password">Reset&nbsp;Password</h2>
+    <h1 id="fresh-plate">fresh&nbsp;plate.</h1>
+    <h2 id="new-password">reset&nbsp;password</h2>
       <form class="form-forgot-password" @submit.prevent="checkAnswer" v-if= "!showResetForm">
-
-
           <br><br>
-          <h3 id="sec-question">{{ securityQuestion.securityQuestion }}</h3>
-            <input type="text" id="answer" v-model="securityAnswer.answer"/>
+          <p id="sec-question">{{ securityQuestion.securityQuestion }}</p><br>
+            <input type="text" id="answer" placeholder="Answer" v-model="securityAnswer.answer"/>
             <br><br>
-            <input class="btn" id="answer-btn" type="submit" value= "Check Answer" />
+            <input class="btn" id="answer-btn" type="submit" value= "check answer" />
       </form>
 
-      <form @submit.prevent="updatePassword" v-if= "showResetForm">
+      <form class="set-new-password" @submit.prevent="updatePassword" v-if= "showResetForm">
           &nbsp;<br>
-          <label id="password-label" for="password" class="sr-only">Password</label>
-          &nbsp;<br><br>
+          
           <input
             type="password"
             id="resetPassword"
             class="form-control"
-            placeholder="Password"
+            placeholder="password"
             v-model="user.password"
             required
           />
@@ -29,17 +26,17 @@
             type="password"
             id="confirmResetPassword"
             class="form-control"
-            placeholder="Confirm Password"
+            placeholder="confirm password"
             v-model="user.confirmPassword"
             required
           />
-          &nbsp;<br>
+          &nbsp;<br><br>
           <button class="btn" type="submit">
-            Reset Password
+            reset password
           </button>
           &nbsp;<br>
           <br> <br>
-          <router-link id="have-account" :to="{ name: 'login' }"><button id="have-account-btn">Return to Login</button></router-link>
+          <router-link id="have-account" :to="{ name: 'login' }"><button id="have-account-btn">return to login</button></router-link>
         &nbsp;<br>
       </form>
   </div>
@@ -68,53 +65,75 @@ export default {
                 securityQuestionId: 0,
                 securityQuestion: ''
             },
-            resetPassworError: false,
+            resetPasswordError: false,
             resetPasswordErrorMsg: 'There were problems reseting your password. Please try again'
         }
     },
     created() {
         AuthService.userSecurityQuestion(this.$route.params.username).then (response => {
+            if (response.data === '' ) {
+              alert('Invalid username entered');
+              this.$router.go(-1);
+            } else {
+
             this.securityQuestion = response.data;
             this.user.securityQuestionId = response.data.securityQuestionId;
             this.securityAnswer.username = this.$route.params.username;
-        }); 
+            }
+          });
+          
     },
     methods: {
         checkAnswer() {
+            
             AuthService.resetPassword(this.securityAnswer).then (response => {
-                this.showResetForm = response.data
+                this.showResetForm = response.data;
+                if (!this.showResetForm) {
+                  alert('That is not the correct answer. Please try again.');
+                  this.securityAnswer.answer = '';
+                }
             });
         },
+        
         updatePassword() {
             this.user.answer = this.securityAnswer.answer;
             this.user.username = this.$route.params.username;
             this.user.securityQuestionId = this.securityQuestion.securityQuestionId;
             
-            AuthService.updatePassword(this.user).then (response => {
-                if(response.status === 200) {
-                    this.$router.push({name: 'login'})
-                } 
+            if (this.user.password != this.user.confirmPassword) {
+              this.resetPasswordError = true;
+              alert('Password & Confirm Password do not match.');
+              this.user.password = '';
+              this.user.confirmPassword = '';
+            } else {
+
+            AuthService.updatePassword(this.user).then ((response) => {
+                  if(response.status == 200) {
+                      this.$router.push({name: 'login'})
+                  } 
                 })
                 .catch((error) => {
-                const response = error.response;
-                this.resetPasswordError = true;
-                if(response.status === 400) {
-                    this.resetPasswordErrorMsg = 'Bad Request: Validation Errors';
-                }
-            });
+                  const response = error.response;
+                  this.resetPasswordError = true;
+                  if(response.status === 400) {
+                      this.resetPasswordErrorMsg = 'Bad Request: Validation Errors';
+                  }
+                });
+             }
          },
          clearErrors() {
-            this.resetPassworError = false;
+            this.resetPasswordError = false;
             this.resetPasswordErrorMsg = 'There were problems reseting your password. Please try again';
-         }
-    }
+         }   
+      } 
 }
 </script>
+
 <style scoped>
 #forgot-password {
   display: grid;
   grid-template-columns: 15% 30% 10% 14% 2% 29%;
-  grid-template-rows: 15% 15% 15% 10% 15% 5% 10% 15%;
+  grid-template-rows: 15% 15% 15% 45% 10%;
   height: 90vh;
   font-family:"Lora";
 }
@@ -137,19 +156,24 @@ export default {
   align-self: end;
   justify-self: start;
 }
-#sec-question {
-  font-size: 4vh;
+
+.form-forgot-password, .set-new-password {
   grid-column-start: 4;
   grid-column-end: 7;
-  grid-row-start: 4;
-  align-self: center;
+  grid-row-start: 4; 
+}
+
+#sec-question {
+  font-size: 3vh;  
+}
+
+#resetPassword, #confirmResetPassword {
+  width: 15vw;
+  height: 3vh;
+  background-color: rgba(255,255,255,.6);
 }
 
 #answer {
-  grid-column-start: 6;
-  grid-row-start: 5;
-  grid-row-end: 8;
-  justify-self: start;
   width: 12vw;
   height: 3vh;
   background-color: rgba(255,255,255,.6);

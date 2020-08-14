@@ -1,16 +1,16 @@
 <template>
     <div class="container">
-        <button class="btn" type="button" id="ingredient-btn" v-on:click.prevent="addNewIngredientForm">Add Ingredient to Recipe</button>
+        <button class="btn" type="button" id="ingredient-btn" v-on:click.prevent="addNewIngredientForm">add ingredient to recipe</button>
         <div class="ingredient-card"
             v-for="ingredient in ingredients" v-bind:key="ingredient.ingredientName">
             <div class="card-body">
                 
-                <h3 class="card-title">New ingredient</h3>   
+                <h3 class="card-title">new ingredient</h3>   
                 <div class="ingredient-form">
-                    <label id="quantity-label" for="quantity">Quantity: </label>
+                    <label id="quantity-label" for="quantity">quantity: </label>
                     <input type="text" id="quantity" class="form-control" v-model="ingredient.quantity" />
 
-                    <label id="unit-label" for="unit-type">Unit of Measure: </label>
+                    <label id="unit-label" for="unit-type">unit of measure: </label>
                     <select name="basic-dropdown" id="unit-type" v-model="ingredient.unit">
                         <option value='teaspoon'>teaspoon</option>
                         <option value='tablespoon'>tablespoon</option>
@@ -30,7 +30,7 @@
                         <option value='sheet'>sheet</option>
                     </select><br><br>        
 
-                    <label id="ingredient-label" for="ingredient">Ingredient: </label>
+                    <label id="ingredient-label" for="ingredient">ingredient: </label>
                     <input type="text" id="ingredient" class="form-control" v-model="ingredient.ingredientName" />
                 </div>
             </div>    

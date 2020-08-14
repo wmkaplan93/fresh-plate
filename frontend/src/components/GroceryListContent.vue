@@ -2,7 +2,7 @@
     <div id="grocery-list-content">
         <v-card max-width="600" min-width="450">
             <v-list subheader two-line>
-                <v-subheader>My Grocery List</v-subheader>
+                <v-subheader>my grocery list</v-subheader>
                 <v-list-item-group v-model="settings" multiple>
                     <v-virtual-scroll :items="showItems" :item-height="50" height="500">
                         <template v-slot="{ item }">
