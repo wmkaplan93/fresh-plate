@@ -93,8 +93,8 @@ export default {
                   this.securityAnswer.answer = '';
                 }
             });
-            }
         },
+        
         updatePassword() {
             this.user.answer = this.securityAnswer.answer;
             this.user.username = this.$route.params.username;
@@ -124,10 +124,11 @@ export default {
          clearErrors() {
             this.resetPasswordError = false;
             this.resetPasswordErrorMsg = 'There were problems reseting your password. Please try again';
-         }
-    
+         }   
+      } 
 }
 </script>
+
 <style scoped>
 #forgot-password {
   display: grid;
