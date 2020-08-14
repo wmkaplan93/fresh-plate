@@ -29,11 +29,24 @@
                                 </v-tooltip>
                             </template>
                             <v-list>
-                                <v-list-item v-for="plan in $store.state.userPlans" :key="plan.plan_id" @click="addToList()">
+                                <v-list-item v-for="plan in $store.state.userPlans" :key="plan.plan_id" @click="addRecipeSetup(plan, recipe)">
                                     <v-list-item-title>{{ plan.plan_name }}</v-list-item-title>
                                 </v-list-item>
                             </v-list>
                         </v-menu>
+                        <v-divider></v-divider>
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn
+                                icon
+                                v-on="on"
+                                v-bind="attrs"
+                                @click="deleteRecipeSetup(recipe)"
+                                ><v-icon medium center>delete_outline</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>Delete this Recipe</span>
+                        </v-tooltip>
                         <v-divider></v-divider>
                         <v-tooltip bottom>
                             <template v-slot:activator="{ on, attrs }">
@@ -86,7 +99,23 @@ export default {
     name: "recipes-content",
     data() {
         return {
-            showRecipes: []
+            showRecipes: [],
+            selectedRecipe: {
+                recipeId: 0,
+                name: '',
+                description: '',
+                yieldAmount: 0,
+                yieldUnit: '',
+                duration: '',
+                recipeMethod: '',
+                ownername: this.$store.state.user.username,
+                public: false,
+            },
+            selectedPlan: {},
+            mealPlanDTO: {
+                mealPlan: {},
+                recipeList: []
+            }
         }
     },
     created() {
@@ -103,13 +132,39 @@ export default {
             this.showRecipes = this.$store.state.userRecipes.map(recipe => ({
                 ...recipe,
                 show: false,
-                username: this.$store.state.user.username
+                username: this.$store.state.user.username,
             }))
-        },    
-        addToList() {
-            alert("Success")
-            return '';
-        },    
+        },
+        deleteRecipeSetup(recipe) {
+            this.selectedRecipe = recipe;
+            this.deleteThisRecipe(this.selectedRecipe);
+        },
+        deleteThisRecipe(selectedRecipe) {
+            recipeService.deleteThisRecipe(selectedRecipe).then(response => {
+                if(response.status === 204) {
+                    alert("Deleted!")
+                    this.$router.go();
+                }
+            })
+        },
+        addRecipeSetup(plan, recipe) {
+            this.selectPlan(plan);
+            this.selectRecipe(recipe);
+            this.addRecipeToPlan(this.mealPlanDTO);
+        },
+        selectRecipe(recipe) {
+            this.mealPlanDTO.recipeList.push(recipe);
+        },
+        selectPlan(plan) {
+            this.mealPlanDTO.mealPlan = plan;
+        },
+        addRecipeToPlan(mealPlanDTO) {
+            recipeService.addRecipeToPlan(mealPlanDTO).then(response => {
+                if(response.status === 200) {
+                    alert("Success!")
+                }
+            })
+        },
     }
 }
 </script>
@@ -117,7 +172,7 @@ export default {
 #overview {
     width: 65vw;
     background-color: rgba(255,255,255,0.25) !important;
-    min-height: 74vh !important;
+    min-height: 76vh !important;
     justify-content: center;
     justify-items: center;
     display: flex;

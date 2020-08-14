@@ -27,7 +27,7 @@ public class MealPlanSqlDAO implements MealPlanDAO {
 		mealPlan.setPlan_id(getNextMealPlanID());
 		String sql = "INSERT INTO meal_plans (plan_id, username, plan_name, plan_description) " +
 						"VALUES (?, ?, ?, ?)";
-		jdbcTemplate.update(sql, mealPlan.getPlan_id(), mealPlan.getUsername(), mealPlan.getPlan_name(), mealPlan.getPlan_description());
+		jdbcTemplate.update(sql, mealPlan.getPlan_id(), mealPlan.getUsername(), mealPlan.getPlan_name().toLowerCase(), mealPlan.getPlan_description());
 		
 		
 	}
@@ -40,10 +40,10 @@ public class MealPlanSqlDAO implements MealPlanDAO {
 	}
 
 	@Override
-	public void deleteRecipeFromMealPlan(long plan_id, long recipe_id) {
+	public void deleteRecipeFromMealPlan(MealPlanDTO dto) {
 		String sql = "DELETE FROM plan_recipes " +
 						"WHERE plan_id = ? AND recipe_id = ?";	
-		jdbcTemplate.update(sql, plan_id, recipe_id);
+		jdbcTemplate.update(sql, dto.getMealPlan().getPlan_id(), dto.getRecipeList().get(0).getRecipeId());
 	}
 
 	@Override
@@ -70,9 +70,11 @@ public class MealPlanSqlDAO implements MealPlanDAO {
 	}
 	
 	@Override
-	public void deleteMealPlan(long plan_id) {
-		String sql = "DELETE FROM meal_plans WHERE plan_id = ?";
-		jdbcTemplate.update(sql, plan_id);
+	public void deleteMealPlan(MealPlan mealPlan) {
+		String sql1 = "DELETE from plan_recipes WHERE plan_id = ?";
+		String sql2 = "DELETE from meal_plans WHERE plan_id = ?";
+		jdbcTemplate.update(sql1, mealPlan.getPlan_id());
+		jdbcTemplate.update(sql2, mealPlan.getPlan_id());
 				
 	}
 

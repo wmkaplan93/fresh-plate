@@ -1,12 +1,12 @@
 <template>
   <div class="home">
     <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet'>
-    <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fresh Plate</h1>
+    <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fresh plate.</h1>
     <router-link id= "login-button" v-bind:to="{ name: 'login' }">
-      <button type="login">Login</button>
+      <button type="login">login</button>
     </router-link>
     <router-link id="register-button" v-bind:to="{ name: 'register' }">
-      <button type="register">Register</button>
+      <button type="register">register</button>
     </router-link>
   </div>
 </template>
