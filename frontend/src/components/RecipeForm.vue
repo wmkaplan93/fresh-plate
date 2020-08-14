@@ -84,13 +84,13 @@
                                         {{ingredient.ingredientName}}
                                     </option>
                                 </select>
-                                <v-icon small>unfold_more</v-icon>  <br> 
+                                <!-- <v-icon small>unfold_more</v-icon>  <br> 
                                 <label for="new-ingredient">&nbsp;&nbsp;&nbsp;&nbsp;or add a new one: </label>
                                 <input type="text" 
                                 id="new-ingredient" 
                                 class="form-control" 
                                 v-model="ingredient.ingredientName"
-                                placeholder="new ingredient" />       
+                                placeholder="new ingredient" />        -->
                             </div>   
                         </div>
                     </div>                 
@@ -106,10 +106,10 @@
                 <input type="checkbox" id="public-recipe" v-model="recipe.public" />
             </div>
 
-            <div class="form-group2">
+            <!-- <div class="form-group2">
                 <label id="favorite-checkbox" for="favorite-recipe">add to favorites:</label>
                 <input type="checkbox" id="favorite-recipe" v-model="recipe.favorite" />
-            </div>
+            </div> -->
 
 
             <input type="submit" id="submit-button" class="btn btn-submit" value="submit"/>
