@@ -159,12 +159,17 @@ export default {
         addRecipeToPlan(mealPlanDTO) {
             recipeService.addRecipeToPlan(mealPlanDTO).then(response => {
                 if(response.status === 200) {
-                    alert("Success!")
+                    alert("Success!");
+                    this.mealPlanDTO = {
+                        mealPlan: {},
+                        recipeList: []
+                    }
                 }
             })
         },
         favoriteRecipeSetup(recipe) {
             this.selectedRecipe = recipe;
+            this.selectedRecipe.ownername = this.$store.state.user.username;
             this.addToMyRecipes(this.selectedRecipe);
         },
 
