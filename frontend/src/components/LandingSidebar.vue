@@ -1,6 +1,6 @@
 <template>
     <div id="user-landing-sidebar">
-        <h1 id="user-landing-title">Welcome</h1>
+        <h1 id="user-landing-title">welcome</h1>
         <h1 id="user-landing-name">{{username}}</h1>
         <div id="button-list">
             <router-link v-bind:to="{ name: 'myPlans', params: {username:username} }">
@@ -45,7 +45,7 @@ export default {
     flex-direction: column;
     align-items: center;
     height: 90vh;
-    font-family: 'Lora';
+    font-family: "Lora", Arial, Helvetica, sans-serif;
     border-right: 10px solid rgba(74, 74, 74, .5);
     background-color:rgba(255, 255, 255, 0.35);
 }

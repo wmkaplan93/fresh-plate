@@ -1,3 +1,4 @@
+
 package com.techelevator.dao;
 
 import java.util.ArrayList;
@@ -264,7 +265,7 @@ public class RecipeSqlDAO implements RecipeDAO {
 		String sqlRecipe = "INSERT INTO recipes (recipe_id, recipe_name, description, yield_amount, yield_unit_id, duration, recipe_method, is_public, ownername) " +
 					"VALUES (?, ?, ?, ?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?), ?, ?, ?, ?)";
 		
-		jdbcTemplate.update(sqlRecipe, newRecipe.getRecipeId(), newRecipe.getName(), newRecipe.getDescription(), newRecipe.getYieldAmount(), newRecipe.getYieldUnit(), newRecipe.getDuration(), newRecipe.getRecipeMethod(), newRecipe.isPublic(), newRecipe.getOwnername());
+		jdbcTemplate.update(sqlRecipe, newRecipe.getRecipeId(), newRecipe.getName().toLowerCase(), newRecipe.getDescription(), newRecipe.getYieldAmount(), newRecipe.getYieldUnit(), newRecipe.getDuration(), newRecipe.getRecipeMethod(), newRecipe.isPublic(), newRecipe.getOwnername());
 		
 		String sqlUser = "INSERT INTO user_recipes (username, recipe_id, is_favorite) " +
 					"VALUES (?, ?, ?)";
@@ -278,7 +279,7 @@ public class RecipeSqlDAO implements RecipeDAO {
 		for (RecipeIngredient ingredient : recipeIngredients) {
 			String sqlIngredients = "INSERT INTO recipe_ingredients (recipe_id, quantity, unit_id, ingredient_id) " +
 									"VALUES (?, ?, (SELECT unit_id FROM units_of_measure WHERE unit_name = ?), (SELECT ingredient_id FROM ingredients WHERE ingredient_name = ?))";
-			jdbcTemplate.update(sqlIngredients, newRecipe.getRecipeId(), ingredient.getQuantity(), ingredient.getUnitName(), ingredient.getIngredientName());	
+			jdbcTemplate.update(sqlIngredients, newRecipe.getRecipeId(), ingredient.getQuantity(), ingredient.getUnitName().toLowerCase(), ingredient.getIngredientName().toLowerCase());	
 		}
 	}
 	
