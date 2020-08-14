@@ -37,6 +37,19 @@
                         <v-divider></v-divider>
                         <v-tooltip bottom>
                             <template v-slot:activator="{ on, attrs }">
+                                <v-btn
+                                icon
+                                v-on="on"
+                                v-bind="attrs"
+                                @click="favoriteRecipeSetup(recipe)"
+                                ><v-icon medium center>favorite_border</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>Add to My Recipes</span>
+                        </v-tooltip>
+                        <v-divider></v-divider>
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
                                 <v-btn 
                                 icon 
                                 v-on="on" 
@@ -97,7 +110,7 @@ export default {
                 yieldUnit: '',
                 duration: '',
                 recipeMethod: '',
-                ownername: '',
+                ownername: this.$store.state.user.username,
                 public: false,
             },
             selectedPlan: {},
@@ -110,6 +123,9 @@ export default {
     created() {
         this.retrieveRecipes();
     },
+    mounted() {
+        this.retrieveUserPlans()
+    },
     methods: {
         retrieveRecipes() {
             recipeService.getRecipes().then(response => {
@@ -117,11 +133,10 @@ export default {
                 this.addShow();
             })
         },
-        selectRecipe(recipe) {
-            this.mealPlanDTO.recipeList.push(recipe);
-        },
-        selectPlan(plan) {
-            this.mealPlanDTO.mealPlan = plan;
+        retrieveUserPlans() {
+            recipeService.getUserPlans(this.$store.state.user.username).then(response => {
+                this.$store.commit("GET_USER_PLANS", response.data);
+            })
         },
         addShow() {
             this.showRecipes = this.$store.state.allRecipes.map(recipe => ({
@@ -130,6 +145,17 @@ export default {
                 username: this.$store.state.user.username
             }))
         },
+        addRecipeSetup(plan, recipe){
+            this.selectPlan(plan);
+            this.selectRecipe(recipe);
+            this.addRecipeToPlan(this.mealPlanDTO);
+        },
+        selectRecipe(recipe) {
+            this.mealPlanDTO.recipeList.push(recipe);
+        },
+        selectPlan(plan) {
+            this.mealPlanDTO.mealPlan = plan;
+        },
         addRecipeToPlan(mealPlanDTO) {
             recipeService.addRecipeToPlan(mealPlanDTO).then(response => {
                 if(response.status === 200) {
@@ -137,14 +163,18 @@ export default {
                 }
             })
         },
-        addRecipeSetup(plan, recipe){
-            this.selectPlan(plan);
-            this.selectRecipe(recipe);
-            this.addRecipeToPlan(this.mealPlanDTO);
+        favoriteRecipeSetup(recipe) {
+            this.selectedRecipe = recipe;
+            this.addToMyRecipes(this.selectedRecipe);
+        },
+
+        addToMyRecipes(recipe) {
+            recipeService.addToMyRecipes(recipe).then(response => {
+                if(response.status === 200) {
+                    alert("Success!")
+                }
+            })
         }
-        // addTolibrary(recipe) {
-        //     recipeService.addToLibrary(recipe)
-        // }
     }
 }
 </script>
@@ -152,7 +182,7 @@ export default {
 #overview {
     width: 65vw;
     background-color: rgba(255,255,255,0.25) !important;
-    min-height: 74vh !important;
+    min-height: 76vh !important;
     justify-content: center;
     justify-items: center;
     display: flex;

@@ -30,25 +30,19 @@
                             <span>recipe details</span>
                         </v-tooltip>                        
                         <v-divider></v-divider>
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn
+                                icon
+                                v-on="on"
+                                v-bind="attrs"
+                                @click="deleteRecipeSetup(recipe)"
+                                ><v-icon medium center>delete_outline</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>Delete Recipe from Plan</span>
+                        </v-tooltip>
                     </v-card-actions>
-                        <!-- <v-expand-transition>
-                            <div v-show="recipe.show">
-                                <v-divider></v-divider>
-                                <v-card-text>
-                                    <div>Total Time: {{ recipe.duration }}</div>
-                                    <v-divider></v-divider>
-                                    <div><strong>Ingredients: </strong></div>
-                                    <br>
-                                    <div>Ingreedants go hear.</div>
-                                    <v-divider></v-divider>
-                                    <div><strong>Method: </strong></div>
-                                    <br>
-                                    <div>{{ recipe.recipeMethod }}</div>
-                                    <v-divider></v-divider>
-                                    <div>Yield: {{ recipe.yieldAmount }} {{recipe.yieldUnit }}</div>
-                                </v-card-text>
-                            </div>
-                        </v-expand-transition> -->
                     </v-card>
                 </v-flex>
             </v-layout>
@@ -64,12 +58,32 @@ export default {
     name: "plan-details-content",
     data() {
         return {
-            showRecipes: []
+            showRecipes: [],
+            selectedRecipe: {
+                recipeId: 0,
+                name: '',
+                description: '',
+                yieldAmount: 0,
+                yieldUnit: '',
+                duration: '',
+                recipeMethod: '',
+                ownername: '',
+                public: false,
+            },
+            selectedPlan: {},
+            mealPlanDTO: {
+                mealPlan: {},
+                recipeList: []
+            }
         }
     },
     created() {
         this.retrievePlanDetails();
     },
+    mounted() {
+        this.retrieveUserPlans()
+    },
+
     methods: {
         retrievePlanDetails() {
             recipeService.getPlanDetails(this.$route.params.planId).then(response => {
@@ -77,12 +91,36 @@ export default {
                 this.addShow();
             })
         },
+        retrieveUserPlans() {
+            recipeService.getUserPlans(this.$store.state.user.username).then(response => {
+                this.$store.commit("GET_USER_PLANS", response.data);
+            })
+        },
         addShow() {
             this.showRecipes = this.$store.state.details.recipeList.map(recipe => ({
                 ...recipe,
                 show: false,
             }))
-        }
+        },
+        selectRecipe(recipe) {
+            this.mealPlanDTO.recipeList.push(recipe);
+        },
+        selectPlan() {
+            this.mealPlanDTO.mealPlan = this.$store.state.details.mealPlan;
+        },
+        deleteRecipeSetup(recipe) {
+            this.selectPlan();
+            this.selectRecipe(recipe);
+            this.deleteRecipeFromPlan(this.mealPlanDTO);
+        },
+        deleteRecipeFromPlan(mealPlanDTO) {
+            recipeService.deleteRecipeFromPlan(mealPlanDTO).then(response => {
+                if(response.status === 204) {
+                    alert("Success!")
+                    this.$router.go();
+                }
+            })
+        },
     }
 
 }
