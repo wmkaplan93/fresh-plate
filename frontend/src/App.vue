@@ -18,7 +18,7 @@
         <button type="register-button"><v-icon small>how_to_reg</v-icon> register</button>
       </router-link>
       <a @click="$router.go(-1)" v-else><button type="back-button"><v-icon small>keyboard_return</v-icon> return</button></a>
-      <form id="searchbar" @submit.prevent="searchForRecipe">
+      <form id="searchbar" @submit.prevent="searchForRecipe" v-if="$store.state.token != ''">
         <div id="searchbar-input">
           <input type="text" placeholder="  search for a recipe" v-model="searchTerm">
           <v-btn id="search-button" type="submit" icon><v-icon>search</v-icon>search</v-btn>
