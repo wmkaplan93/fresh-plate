@@ -178,14 +178,6 @@ const router = new Router({
         requiresAuth: true
       }
     }
-    // {
-    //   path: "/exploreRecipes/:recipeId",
-    //   name: "toggleFavorite",
-    //   props: true,
-    //   meta: {
-    //     requiresAuth: true
-    //   }
-    // }
   ]
 })
 

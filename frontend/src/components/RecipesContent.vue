@@ -121,11 +121,19 @@ export default {
     created() {
         this.retrieveUserRecipes();
     },
+    mounted() {
+        this.retrieveUserPlans();
+    },
     methods: {
         retrieveUserRecipes() {
             recipeService.getUserRecipes(this.$store.state.user.username).then(response => {
                 this.$store.commit("GET_USER_RECIPES", response.data);
                 this.addShow();
+            })
+        },
+        retrieveUserPlans() {
+            recipeService.getUserPlans(this.$store.state.user.username).then(response => {
+                this.$store.commit("GET_USER_PLANS", response.data);
             })
         },
         addShow() {
@@ -137,6 +145,7 @@ export default {
         },
         deleteRecipeSetup(recipe) {
             this.selectedRecipe = recipe;
+            this.selectedRecipe.ownername = this.$store.state.user.username
             this.deleteThisRecipe(this.selectedRecipe);
         },
         deleteThisRecipe(selectedRecipe) {
@@ -162,6 +171,10 @@ export default {
             recipeService.addRecipeToPlan(mealPlanDTO).then(response => {
                 if(response.status === 200) {
                     alert("Success!")
+                    this.mealPlanDTO = {
+                        mealPlan: {},
+                        recipeList: []
+                    }
                 }
             })
         },
