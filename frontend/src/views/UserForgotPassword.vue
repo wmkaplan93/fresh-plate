@@ -4,8 +4,6 @@
       <h2 id="insert-username" class="h3 mb-3 font-weight-normal">Please&nbsp;Insert&nbsp;Username:</h2>
       <form class="username" @submit.prevent="setUsername">
       &nbsp;<br>
-        <label id="username-label" for="username" class="sr-only">Username</label>
-        &nbsp;
         <input
             type="text"
             id="username"
@@ -73,14 +71,6 @@ export default {
   grid-row-end: 8;
   flex-direction: column;
   align-items: flex-start;
-}
-
-#username-label {
-  grid-column-start: 4;
-  grid-column-end: 5;
-  grid-row-start: 5;
-  grid-row-end: 6;
-  justify-self: end;
 }
 
 #username {

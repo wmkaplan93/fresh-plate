@@ -65,46 +65,67 @@ export default {
                 securityQuestionId: 0,
                 securityQuestion: ''
             },
-            resetPassworError: false,
+            resetPasswordError: false,
             resetPasswordErrorMsg: 'There were problems reseting your password. Please try again'
         }
     },
     created() {
         AuthService.userSecurityQuestion(this.$route.params.username).then (response => {
+            if (response.data === '' ) {
+              alert('Invalid username entered');
+              this.$router.go(-1);
+            } else {
+
             this.securityQuestion = response.data;
             this.user.securityQuestionId = response.data.securityQuestionId;
             this.securityAnswer.username = this.$route.params.username;
-        }); 
+            }
+          });
+          
     },
     methods: {
         checkAnswer() {
+            
             AuthService.resetPassword(this.securityAnswer).then (response => {
-                this.showResetForm = response.data
+                this.showResetForm = response.data;
+                if (!this.showResetForm) {
+                  alert('That is not the correct answer. Please try again.');
+                  this.securityAnswer.answer = '';
+                }
             });
+            }
         },
         updatePassword() {
             this.user.answer = this.securityAnswer.answer;
             this.user.username = this.$route.params.username;
             this.user.securityQuestionId = this.securityQuestion.securityQuestionId;
             
-            AuthService.updatePassword(this.user).then (response => {
-                if(response.status === 200) {
-                    this.$router.push({name: 'login'})
-                } 
+            if (this.user.password != this.user.confirmPassword) {
+              this.resetPasswordError = true;
+              alert('Password & Confirm Password do not match.');
+              this.user.password = '';
+              this.user.confirmPassword = '';
+            } else {
+
+            AuthService.updatePassword(this.user).then ((response) => {
+                  if(response.status == 200) {
+                      this.$router.push({name: 'login'})
+                  } 
                 })
                 .catch((error) => {
-                const response = error.response;
-                this.resetPasswordError = true;
-                if(response.status === 400) {
-                    this.resetPasswordErrorMsg = 'Bad Request: Validation Errors';
-                }
-            });
+                  const response = error.response;
+                  this.resetPasswordError = true;
+                  if(response.status === 400) {
+                      this.resetPasswordErrorMsg = 'Bad Request: Validation Errors';
+                  }
+                });
+             }
          },
          clearErrors() {
-            this.resetPassworError = false;
+            this.resetPasswordError = false;
             this.resetPasswordErrorMsg = 'There were problems reseting your password. Please try again';
          }
-    }
+    
 }
 </script>
 <style scoped>
