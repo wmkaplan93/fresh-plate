@@ -1,18 +1,18 @@
 /<template>
     <div id="password-reset" class="text-center"> 
-      <h1 id="fresh-plate">Fresh&nbsp;Plate</h1>
-      <h2 id="insert-username" class="h3 mb-3 font-weight-normal">Please&nbsp;Insert&nbsp;Username:</h2>
+      <h1 id="fresh-plate">fresh&nbsp;plate.</h1>
+      <h2 id="insert-username" class="h3 mb-3 font-weight-normal">please&nbsp;insert&nbsp;username</h2>
       <form class="username" @submit.prevent="setUsername">
       &nbsp;<br>
         <input
             type="text"
             id="username"
             class="form-control"
-            placeholder="Username"
+            placeholder="username"
             v-model="username"
             required
         />&nbsp;<br>
-        <input id="submit-btn" class="btn" type="submit" value= "Go to reset page" />
+        <input id="submit-btn" class="btn" type="submit" value= "go to reset page" />
         <br><br>
       </form>
     </div>

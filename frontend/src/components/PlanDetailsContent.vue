@@ -6,7 +6,7 @@
         <v-container class="plan-details-recipes">
             <v-btn depressed small router :to="{ name: 'myGroceryList', params: {planId:this.$store.state.details.mealPlan.plan_id} }">
                 <v-icon>shopping_cart</v-icon>
-                View Grocery List
+                view grocery list
             </v-btn>
             <v-layout row wrap>
                 <v-flex xs12 sm6 md4 lg4
@@ -27,7 +27,7 @@
                                 ><v-icon medium center>info_outline</v-icon>
                                 </v-btn>
                             </template>
-                            <span>Recipe Details</span>
+                            <span>recipe details</span>
                         </v-tooltip>                        
                         <v-divider></v-divider>
                         <v-tooltip bottom>
@@ -40,7 +40,7 @@
                                 ><v-icon medium center>delete_outline</v-icon>
                                 </v-btn>
                             </template>
-                            <span>Delete Recipe from Plan</span>
+                            <span>delete recipe from plan</span>
                         </v-tooltip>
                     </v-card-actions>
                     </v-card>
