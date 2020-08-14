@@ -159,7 +159,7 @@ public class RecipeSqlDAO implements RecipeDAO {
 				"FROM recipes " +
 				"JOIN units_of_measure ON recipes.yield_unit_id = units_of_measure.unit_id " +
 				"JOIN user_recipes ON recipes.recipe_id = user_recipes.recipe_id " +
-				"WHERE recipe_name LIKE CONCAT ('%',?,'%') " +
+				"WHERE recipe_name LIKE CONCAT('%',?,'%') " +
 				"AND (username = ? OR is_public = true)";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, keyword.toLowerCase(), username);
