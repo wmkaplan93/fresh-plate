@@ -95,10 +95,10 @@ public class RecipeController {
 		
 	}
 	
-	@RequestMapping(path = "/searchRecipes/filter", method = RequestMethod.GET)
-	public List<Recipe> filterByName(@RequestParam(required = true) String name) {
+	@RequestMapping(path = "users/{username}/searchRecipes/filter", method = RequestMethod.GET)
+	public List<Recipe> filterByName(@RequestParam(required = true) String keyword, @PathVariable String username ) {
 		List<Recipe> filteredRecipes = new ArrayList<>();
-		filteredRecipes = recipeDAO.findRecipeByKeyword(name);
+		filteredRecipes = recipeDAO.findRecipeByKeyword(keyword, username);
 		return filteredRecipes;
 	}
 	
