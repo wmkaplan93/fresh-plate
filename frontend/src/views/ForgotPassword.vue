@@ -1,7 +1,7 @@
 /<template>
   <div id="forgot-password">
-    <h1 id="fresh-plate">Fresh&nbsp;Plate</h1>
-    <h2 id="new-password">Reset&nbsp;Password</h2>
+    <h1 id="fresh-plate">fresh&nbsp;plate.</h1>
+    <h2 id="new-password">reset&nbsp;password</h2>
       <form class="form-forgot-password" @submit.prevent="checkAnswer" v-if= "!showResetForm">
 
 
@@ -9,7 +9,7 @@
           <h3 id="sec-question">{{ securityQuestion.securityQuestion }}</h3>
             <input type="text" id="answer" v-model="securityAnswer.answer"/>
             <br><br>
-            <input class="btn" id="answer-btn" type="submit" value= "Check Answer" />
+            <input class="btn" id="answer-btn" type="submit" value= "check answer" />
       </form>
 
       <form @submit.prevent="updatePassword" v-if= "showResetForm">
@@ -20,7 +20,7 @@
             type="password"
             id="resetPassword"
             class="form-control"
-            placeholder="Password"
+            placeholder="password"
             v-model="user.password"
             required
           />
@@ -29,17 +29,17 @@
             type="password"
             id="confirmResetPassword"
             class="form-control"
-            placeholder="Confirm Password"
+            placeholder="confirm password"
             v-model="user.confirmPassword"
             required
           />
           &nbsp;<br>
           <button class="btn" type="submit">
-            Reset Password
+            reset password
           </button>
           &nbsp;<br>
           <br> <br>
-          <router-link id="have-account" :to="{ name: 'login' }"><button id="have-account-btn">Return to Login</button></router-link>
+          <router-link id="have-account" :to="{ name: 'login' }"><button id="have-account-btn">return to login</button></router-link>
         &nbsp;<br>
       </form>
   </div>

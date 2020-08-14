@@ -15,14 +15,14 @@
                 <v-divider></v-divider>
                 <v-col cols="12">
                     <v-card>
-                        <v-card-title class="headline">Types</v-card-title>
+                        <v-card-title class="headline">types</v-card-title>
                         <v-card-subtitle>| <span v-for="type in $store.state.recipeDetails.typeList" :key="type.typeId">{{type.type}} | </span></v-card-subtitle>
                     </v-card>
                 </v-col>
                 <v-divider></v-divider>
                 <v-col cols="12">
                     <v-card>
-                        <v-card-title class="headline">Yield</v-card-title>
+                        <v-card-title class="headline">yield</v-card-title>
                         <v-card-subtitle>
                             {{this.$store.state.recipeDetails.yieldAmount}}
                             {{this.$store.state.recipeDetails.yieldUnit}}
@@ -31,7 +31,7 @@
                 </v-col>
                 <v-col cols="12">
                     <v-card>
-                        <v-card-title class="headline">Total Time</v-card-title>
+                        <v-card-title class="headline">total time</v-card-title>
                         <v-card-subtitle>
                             {{this.$store.state.recipeDetails.duration}}
                         </v-card-subtitle>
@@ -39,7 +39,7 @@
                 </v-col>
                 <v-col cols="12">
                     <v-card>
-                        <v-card-title class="headline">Ingredients</v-card-title>
+                        <v-card-title class="headline">ingredients</v-card-title>
                         <v-card-subtitle v-for="item in $store.state.recipeDetails.ingredientList" :key="item">
                             {{item.quantity}}
                             {{item.unitName}} - 
@@ -49,7 +49,7 @@
                 </v-col>
                 <v-col cols="12">
                     <v-card>
-                        <v-card-title class="headline">Method</v-card-title>
+                        <v-card-title class="headline">method</v-card-title>
                         <v-card-subtitle>
                             {{this.$store.state.recipeDetails.recipeMethod}}
                         </v-card-subtitle>

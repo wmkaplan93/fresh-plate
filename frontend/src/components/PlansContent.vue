@@ -1,6 +1,6 @@
 <template>
     <div data-app>
-         <h1 class="subheading black--text">My&nbsp;Plans</h1>
+         <h1 class="subheading black--text">my&nbsp;plans</h1>
         <v-card class="text-center" id="overview">
         <v-container>
             <v-expansion-panels popout row wrap >
@@ -25,9 +25,9 @@
                                 ><v-icon medium center>info</v-icon>
                                 </v-btn>
                             </template>
-                            <span>More Information</span>
+                            <span>more information</span>
                         </v-tooltip>
-                        <span class="caption">More Information </span>
+                        <span class="caption">more information </span>
                         <v-divider></v-divider>
                         <v-tooltip bottom>
                             <template v-slot:activator="{ on, attrs }">
@@ -39,9 +39,9 @@
                                 ><v-icon medium center>shopping_cart</v-icon>
                                 </v-btn>
                             </template>
-                            <span>View This Grocery List</span>
+                            <span>view this grocery list</span>
                         </v-tooltip>
-                        <span class="caption">Grocery List</span>
+                        <span class="caption">grocery list</span>
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
