@@ -35,7 +35,8 @@ public class RecipeSqlDAO implements RecipeDAO {
 		String sql = "SELECT recipes.recipe_id, recipe_name, description, yield_amount, unit_name, duration, recipe_method, is_public, ownername " + 
 				"FROM recipes " + 
 				"JOIN units_of_measure ON recipes.yield_unit_id = units_of_measure.unit_id " + 
-				"WHERE ownername = ?;";
+				"JOIN user_recipes ON recipes.recipe_id = user_recipes.recipe_id " +
+				"WHERE username = ?;";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userName);
 		while (results.next()) {
@@ -280,6 +281,12 @@ public class RecipeSqlDAO implements RecipeDAO {
 			jdbcTemplate.update(sqlIngredients, newRecipe.getRecipeId(), ingredient.getQuantity(), ingredient.getUnitName(), ingredient.getIngredientName());	
 		}
 	}
+	
+	public void addRecipeToMyRecipes (Recipe recipe) {
+		String sql = "INSERT INTO user_recipes (username, recipe_id, is_favorite) VALUES (?, ?, true)";
+		
+		jdbcTemplate.update(sql, recipe.getOwnername(), recipe.getRecipeId());
+	}
 
 //	@Override
 //	public void updateRecipe(RecipeDTO recipeDTO, long recipeId) {
@@ -311,13 +318,13 @@ public class RecipeSqlDAO implements RecipeDAO {
 //		
 //	}
 
-//	@Override
-//	public void deleteRecipe(long recipeId, String username) {
-//		String sql = "DELETE FROM user_recipes WHERE recipe_id = ? AND username = ?";
-//		
-//		jdbcTemplate.update(sql, recipeId, username);
-//	}
-//	
+	@Override
+	public void deleteRecipeFromUserRecipes(Recipe recipe) {
+		String sql = "DELETE FROM user_recipes WHERE recipe_id = ? AND username = ?";
+		
+		jdbcTemplate.update(sql, recipe.getRecipeId(), recipe.getOwnername());
+	}
+	
 //	@Override
 //	public void createIngredient(Ingredient ingredient) {
 //		String ingredientSql = "INSERT INTO ingredients (ingredient_id, ingredient_name) " +

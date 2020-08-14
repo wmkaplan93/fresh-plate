@@ -40,17 +40,17 @@ public class RecipeController {
 	
 	// Get Methods
 	
-	@RequestMapping(path = "/myRecipes/{recipeId}", method = RequestMethod.GET)
-	public RecipeDTO getRecipeDTOByRecipeId(@PathVariable long recipeId) {
-		
-		Recipe recipe = recipeDAO.findRecipeById(recipeId);
-		List<RecipeIngredient> ingredientList = recipeDAO.findIngredientsByRecipeId(recipeId);
-		List<Type> typeList = recipeDAO.findTypesByRecipeId(recipeId);
-		RecipeDTO dto = buildRecipeDTO(recipe, ingredientList, typeList);
-//		dto.setFavorite(recipeDAO.findIsFavorite(username, recipeId));
-		
-		return dto;
-	}
+//	@RequestMapping(path = "/exploreRecipes/{recipeId}", method = RequestMethod.GET)
+//	public RecipeDTO getRecipeDTOByRecipeId(@PathVariable long recipeId) {
+//		
+//		Recipe recipe = recipeDAO.findRecipeById(recipeId);
+//		List<RecipeIngredient> ingredientList = recipeDAO.findIngredientsByRecipeId(recipeId);
+//		List<Type> typeList = recipeDAO.findTypesByRecipeId(recipeId);
+//		RecipeDTO dto = buildRecipeDTO(recipe, ingredientList, typeList);
+////		dto.setFavorite(recipeDAO.findIsFavorite(username, recipeId));
+//		
+//		return dto;
+//	}
 	
 	@RequestMapping(path = "users/{username}/myRecipes", method = RequestMethod.GET)
 	public List<Recipe> getRecipeByUsername(@PathVariable String username) {
@@ -83,12 +83,6 @@ public class RecipeController {
 		return recipeDAO.findPublicRecipesByType(type);
 	}
 	
-	@ResponseStatus(HttpStatus.CREATED)
-	@RequestMapping(path = "users/{username}/addRecipe", method = RequestMethod.POST)
-	public void addRecipe(@RequestBody RecipeDTO newRecipe) {
-		recipeDAO.createRecipe(newRecipe);
-	}
-	
 	@RequestMapping(path = "users/{username}/addRecipe", method = RequestMethod.GET)
 	public FormPropertiesDTO getFormProperties() {
 		
@@ -111,6 +105,24 @@ public class RecipeController {
 	
 	
 	// Create Update Delete Methods
+	
+	@ResponseStatus(HttpStatus.CREATED)
+	@RequestMapping(path = "users/{username}/addRecipe", method = RequestMethod.POST)
+	public void addRecipe(@RequestBody RecipeDTO newRecipe) {
+		recipeDAO.createRecipe(newRecipe);
+	}
+	
+	@ResponseStatus(HttpStatus.OK)
+	@RequestMapping(path = "/exploreRecipes", method = RequestMethod.PUT)
+	public void addRecipeToMyRecipes(@RequestBody Recipe recipe) {
+		recipeDAO.addRecipeToMyRecipes(recipe);
+	}
+	
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@RequestMapping(path = "/users/{username}/myRecipes", method = RequestMethod.POST)
+	public void deleteRecipeFromUsersRecipes(@RequestBody Recipe recipe) {
+		recipeDAO.deleteRecipeFromUserRecipes(recipe);
+	}
 	
 	
 	

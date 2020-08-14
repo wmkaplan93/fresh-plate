@@ -152,11 +152,10 @@ h2 {
   width: 12vw;
   grid-column-start: 6;
   grid-row-start: 5;
-  grid-row-end: 8;
   justify-self: start;
-  align-self: center;
   color: black;
-  background-color: rgba(255, 255, 255, .6)
+  background-color: rgba(255, 255, 255, .6);
+  margin-top: 3vh;
 }
 
 #need-account, #need-account button {
@@ -175,10 +174,11 @@ h2 {
 #forgot-password-btn {
   font-size: 1.5vh;
   grid-column-start: 6;
-  grid-row-start: 5;
+  grid-row-start: 6;
   justify-self: start;
+  align-self: start;
   height: 2.5vh;
-  width: 12vw;
+  width: 14vw;
   color: black;
   background-color: rgba(255, 255, 255, .4);
 }
@@ -186,7 +186,7 @@ h2 {
 #forgot-password {
   padding-top: 1vh;
   grid-column-start: 6;
-  grid-row-start: 5;
+  grid-row-start: 6;
   justify-self: start;
 }
 
